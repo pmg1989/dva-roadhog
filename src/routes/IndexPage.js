@@ -9,7 +9,8 @@ const Index = () => {
       <NavBar leftContent="back"
         mode="light"
         onLeftClick={() => console.log('onLeftClick')}
-        rightContent={<Icon key="0" type="search" />}>
+        rightContent={<Icon key="0" type="search" />}
+      >
         <Link to={'bbs/index'}>To BBS Index</Link>
       </NavBar>
     </div>
