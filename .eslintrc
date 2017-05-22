@@ -8,12 +8,16 @@
     "max-len": 0,
     "react/jsx-first-prop-new-line": 0,
     "space-before-function-paren": [2, "never"],
+    "no-unused-expressions": [0, {
+      "allowShortCircuit": true,
+      "allowTernary": true
+    }],
 
-    "generator-star-spacing": [0],
+    "generator-star-spacing": [2, "before"],
     "consistent-return": [0],
     "react/forbid-prop-types": [0],
     "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
-    "global-require": [1],
+    "global-require": [0],
     "import/prefer-default-export": [0],
     "react/jsx-no-bind": [0],
     "react/prop-types": [0],
@@ -21,7 +25,6 @@
     "no-else-return": [0],
     "no-restricted-syntax": [0],
     "import/no-extraneous-dependencies": [0],
-    "no-use-before-define": [0],
     "jsx-a11y/no-static-element-interactions": [0],
     "no-nested-ternary": [0],
     "arrow-body-style": [0],
