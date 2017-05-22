@@ -6,6 +6,7 @@ function RouterConfig({ history }) {
   return (
     <Router history={history}>
       <Route path="/" component={IndexPage} />
+      <Route path="bbs/index" component={require('./routes/bbs/Index')} />
     </Router>
   )
 }
