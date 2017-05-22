@@ -10,6 +10,12 @@ export default {
   entry: 'src/index.js',
   svgSpriteLoaderDirs: svgSpriteDirs,
   "theme": "./theme.config.js",
+  autoprefixer : {
+    browsers : [
+      "iOS >= 8" ,
+      "Android >= 4"
+    ]
+  } ,
   env: {
     development: {
       extraBabelPlugins: [
