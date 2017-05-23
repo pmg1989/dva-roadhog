@@ -10,7 +10,8 @@ const Header = ({ dispatch, children, headerProps }) => {
   }
 
   const navBarProps = {
-    leftContent: null,
+    leftContent: '返回',
+    iconName: require('../../svg/back.svg'),
     mode: 'dark',
     onLeftClick: handleBack,
     ...headerProps,

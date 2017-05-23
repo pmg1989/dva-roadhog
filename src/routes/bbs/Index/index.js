@@ -1,28 +1,13 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Flex, Icon } from 'antd-mobile'
-import { Header } from '../../../components'
+import Header from './Header'
 
-const Index = () => {
-  const headerProps = {
-    // leftContent: null,
-    iconName: require('../../../svg/classify.svg'),
-    onLeftClick: () => {
-      console.log(1)
-    },
-    rightContent: (
-      <Flex>
-        <Flex><Icon type={require('../../../svg/release.svg')} /></Flex>
-        <Flex className="navbar-right-content">发帖</Flex>
-      </Flex>
-    ),
-  }
+const Index = ({ location }) => {
+  const { query: { token } } = location
 
   return (
     <div>
-      <Header headerProps={headerProps}>
-        bbsIndex
-      </Header>
+      <Header token={token} />
     </div>
   )
 }
