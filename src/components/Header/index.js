@@ -1,26 +1,19 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import { routerRedux } from 'dva/router'
-import { Flex, NavBar, Icon } from 'antd-mobile'
+import { NavBar } from 'antd-mobile'
 import './Header.less'
 
-const Header = ({ dispatch, children, headerProps = { right: {} } }) => {
-  const { onLeftClick, right: { icon, text } } = headerProps
-
+const Header = ({ dispatch, children, headerProps }) => {
   const handleBack = () => {
     dispatch(routerRedux.goBack())
   }
 
   const navBarProps = {
-    leftContent: '返回',
+    leftContent: null,
     mode: 'dark',
-    onLeftClick: onLeftClick || handleBack,
-    rightContent: (
-      <Flex>
-        {icon && <Flex><Icon type={icon} /></Flex>}
-        {text && <Flex className="navbar-right-content">{text}</Flex>}
-      </Flex>
-    ),
+    onLeftClick: handleBack,
+    ...headerProps,
   }
 
   return (
