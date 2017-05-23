@@ -18,4 +18,4 @@ App.propTypes = {
   // loading: PropTypes.object,
 }
 
-export default connect()(App)
+export default connect(({ app }) => ({ app }))(App)

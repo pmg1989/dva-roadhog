@@ -14,11 +14,9 @@ function RouterConfig({ history }) {
 }
 export default RouterConfig
 
-// const cached = {};
-// function registerModel(app, model) {
-//   if (!cached[model.namespace]) {
+// const registerModel = (app, model) => {
+//   if (!(app._models.filter(m => m.namespace === model.namespace).length === 1)) {
 //     app.model(model)
-//     cached[model.namespace] = 1
 //   }
 // }
 //
@@ -36,35 +34,16 @@ export default RouterConfig
 //         }, 'bbs-index')
 //       },
 //       childRoutes: [
-//         //dashboard
 //         {
-//           path: 'dashboard',
-//           name: 'dashboard',
-//           getComponent(nextState, cb) {
+//           path: 'bbs/index',
+//           getComponent (nextState, cb) {
 //             require.ensure([], require => {
 //               registerModel(app, require('./models/bbs/index'))
 //               cb(null, {component: require('./routes/bbs/Index')})
 //             }, 'bbs-index')
-//           }
-//         },
-//         // bbs/index
-//         {
-//           path: 'bbs',
-//           name: 'bbs',
-//           childRoutes: [
-//             {
-//               path: 'index',
-//               name: 'index',
-//               getComponent(nextState, cb) {
-//                 require.ensure([], require => {
-//                   registerModel(app, require('./models/bbs/index'))
-//                   cb(null, {component: require('./routes/bbs/Index')})
-//                 }, 'bbs-index')
-//               }
-//             }
-//           ]
-//         },
-//       ],
+//           },
+//         }
+//       ]
 //     },
 //     //*
 //     {
