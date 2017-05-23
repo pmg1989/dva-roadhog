@@ -5,7 +5,6 @@ import { NavBar } from 'antd-mobile'
 import './Header.less'
 
 const Header = ({ dispatch, children, ...headerProps }) => {
-
   const handleBack = () => {
     dispatch(routerRedux.goBack())
   }
