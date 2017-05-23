@@ -16,7 +16,7 @@ const Add = () => {
 
   return (
     <div>
-      <Header headerProps={headerProps}>发布帖子</Header>
+      <Header {...headerProps}>发布帖子</Header>
     </div>
   )
 }
