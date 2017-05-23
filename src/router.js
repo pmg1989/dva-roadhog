@@ -4,7 +4,7 @@ import { Router, Route } from 'dva/router'
 
 function RouterConfig({ history }) {
   return (
-    <Router history={history} component={require("./routes/App")}>
+    <Router history={history} component={require('./routes/App')}>
       <Route path="/" component={require('./routes/bbs/Index')} />
       <Route path="bbs/index" component={require('./routes/bbs/Index')} />
       <Route path="bbs/detail" component={require('./routes/bbs/Detail')} />
