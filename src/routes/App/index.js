@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import '../../themes/index.less'
 
 const App = ({ children }) => {
-  console.log(children)
   return (
     <div>
       {children}

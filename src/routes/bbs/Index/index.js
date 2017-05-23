@@ -1,22 +1,21 @@
 import React from 'react'
 import { connect } from 'dva'
-import { routerRedux } from 'dva/router'
-import { NavBar, Icon } from 'antd-mobile'
+import { Header } from '../../../components'
 
-const Index = ({ dispatch }) => {
-  const back = () => {
-    dispatch(routerRedux.goBack())
+const Index = () => {
+  const headerProps = {
+    onLeftClick: () => {
+      console.log(1)
+    },
+    right: {
+      icon: 'search',
+      text: '新增',
+    },
   }
 
   return (
     <div>
-      <NavBar leftContent="back"
-        mode="light"
-        onLeftClick={back}
-        rightContent={<Icon key="0" type="search" />}
-      >
-        bbsIndex
-      </NavBar>
+      <Header headerProps={headerProps}>bbsIndex</Header>
     </div>
   )
 }
