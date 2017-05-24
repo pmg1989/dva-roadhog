@@ -7,7 +7,6 @@ import styles from './Nav.less'
 const Item = Flex.Item
 
 const Nav = ({ list, token, navOpen }) => {
-
   return (
     <div className={styles['nav-box']}>
       <div className={classnames(styles['nav-top'], { close: !navOpen })}>
