@@ -30,9 +30,7 @@ class IndexHeader extends Component {
     }
 
     return (
-      <div>
-        <Header {...headerProps}>社区</Header>
-      </div>
+      <Header {...headerProps}>社区</Header>
     )
   }
 }

@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import styles from './App.less'
 import '../../themes/index.less'
 
 const App = ({ children }) => {
   return (
-    <div>
+    <div className={styles.wrap}>
       {children}
     </div>
   )

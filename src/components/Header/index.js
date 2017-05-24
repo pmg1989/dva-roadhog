@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import { routerRedux } from 'dva/router'
 import { NavBar } from 'antd-mobile'
-import './Header.less'
+import styles from './Header.less'
 
 const Header = ({ dispatch, children, ...headerProps }) => {
   const handleBack = () => {
@@ -18,7 +18,7 @@ const Header = ({ dispatch, children, ...headerProps }) => {
   }
 
   return (
-    <div>
+    <div className={styles['fixed-top']}>
       <NavBar {...navBarProps}>
         {children}
       </NavBar>

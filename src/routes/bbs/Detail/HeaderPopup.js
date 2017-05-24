@@ -53,9 +53,7 @@ class HeaderPopup extends Component {
     }
 
     return (
-      <div>
-        <Header {...headerProps}>帖子详情</Header>
-      </div>
+      <Header {...headerProps}>帖子详情</Header>
     )
   }
 }
