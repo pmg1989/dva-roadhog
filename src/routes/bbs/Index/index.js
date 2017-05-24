@@ -1,17 +1,26 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import Header from './Header'
 import Nav from './Nav'
 
-const Index = ({ location }) => {
+const Index = ({ location, bbsIndex }) => {
   const { query: { token } } = location
+  const { categories } = bbsIndex
+  const navProps = {
+    list: categories,
+    token,
+  }
 
   return (
     <div>
       <Header token={token} />
-      <Nav />
+      <Nav {...navProps} />
     </div>
   )
 }
 
-export default connect()(Index)
+Index.propTypes = {
+  bbsIndex: PropTypes.object.isRequired,
+}
+
+export default connect(({ bbsIndex }) => ({ bbsIndex }))(Index)

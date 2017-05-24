@@ -1,18 +1,30 @@
+import { query } from '../../services/bbs/index'
+
 export default {
   namespace: 'bbsIndex',
   state: {
+    categories: [],
   },
   subscriptions: {
-    // setup({ dispatch, history }) {
-    // },
+    setup({ dispatch, history }) {
+      history.listen((location) => {
+        const pathname = location.pathname
+        if (pathname === '/' || pathname === '/bbs/index') {
+          dispatch({ type: 'query' })
+        }
+      })
+    },
   },
   effects: {
-    // *fetch({ payload }, { call, put }) {
-    //   yield put({ type: 'save' })
-    // },
+    *query({ payload }, { call, put }) {
+      const data = yield call(query)
+      if (data.success) {
+        yield put({ type: 'querySuccess', payload: { categories: data.categories } })
+      }
+    },
   },
   reducers: {
-    save(state, action) {
+    querySuccess(state, action) {
       return { ...state, ...action.payload }
     },
   },
