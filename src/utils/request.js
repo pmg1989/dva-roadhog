@@ -51,7 +51,7 @@ function handleError(error) {
     Toast.fail(`${data.message}：${data.errors}`)
   } else if (data.error) {
     Toast.fail(`${data.error}：${data.error_description}`)
-    if(data.error === "invalid_grant") {
+    if (data.error === 'invalid_grant') {
       console.log('invalid_grant')
     }
   } else {
