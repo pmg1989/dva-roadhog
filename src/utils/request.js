@@ -48,11 +48,14 @@ function handelData(res) {
 function handleError(error) {
   const data = error.response.data
   if (data.errors) {
-    Toast.fail(`${data.message}：${data.errors}`, 5)
+    Toast.fail(`${data.message}：${data.errors}`)
   } else if (data.error) {
-    Toast.fail(`${data.error}：${data.error_description}`, 5)
+    Toast.fail(`${data.error}：${data.error_description}`)
+    if(data.error === "invalid_grant") {
+      console.log('invalid_grant')
+    }
   } else {
-    Toast.fail('未知错误！', 5)
+    Toast.fail('未知错误！')
   }
   return { success: false }
 }
