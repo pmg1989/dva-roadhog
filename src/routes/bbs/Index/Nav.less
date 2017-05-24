@@ -1,3 +1,5 @@
+@import "../../../themes/mixin.less";
+
 .nav-box {
   margin-top: 88px;
 
@@ -25,11 +27,11 @@
 
   .nav-bottom {
     line-height: 80px;
-    border-bottom: 1px solid @border-color-base;
+    border-bottom: @border;
     padding: 9px 0;
 
     .active {
-      color: #2eb044;
+      color: @blue-color;
 
       &:after {
         content: '';
@@ -40,7 +42,7 @@
         height: 1px;
         width: 100px;
         border-radius: 0.5px;
-        background-color: #2eb044;
+        background-color: @blue-color;
         z-index: 100;
       }
     }
@@ -52,8 +54,8 @@
         margin-left: 0;
 
         &:nth-child(2) {
-          border-left: 1px solid @border-color-base;
-          border-right: 1px solid @border-color-base;
+          border-left: @border;
+          border-right: @border;
         }
       }
 

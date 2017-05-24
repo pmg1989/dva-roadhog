@@ -2,6 +2,7 @@ import dva from 'dva'
 import { browserHistory } from 'dva/router'
 import { Toast } from 'antd-mobile'
 import './index.html'
+import './themes/index.less'
 
 // 1. Initialize
 const app = dva({
