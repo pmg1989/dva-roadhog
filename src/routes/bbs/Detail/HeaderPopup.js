@@ -1,47 +1,55 @@
 import React, { Component } from 'react'
-import { Flex, Icon } from 'antd-mobile'
-import classnames from 'classnames'
+import { Popover, Icon } from 'antd-mobile'
 import { Header } from '../../../components'
 import styles from './HeaderPopup.less'
 
-const Popup = ({ open }) => {
-  return (
-    <div className={classnames(styles.popup, styles.active)}>
-      <Flex className={styles.box}>
-        <Flex><Icon type={require('../../../svg/share.svg')} /></Flex>
-        <Flex className={styles['popup-text']}>分享{open}</Flex>
-      </Flex>
-      <Flex className={styles.box}>
-        <Flex><Icon type={require('../../../svg/share.svg')} /></Flex>
-        <Flex className={styles['popup-text']}>举报</Flex>
-      </Flex>
-      <Flex className={styles.box}>
-        <Flex><Icon type={require('../../../svg/share.svg')} /></Flex>
-        <Flex className={styles['popup-text']}>删除</Flex>
-      </Flex>
-    </div>
-  )
-}
+const Item = Popover.Item
 
 class HeaderPopup extends Component {
 
   state = {
-    popupStatus: false,
+    visible: true,
+    selected: '',
   }
 
-  handlePopupStatus() {
-    this.setState(nextState => ({ popupStatus: !nextState.popupStatus }))
+  onSelect = (opt) => {
+    console.log(opt.props.value);
+    this.setState({
+      visible: false,
+      selected: opt.props.value,
+    });
+  }
+
+  handleVisibleChange = (visible) => {
+    this.setState({
+      visible,
+    });
   }
 
   render() {
-    const { popupStatus } = this.state
 
     const headerProps = {
       rightContent: (
-        <Flex>
-          <Flex onClick={::this.handlePopupStatus}><Icon type="ellipsis" /></Flex>
-          <Popup open={popupStatus} />
-        </Flex>
+        <Popover
+            visible={this.state.visible}
+            overlay={[
+              (<Item key="1" value="1" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>分享</Item>),
+              (<Item key="2" value="2" icon={<Icon type={require('../../../svg/release.svg')} size="xs" />}>举报</Item>),
+              (<Item key="3" value="3" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>
+                <span style={{ marginRight: 5 }}>删除</span>
+              </Item>),
+            ]}
+            popupAlign={{
+              overflow: { adjustY: 0, adjustX: 0 },
+              offset: [-10, 10],
+            }}
+            onVisibleChange={this.handleVisibleChange}
+            onSelect={this.onSelect}
+          >
+            <div className={styles['right-icon-box']}>
+              <Icon type="ellipsis" />
+            </div>
+          </Popover>
       ),
     }
 
