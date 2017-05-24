@@ -1,24 +1,15 @@
 import React from 'react'
 import { connect } from 'dva'
-import { Flex, Icon } from 'antd-mobile'
-import { Header } from '../../../components'
+import HeaderPopup from './HeaderPopup'
 
-const Add = () => {
+const Detail = () => {
   // const { query: { token } } = location
-
-  const headerProps = {
-    rightContent: (
-      <Flex>
-        <Flex><Icon type={require('../../../svg/more.svg')} /></Flex>
-      </Flex>
-    ),
-  }
 
   return (
     <div>
-      <Header {...headerProps}>帖子详情</Header>
+      <HeaderPopup />
     </div>
   )
 }
 
-export default connect()(Add)
+export default connect()(Detail)

@@ -1,0 +1,44 @@
+.popup {
+    color: #fff;
+    position: absolute;
+    top: 110px;
+    right: -10px;
+    background-color: #212123;
+    border-radius: 10px;
+    transition: all .25s ease;
+    opacity: 0;
+    z-index: -1;
+    display: none;
+
+    &.active {
+      display: block;
+      opacity: 1;
+      z-index: 100;
+    }
+
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 0;
+      width: 0;
+      border: 20px solid #212123;
+      border-color: transparent transparent #212123 transparent;
+      position: absolute;
+      top: -40px;
+      right: 30px;
+    }
+}
+
+.box {
+  padding: 22px 50px;
+  border-bottom: 2px solid #000;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .popup-text {
+    margin-left: 15px;
+    min-width: 70px;
+  }
+}
