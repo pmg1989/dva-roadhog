@@ -4,7 +4,7 @@ import styles from './App.less'
 import '../../themes/index.less'
 
 const App = ({ children }) => {
-  console.log("app");
+  console.log('app')
   return (
     <div className={styles.wrap}>
       {children}
