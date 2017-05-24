@@ -3,6 +3,7 @@ import { query } from '../../services/bbs/index'
 export default {
   namespace: 'bbsIndex',
   state: {
+    navOpen: true,
     categories: [],
   },
   subscriptions: {
@@ -26,6 +27,10 @@ export default {
   reducers: {
     querySuccess(state, action) {
       return { ...state, ...action.payload }
+    },
+    switchNav(state) {
+      const { navOpen } = state
+      return { ...state, navOpen: !navOpen }
     },
   },
 }

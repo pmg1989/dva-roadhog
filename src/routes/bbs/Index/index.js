@@ -3,17 +3,27 @@ import { connect } from 'dva'
 import Header from './Header'
 import Nav from './Nav'
 
-const Index = ({ location, bbsIndex }) => {
+const Index = ({ dispatch, location, bbsIndex }) => {
   const { query: { token } } = location
-  const { categories } = bbsIndex
+  const { categories, navOpen } = bbsIndex
+
+  const headerProps = {
+    token,
+    navOpen,
+    onSwitchNav() {
+      dispatch({ type: 'bbsIndex/switchNav' })
+    },
+  }
+
   const navProps = {
     list: categories,
     token,
+    navOpen,
   }
 
   return (
     <div>
-      <Header token={token} />
+      <Header {...headerProps} />
       <Nav {...navProps} />
     </div>
   )
