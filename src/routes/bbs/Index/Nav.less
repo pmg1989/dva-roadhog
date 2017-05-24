@@ -1,14 +1,22 @@
 @import "../../../themes/mixin.less";
 
+:global {
+  .close {
+    height: 0;
+  }
+}
+
 .nav-box {
   margin-top: 88px;
 
   .nav-top {
     background-color: #eee;
-    padding: 20px 30px;
+    overflow: hidden;
+    transition: all ease .25s;
 
     :global {
       .am-flexbox {
+        padding: 20px 30px;
         flex-wrap: wrap;
         justify-content: center;
 

@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'dva/router'
 import { Flex } from 'antd-mobile'
+import classnames from 'classnames'
 import styles from './Nav.less'
 
 const Item = Flex.Item
 
-const Nav = ({ list, token }) => {
+const Nav = ({ list, token, navOpen }) => {
+
   return (
     <div className={styles['nav-box']}>
-      <div className={styles['nav-top']}>
+      <div className={classnames(styles['nav-top'], { close: !navOpen })}>
         <Flex>
           {list && list.map((item, key) => {
             const id = item.cid === 0 ? item.alias : item.cid

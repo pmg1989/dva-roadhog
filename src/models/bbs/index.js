@@ -3,7 +3,7 @@ import { query } from '../../services/bbs/index'
 export default {
   namespace: 'bbsIndex',
   state: {
-    navOpen: true,
+    navOpen: false,
     categories: [],
   },
   subscriptions: {
