@@ -53,9 +53,9 @@ const Content = ({ loading, latest, hot, near, tab }) => {
       <div style={{ clear: 'both' }} />
       <div id="ir-bd-wrapper">
         <div className="ir-bd-scroller">
-          <List list={latest} loading={loading[0]}/>
-          <List list={hot} loading={loading[1]}/>
-          <List list={near} loading={loading[2]}/>
+          <List list={latest} loading={loading[0]} />
+          <List list={hot} loading={loading[1]} />
+          <List list={near} loading={loading[2]} />
         </div>
       </div>
     </div>
