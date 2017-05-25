@@ -1,7 +1,24 @@
 import React from 'react'
 import styles from './Content.less'
 
-const Content = ({ latest, hot }) => {
+const Loading = ({ loading }) => {
+  if (!loading) {
+    return null
+  }
+  return (
+    <li className="clear-fix">
+      <div className="loader">
+        <div className="line-scale">
+          <div /><div /><div />
+          <div /><div />
+        </div>
+        <div style={{ marginTop: '50px' }}>加载中...</div>
+      </div>
+    </li>
+  )
+}
+
+const Content = ({ loading, latest, hot }) => {
   return (
     <div className={styles.content}>
       <div id="ir-tabs-wrapper">
@@ -27,15 +44,7 @@ const Content = ({ latest, hot }) => {
                   </li>
                 )
               })}
-              {/* <li className="clear-fix">
-                <div className="loader">
-                  <div className="line-scale">
-                    <div /><div /><div />
-                    <div /><div />
-                  </div>
-                  <div style={{ marginTop: '50px' }}>加载中...</div>
-                </div>
-              </li> */}
+              <Loading loading={loading[0]} />
             </ul>
           </div>
           <div className="ir-wrapper">
@@ -51,15 +60,7 @@ const Content = ({ latest, hot }) => {
                   </li>
                 )
               })}
-              {/* <li className="clear-fix">
-                <div className="loader">
-                  <div className="line-scale">
-                    <div /><div /><div />
-                    <div /><div />
-                  </div>
-                  <div style={{ marginTop: '50px' }}>加载中...</div>
-                </div>
-              </li> */}
+              <Loading loading={loading[1]} />
             </ul>
           </div>
         </div>

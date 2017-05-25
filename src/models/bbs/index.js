@@ -9,6 +9,9 @@ export default {
   state: {
     navOpen: false,
     categories: [],
+    latestLoading: true,
+    hotLoading: true,
+    nearLoading: true,
     loading: [true, true, true],
     latest: [],
     hot: [],
@@ -18,19 +21,16 @@ export default {
     setup({ dispatch, history }) {
 
       function pullUp(param) {
-        console.log("pullUp");
         const { index, page } = param
         dispatch({ type: 'pullUp', payload: { tab: index, page, param } })
       }
 
       function pullDown(param) {
-        console.log("pullDown");
         const { index } = param
         dispatch({ type: 'pullDown', payload: { tab: index, page: 1, param } })
       }
 
       function slide(index) {
-        console.log("slide");
         dispatch({ type: 'slide', payload: { tab: index } })
       }
 
@@ -84,6 +84,7 @@ export default {
     *initData({ payload }, { call, put }) {
       const { tab } = payload
       yield put({ type: 'queryList', payload: { tab, page: 1, isFirst: true } })
+      yield put({ type: 'loadingSuccess', payload: { tab } })
 
       setTimeout(() => {
         ir.setPage(tab,2)  //设置当前页面的页数
@@ -107,8 +108,12 @@ export default {
         ir.pullUpCallBack(param); //还有数据的时候用这个
       }, 500)
     },
-    *slide({ payload }, { call, put }) {
-      yield put({ type: 'initData', payload: { tab: payload.tab } })
+    *slide({ payload }, { call, put, select }) {
+      const { tab } = payload
+      const loading = yield select(state => state.bbsIndex.loading)
+      if(loading[tab]) {
+        yield put({ type: 'initData', payload: { tab } })
+      }
     },
   },
   reducers: {
@@ -123,9 +128,18 @@ export default {
       const hot = [...state.hot, ...action.payload.hot]
       return { ...state, hot  }
     },
+    queryNearSuccess(state, action) {
+      const near = [...state.near, ...action.payload.near]
+      return { ...state, near  }
+    },
     switchNav(state) {
       const { navOpen } = state
       return { ...state, navOpen: !navOpen }
     },
+    loadingSuccess(state, action) {
+      const { tab } = action.payload
+      const loading = state.loading.map((item, index) => (index === tab ? false: item))
+      return { ...state, loading }
+    }
   },
 }
