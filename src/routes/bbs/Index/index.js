@@ -2,14 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import Header from './Header'
 import Nav from './Nav'
-
-// import $ from 'jQuery'
-// import iScroll from 'iScroll'
-// import IR from 'iScrollRefresh'
+import Content from './Content'
 
 const Index = ({ dispatch, location, bbsIndex }) => {
   const { query: { token } } = location
-  const { categories, navOpen } = bbsIndex
+  const { categories, navOpen, latest } = bbsIndex
 
   const headerProps = {
     token,
@@ -25,10 +22,15 @@ const Index = ({ dispatch, location, bbsIndex }) => {
     navOpen,
   }
 
+  const contentProps = {
+    latest,
+  }
+
   return (
     <div>
       <Header {...headerProps} />
       <Nav {...navProps} />
+      <Content {...contentProps} />
     </div>
   )
 }

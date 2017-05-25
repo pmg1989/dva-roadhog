@@ -28,7 +28,8 @@ export default {
             "$": "./src/lib/jquery.2.1.4.min.js",
             "jQuery": "./src/lib/jquery.2.1.4.min.js",
             "iScroll": "./src/lib/iscroll-probe.js",
-            "iScrollRefresh": "./src/lib/iscroll-refresh.js"
+            "iScrollRefresh": "./src/lib/iscroll-refresh.js",
+            "iScrollRefreshStyles": "./src/lib/iscroll-refresh.less"
           }
         }]
       ],

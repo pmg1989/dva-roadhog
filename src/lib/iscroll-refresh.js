@@ -1,5 +1,7 @@
 // iScrollRefresh 选项卡加上拉刷新 下拉加载
 // hugcolin@163.com
+import IScroll from 'iScroll'
+// import 'iScrollRefreshStyles'
 
 const iScrollRefresh = function(tab_id, bd_id, parames) {
   const config = {
@@ -678,4 +680,12 @@ function IR(ary, len) {
   const html = `<div id="ir-tabs-wrapper"><div class="ir-tabs-scroller">${tabsHtml}</div></div><div style="clear:both"></div><div id="ir-bd-wrapper"><div class="ir-bd-scroller">${bdHtml}</div></div>`
   document.body.innerHTML = html
   return (new iScrollRefresh('#ir-tabs-wrapper', '#ir-bd-wrapper'))
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+	module.exports = iScrollRefresh
+} else if (typeof define === 'function' && define.amd) {
+	define(() => { return iScrollRefresh })
+} else {
+	window.iScrollRefresh = iScrollRefresh
 }

@@ -1,3 +1,4 @@
+import IR from 'iScrollRefresh'
 import { getCategory, getList } from '../../services/bbs/index'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
@@ -18,11 +19,32 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
+      let ir
+
+      function pullUp(param) {
+        console.log(param)
+      }
+
+      function pullDown(param) {
+        console.log(param)
+      }
+
+      function slide(index) {
+        console.log(index)
+      }
+
       history.listen((location) => {
         const pathname = location.pathname
         if (pathname === '/' || pathname === '/bbs/index') {
           dispatch({ type: 'queryCategory' })
           dispatch({ type: 'queryList', payload: { tab: +location.query.tab || 0 } })
+
+          setTimeout(() => {
+            ir = new IR('#ir-tabs-wrapper', '#ir-bd-wrapper')
+      			ir.downAction = pullDown
+      			ir.upAction = pullUp
+      			ir.slideAction = slide
+          }, 0)
         }
       })
     },
