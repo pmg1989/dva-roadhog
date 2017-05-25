@@ -21,7 +21,16 @@ export default {
       extraBabelPlugins: [
         'dva-hmr',
         'transform-runtime',
-        ['import', { 'libraryName': 'antd-mobile', 'libraryDirectory': 'lib', 'style': true }]
+        ['import', { 'libraryName': 'antd-mobile', 'libraryDirectory': 'lib', 'style': true }],
+        ["module-resolver", {
+          "root": ["./src"],
+          "alias": {
+            "$": "./src/lib/jquery.2.1.4.min.js",
+            "jQuery": "./src/lib/jquery.2.1.4.min.js",
+            "iScroll": "./src/lib/iscroll-probe.js",
+            "iScrollRefresh": "./src/lib/iscroll-refresh.js"
+          }
+        }]
       ],
       extraPostCSSPlugins: [
         pxtorem({
