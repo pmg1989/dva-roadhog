@@ -6,7 +6,7 @@ import Content from './Content'
 
 const Index = ({ dispatch, location, bbsIndex }) => {
   const { query: { token } } = location
-  const { categories, navOpen, latest } = bbsIndex
+  const { categories, navOpen, latest, hot, near } = bbsIndex
 
   const headerProps = {
     token,
@@ -24,6 +24,8 @@ const Index = ({ dispatch, location, bbsIndex }) => {
 
   const contentProps = {
     latest,
+    hot,
+    near,
   }
 
   return (
