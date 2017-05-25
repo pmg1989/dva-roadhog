@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import styles from './Content.less'
 
 const Loading = ({ loading }) => {
@@ -18,51 +19,43 @@ const Loading = ({ loading }) => {
   )
 }
 
-const Content = ({ loading, latest, hot }) => {
+const List = ({ list, loading }) => {
+  return (
+    <div className="ir-wrapper">
+      <ul className="ir-scroller">
+        {list && list.map((item, key) => {
+          return (
+            <li key={key} className="clear-fix">
+              <img src={item.user_img} alt={item.title} />
+              <div className="li-body">
+                <h3>{item.title}</h3>
+                <p>{item.user_name}</p>
+              </div>
+            </li>
+          )
+        })}
+        <Loading loading={loading} />
+      </ul>
+    </div>
+  )
+}
+
+const Content = ({ loading, latest, hot, near, tab }) => {
   return (
     <div className={styles.content}>
       <div id="ir-tabs-wrapper">
         <div className="ir-tabs-scroller">
-          <a className="active">最新</a>
-          <a>热门</a>
-          {/* <a href="javascript:;">酒店资讯</a> */}
+          <a className={classnames({ active: tab === 0 })}>最新</a>
+          <a className={classnames({ active: tab === 1 })}>热门</a>
+          <a className={classnames({ active: tab === 2 })}>附近</a>
         </div>
       </div>
       <div style={{ clear: 'both' }} />
       <div id="ir-bd-wrapper">
         <div className="ir-bd-scroller">
-          <div className="ir-wrapper">
-            <ul className="ir-scroller">
-              {latest && latest.map((item, key) => {
-                return (
-                  <li key={key} className="clear-fix">
-                    <img src={item.user_img} alt={item.title} />
-                    <div className="li-body">
-                      <h3>{item.title}</h3>
-                      <p>{item.user_name}</p>
-                    </div>
-                  </li>
-                )
-              })}
-              <Loading loading={loading[0]} />
-            </ul>
-          </div>
-          <div className="ir-wrapper">
-            <ul className="ir-scroller">
-              {hot && hot.map((item, key) => {
-                return (
-                  <li key={key} className="clear-fix">
-                    <img src={item.user_img} alt={item.title} />
-                    <div className="li-body">
-                      <h3>{item.title}</h3>
-                      <p>{item.user_name}</p>
-                    </div>
-                  </li>
-                )
-              })}
-              <Loading loading={loading[1]} />
-            </ul>
-          </div>
+          <List list={latest} loading={loading[0]}/>
+          <List list={hot} loading={loading[1]}/>
+          <List list={near} loading={loading[2]}/>
         </div>
       </div>
     </div>

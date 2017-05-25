@@ -9,10 +9,8 @@ export default {
   state: {
     navOpen: false,
     categories: [],
-    latestLoading: true,
-    hotLoading: true,
-    nearLoading: true,
     loading: [true, true, true],
+    tab: 0,
     latest: [],
     hot: [],
     near: [],
@@ -45,6 +43,9 @@ export default {
       			ir.upAction = pullUp       //上拉加载取数据函数
       			ir.slideAction = slide     //左右滑动的回调函数
             slide(+tab || 0)
+            if(+tab > 0) {
+      				ir.bdScroll.goToPage(tab, 0, 0)
+      			}
           }, 0)
         }
       })
@@ -68,13 +69,13 @@ export default {
       if (data.success) {
         switch (payload.tab) {
           case 0:
-            yield put({ type: isFirst ? 'querySuccess' : 'queryLatestSuccess', payload: { latest: data.posts, isFirst } })
+            yield put({ type: isFirst ? 'querySuccess' : 'queryLatestSuccess', payload: { latest: data.posts, tab } })
             break
           case 1:
-            yield put({ type: isFirst ? 'querySuccess' : 'queryHotSuccess', payload: { hot: data.posts, isFirst } })
+            yield put({ type: isFirst ? 'querySuccess' : 'queryHotSuccess', payload: { hot: data.posts, tab } })
             break
           case 2:
-            yield put({ type: isFirst ? 'querySuccess' : 'queryNearSuccess', payload: { near: data.posts, isFirst } })
+            yield put({ type: isFirst ? 'querySuccess' : 'queryNearSuccess', payload: { near: data.posts, tab } })
             break
           default:
             break
