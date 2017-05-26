@@ -61,9 +61,9 @@ function handleError(error) {
 }
 
 export default function request(url, options) {
-  url = `${url}?access_token=${queryString('token')}`
+  const urlToken = `${url}?access_token=${queryString('token')}`
 
-  return fetch(url, options)
+  return fetch(urlToken, options)
         .then(checkStatus)
         .then(handelData)
         .catch(handleError)

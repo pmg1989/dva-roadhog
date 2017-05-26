@@ -1,2 +1,3 @@
 /src/lib/**
 /src/models/bbs/index.js
+/src/utils/utils.js
