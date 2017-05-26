@@ -43,7 +43,7 @@ export default {
       			ir.slideAction = slide     //左右滑动的回调函数
             slide(+tab || 0)
             if(+tab > 0) {
-      				ir.bdScroll.goToPage(tab, 0, 0)
+      				ir.bdScroll.goToPage(+tab, 0, 0)
       			}
           }, 0)
         }
@@ -54,7 +54,7 @@ export default {
     *queryCategory({ payload }, { call, put }) {
       const data = yield call(getCategory)
       if (data.success) {
-        yield put({ type: 'querySuccess', payload: { categories: data.categories } })
+        yield put({ type: 'queryCategorySuccess', payload: { categories: data.categories } })
       }
     },
     *initData({ payload }, { call, put }) {
@@ -66,7 +66,7 @@ export default {
       })
 
       if(data.success) {
-        yield put({ type: 'querySuccess', payload: { tab, data: data.posts } })
+        yield put({ type: 'querySuccess', payload: { tab, data: data.posts, init: true } })
         setTimeout(() => {
           ir.setPage(tab, 2)  //设置当前页面的页数
           ir.refresh(tab)    //刷新Iscroll
@@ -114,11 +114,17 @@ export default {
     },
   },
   reducers: {
+    queryCategorySuccess(state, action) {
+      return { ...state, ...action.payload }
+    },
     querySuccess(state, action) {
-      const { tab, data } = action.payload
+      const { tab, data, init } = action.payload
       const list = state.list.map((item, index) => (index === tab ? data: item))
       const loading = state.loading.map((item, index) => (index === tab ? false: item))
-      return { ...state, list, tab, loading }
+      if(init) {
+        return { ...state, list, tab, loading }
+      }
+      return { ...state, list, loading }
     },
     queryMoreSuccess(state, action) {
       const { tab, data } = action.payload
