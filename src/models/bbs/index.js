@@ -128,13 +128,7 @@ export default {
     },
     queryMoreSuccess(state, action) {
       const { tab, data } = action.payload
-      const list = state.list.map((item, index) => {
-        if(index === tab) {
-          return [...item, ...data]
-        } else {
-          return item
-        }
-      })
+      const list = state.list.map((item, index) => (index === tab ? [...item, ...data]: item))
       return { ...state, list }
     },
     switchNav(state) {
