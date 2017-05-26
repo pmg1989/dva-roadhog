@@ -1,4 +1,5 @@
 import iScrollRefresh from 'iScrollRefresh'
+import $ from 'jQuery'
 import { getCategory, getList } from '../../services/bbs/index'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
@@ -45,6 +46,12 @@ export default {
             if(+tab > 0) {
       				ir.bdScroll.goToPage(+tab, 0, 0)
       			}
+
+            $(document).on('tap',"#ir-bd-wrapper .ir-scroller li", function(e){
+        			var id = $(this).attr('data-id')
+        			alert(id)
+        			//location.href = "detail.html?id=" + id
+        		})
           }, 0)
         }
       })

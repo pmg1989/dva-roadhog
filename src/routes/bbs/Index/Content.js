@@ -25,7 +25,7 @@ const List = ({ list, loading }) => {
       <ul className="ir-scroller">
         {list && list.map((item, key) => {
           return (
-            <li key={key} className="clear-fix">
+            <li key={key} className="clear-fix" data-id={item.bbs_sendid}>
               <img src={item.user_img} alt={item.title} />
               <div className="li-body">
                 <h3>{item.title}</h3>
