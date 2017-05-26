@@ -40,7 +40,7 @@ const List = ({ list, loading }) => {
   )
 }
 
-const Content = ({ loading, latest, hot, near, tab }) => {
+const Content = ({ loading, list, tab }) => {
   return (
     <div className={styles.content}>
       <div id="ir-tabs-wrapper">
@@ -53,9 +53,9 @@ const Content = ({ loading, latest, hot, near, tab }) => {
       <div style={{ clear: 'both' }} />
       <div id="ir-bd-wrapper">
         <div className="ir-bd-scroller">
-          <List list={latest} loading={loading[0]} />
-          <List list={hot} loading={loading[1]} />
-          <List list={near} loading={loading[2]} />
+          <List list={list[0]} loading={loading[0]} />
+          <List list={list[1]} loading={loading[1]} />
+          <List list={list[2]} loading={loading[2]} />
         </div>
       </div>
     </div>

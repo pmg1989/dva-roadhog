@@ -2,6 +2,7 @@ import iScrollRefresh from 'iScrollRefresh'
 import { getCategory, getList } from '../../services/bbs/index'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
+const pageSize = 10
 let ir
 
 export default {
@@ -9,11 +10,9 @@ export default {
   state: {
     navOpen: false,
     categories: [],
-    loading: [true, true, true],
     tab: 0,
-    latest: [],
-    hot: [],
-    near: [],
+    loading: [true, true, true],
+    list: [[], [], []],
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -58,56 +57,53 @@ export default {
         yield put({ type: 'querySuccess', payload: { categories: data.categories } })
       }
     },
-    *queryList({ payload }, { call, put }) {
-      const { isFirst, tab, page } = payload
-      const data = yield call(getList, {
-        filter: cateList[tab],
-        page,
-        size: 10,
-      })
-
-      if (data.success) {
-        switch (payload.tab) {
-          case 0:
-            yield put({ type: isFirst ? 'querySuccess' : 'queryLatestSuccess', payload: { latest: data.posts, tab } })
-            break
-          case 1:
-            yield put({ type: isFirst ? 'querySuccess' : 'queryHotSuccess', payload: { hot: data.posts, tab } })
-            break
-          case 2:
-            yield put({ type: isFirst ? 'querySuccess' : 'queryNearSuccess', payload: { near: data.posts, tab } })
-            break
-          default:
-            break
-        }
-      }
-    },
     *initData({ payload }, { call, put }) {
       const { tab } = payload
-      yield put({ type: 'queryList', payload: { tab, page: 1, isFirst: true } })
-      yield put({ type: 'loadingSuccess', payload: { tab } })
+      const data = yield call(getList, {
+        filter: cateList[tab],
+        page: 1,
+        size: pageSize,
+      })
 
-      setTimeout(() => {
-        ir.setPage(tab,2)  //设置当前页面的页数
-        ir.refresh(tab)    //刷新Iscroll
-      }, 500)
+      if(data.success) {
+        yield put({ type: 'querySuccess', payload: { tab, data: data.posts } })
+        setTimeout(() => {
+          ir.setPage(tab, 2)  //设置当前页面的页数
+          ir.refresh(tab)    //刷新Iscroll
+        }, 100)
+      }
     },
     *pullDown({ payload }, { call, put }) {
       const { tab, page, param } = payload
-      yield put({ type: 'queryList', payload: { tab, page, isFirst: true } })
+      const data = yield call(getList, {
+        filter: cateList[tab],
+        page,
+        size: pageSize,
+      })
 
-      setTimeout(() => {
-        ir.setPage(tab, 2)         //设置当前页面的页数
-        ir.pullDownCallBack(param) //还有数据的时候用这个
-      }, 500)
+      if(data.success) {
+        yield put({ type: 'querySuccess', payload: { tab, data: data.posts } })
+
+        setTimeout(() => {
+          ir.setPage(tab, 2)         //设置当前页面的页数
+          ir.pullDownCallBack(param) //还有数据的时候用这个
+        }, 100)
+      }
     },
     *pullUp({ payload }, { call, put }) {
       const { tab, page, param } = payload
-      yield put({ type: 'queryList', payload: { tab, page } })
+      const data = yield call(getList, {
+        filter: cateList[tab],
+        page,
+        size: pageSize,
+      })
 
-      setTimeout(() => {
-        ir.pullUpCallBack(param); //还有数据的时候用这个
-      }, 500)
+      if(data.success) {
+        yield put({ type: 'queryMoreSuccess', payload: { tab, data: data.posts } })
+        setTimeout(() => {
+          ir.pullUpCallBack(param); //还有数据的时候用这个
+        }, 100)
+      }
     },
     *slide({ payload }, { call, put, select }) {
       const { tab } = payload
@@ -119,19 +115,21 @@ export default {
   },
   reducers: {
     querySuccess(state, action) {
-      return { ...state, ...action.payload }
+      const { tab, data } = action.payload
+      const list = state.list.map((item, index) => (index === tab ? data: item))
+      const loading = state.loading.map((item, index) => (index === tab ? false: item))
+      return { ...state, list, tab, loading }
     },
-    queryLatestSuccess(state, action) {
-      const latest = [...state.latest, ...action.payload.latest]
-      return { ...state, latest  }
-    },
-    queryHotSuccess(state, action) {
-      const hot = [...state.hot, ...action.payload.hot]
-      return { ...state, hot  }
-    },
-    queryNearSuccess(state, action) {
-      const near = [...state.near, ...action.payload.near]
-      return { ...state, near  }
+    queryMoreSuccess(state, action) {
+      const { tab, data } = action.payload
+      const list = state.list.map((item, index) => {
+        if(index === tab) {
+          return [...item, ...data]
+        } else {
+          return item
+        }
+      })
+      return { ...state, list }
     },
     switchNav(state) {
       const { navOpen } = state
