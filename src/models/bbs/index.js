@@ -9,7 +9,7 @@ let ir
 export default {
   namespace: 'bbsIndex',
   state: {
-    navOpen: false,
+    navOpen: true,
     categories: [],
     tab: 0,
     loading: [true, true, true],
@@ -35,7 +35,7 @@ export default {
       history.listen((location) => {
         const { pathname, query: { tab } } = location
         if (pathname === '/' || pathname === '/bbs/index') {
-          //dispatch({ type: 'queryCategory' })
+          dispatch({ type: 'queryCategory' })
 
           setTimeout(() => {
             ir = new iScrollRefresh('#ir-tabs-wrapper', '#ir-bd-wrapper')
