@@ -42,14 +42,9 @@ export default {
           //location.href = "detail.html?id=" + id
         })
 
-        setTimeout(() =>{
-          dispatch({ type: 'setNavHeight', payload: { navHeight: document.querySelector("#navTop").offsetHeight } })
-          console.log(document.querySelector("#navTop").offsetHeight);
-        } , 1000)
-
         $("#ir-bd-wrapper").on('touchmove', function (event) {
           if(isNavOpen) {
-            dispatch({ type: 'switchNav', payload: { navOpen: false } })
+            dispatch({ type: 'closeNav' })
           }
           event.preventDefault()
         })
@@ -158,23 +153,26 @@ export default {
       const list = state.list.map((item, index) => (index === tab ? [...item, ...data]: item))
       return { ...state, list }
     },
-    switchNav(state, action) {
-      if(action.payload) {
-        isNavOpen = false
-        return { ...state, navOpen: false }
-      }
-      const { navOpen } = state
+    switchNav(state) {
+      const { navHeight, navOpen } = state
       isNavOpen = !navOpen
+      if(navHeight === 'auto') {
+        return { ...state, navOpen: !navOpen, navHeight: document.querySelector("#navTop").offsetHeight }
+      }
       return { ...state, navOpen: !navOpen }
+    },
+    closeNav(state) {
+      isNavOpen = false
+      const { navHeight } = state
+      if(navHeight === 'auto') {
+        return { ...state, navOpen: false, navHeight: document.querySelector("#navTop").offsetHeight }
+      }
+      return { ...state, navOpen: false }
     },
     loadingSuccess(state, action) {
       const { tab } = action.payload
       const loading = state.loading.map((item, index) => (index === tab ? false: item))
       return { ...state, loading }
-    },
-    setNavHeight(state, action) {
-      const { navHeight } = action.payload
-      return { ...state, navHeight }
     },
   },
 }

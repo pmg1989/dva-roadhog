@@ -12,18 +12,18 @@ const Nav = ({ list, token, navOpen, navHeight }) => {
     <div className={styles['nav-box']}>
       <QueueAnim appear={false} duration={500} animConfig={{ height: [navHeight, 0] }}>
         {navOpen ?
-        [<div id="navTop" key='1' className={classnames(styles['nav-top'], { close: !navOpen })}>
-        <Flex>
-          {list && list.map((item, key) => {
-            const id = item.cid === 0 ? item.alias : item.cid
-            return (
-              <Item key={key}>
-                <Link to={`/bbs/category?id=${id}&token=${token}`}><img alt={item.name} src={item.image_url} /></Link>
-              </Item>
-            )
-          })}
-        </Flex>
-      </div>] : null }
+        [<div id="navTop" key="1" className={classnames(styles['nav-top'], { close: !navOpen })}>
+          <Flex>
+            {list && list.map((item, key) => {
+              const id = item.cid === 0 ? item.alias : item.cid
+              return (
+                <Item key={key}>
+                  <Link to={`/bbs/category?id=${id}&token=${token}`}><img alt={item.name} src={item.image_url} /></Link>
+                </Item>
+              )
+            })}
+          </Flex>
+        </div>] : null }
       </QueueAnim>
     </div>
   )
