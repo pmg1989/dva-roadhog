@@ -65,6 +65,17 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
     upTipClassName = 'ir-up-tip'
   const setTopTime = 50
 
+  function iScrollClick(){
+    if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) return false;
+    if (/Chrome/i.test(navigator.userAgent)) return (/Android/i.test(navigator.userAgent));
+    if (/Silk/i.test(navigator.userAgent)) return false;
+    if (/Android/i.test(navigator.userAgent))
+    {
+      var s=navigator.userAgent.substr(navigator.userAgent.indexOf('Android')+8,3);
+      return parseFloat(s[0]+s[3]) < 44 ? false : true
+    }
+}
+
   function createScroll() {
 		/* 计算选项卡的宽度并初始化scroll*/
 
@@ -91,7 +102,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
       warppers[i].style.width = `${bdWidth}px`
       warppers[i].style.height = `${bdHeight}px`
       warppers[i].children[0].style.minHeight = `${bdHeight}px`
-      bdScrolls[i] = new IScroll(warppers[i], { probeType: 3, tap: true })
+      bdScrolls[i] = new IScroll(warppers[i], { probeType: 3, tap: true, click: iScrollClick() })
 
 			// 添加下拉刷新DIV
       const pullDownDiv = document.createElement('div')

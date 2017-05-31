@@ -19,13 +19,17 @@ const Loading = ({ loading }) => {
   )
 }
 
+const handleClick = (item) => {
+  console.log(item.bbs_sendid)
+}
+
 const List = ({ list, loading }) => {
   return (
     <div className="ir-wrapper">
       <ul className="ir-scroller">
         {list && list.map((item, key) => {
           return (
-            <li key={key} className="clear-fix" data-id={item.bbs_sendid}>
+            <li key={key} className="clear-fix" onClick={() => handleClick(item)}>
               <img src={item.user_img} alt={item.title} />
               <div className="li-body">
                 <h3>{item.title}</h3>
