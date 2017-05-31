@@ -45,9 +45,12 @@ const Content = ({ loading, list, tab }) => {
     <div className={styles.content}>
       <div id="ir-tabs-wrapper">
         <div className="ir-tabs-scroller">
-          <a className={classnames({ active: tab === 0 })}>最新</a>
+          <a className={classnames({ active: tab === 0 })}><span>最新</span></a>
+          <a className={classnames({ active: tab === 1 })}><span>热门</span></a>
+          <a className={classnames({ active: tab === 2 })}><span>附近</span></a>
+          {/* <a className={classnames({ active: tab === 0 })}>最新</a>
           <a className={classnames({ active: tab === 1 })}>热门</a>
-          <a className={classnames({ active: tab === 2 })}>附近</a>
+          <a className={classnames({ active: tab === 2 })}>附近</a> */}
         </div>
       </div>
       <div style={{ clear: 'both' }} />

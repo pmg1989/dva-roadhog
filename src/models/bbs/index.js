@@ -9,7 +9,7 @@ let ir
 export default {
   namespace: 'bbsIndex',
   state: {
-    navOpen: true,
+    navOpen: false,
     categories: [],
     tab: 0,
     loading: [true, true, true],

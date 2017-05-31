@@ -124,7 +124,7 @@ var iScrollRefresh = function(tab_id,bd_id,parames){
 		for(var i = 0; i<tabElements.length;i++){
 			tabElements[i].addEventListener('tap',function(event){
 				event.preventDefault();
-				var target = event.target || event.srcElement;
+				var target = event.currentTarget || event.srcElement;
 				var index = _this.index(target,tabElements);
 				bdScroll.goToPage(parseInt(index),0,500);
 			},false)

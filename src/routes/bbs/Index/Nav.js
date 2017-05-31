@@ -21,7 +21,7 @@ const Nav = ({ list, token, navOpen }) => {
           })}
         </Flex>
       </div>
-      <div className={styles['nav-bottom']}>
+      {/* <div className={styles['nav-bottom']}>
         <Flex>
           <Item>
             <span className={styles.active}>最新</span>
@@ -33,7 +33,7 @@ const Nav = ({ list, token, navOpen }) => {
             <span>附近</span>
           </Item>
         </Flex>
-      </div>
+      </div> */}
     </div>
   )
 }

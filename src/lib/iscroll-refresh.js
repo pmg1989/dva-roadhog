@@ -133,7 +133,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
     for (let i = 0; i < tabElements.length; i++) {
       tabElements[i].addEventListener('tap', (event) => {
         event.preventDefault()
-        const target = event.target || event.srcElement
+        const target = event.currentTarget || event.srcElement
         const index = _this.index(target, tabElements)
         bdScroll.goToPage(parseInt(index), 0, 500)
       }, false)
