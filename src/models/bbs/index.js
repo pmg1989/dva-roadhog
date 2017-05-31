@@ -4,12 +4,12 @@ import { getCategory, getList } from '../../services/bbs/index'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
 const pageSize = 10
-let ir
+let ir, isLoading = [true, true, true], isNavOpen = true
 
 export default {
   namespace: 'bbsIndex',
   state: {
-    navOpen: false,
+    navOpen: true,
     categories: [],
     tab: 0,
     loading: [true, true, true],
@@ -29,7 +29,41 @@ export default {
       }
 
       function slide(index) {
-        dispatch({ type: 'slide', payload: { tab: index } })
+        if(isLoading[index]) {
+          dispatch({ type: 'slide', payload: { tab: index } })
+        }
+      }
+
+      function bindEvent() {
+        $(document).on('tap',"#ir-bd-wrapper .ir-scroller li", function(e){
+          var id = $(this).attr('data-id')
+          alert(id)
+          //location.href = "detail.html?id=" + id
+        })
+
+        // const $navTop = $("#navTop")
+        //
+        // $('.am-navbar-left-icon').on('click', function() {
+        //   console.log(1);
+        //   if($navTop.is(':animated')){
+        //       $navTop.stop(true,true);
+        //   }
+        //   if($navTop.hasClass('close')) {
+        //     $navTop.animate({marginTop: '44px'}, 600)
+        //   } else {
+        //     $navTop.animate({marginTop: -$navTop.height()}, 600)
+        //   }
+        // })
+        //
+        $("#ir-bd-wrapper").on('touchmove', function (event) {
+          // if(!$navTop.is(':animated')){
+          //   $navTop.animate({marginTop: -$navTop.height()}, 600)
+          // }
+          if(isNavOpen) {
+            dispatch({ type: 'closeNav' })
+          }
+          event.preventDefault()
+        })
       }
 
       history.listen((location) => {
@@ -47,11 +81,7 @@ export default {
       				ir.bdScroll.goToPage(+tab, 0, 0)
       			}
 
-            $(document).on('tap',"#ir-bd-wrapper .ir-scroller li", function(e){
-        			var id = $(this).attr('data-id')
-        			alert(id)
-        			//location.href = "detail.html?id=" + id
-        		})
+            bindEvent()
           }, 0)
         }
       })
@@ -114,6 +144,7 @@ export default {
     },
     *slide({ payload }, { call, put, select }) {
       const { tab } = payload
+      isLoading[tab] = false
       const loading = yield select(state => state.bbsIndex.loading)
       if(loading[tab]) {
         yield put({ type: 'initData', payload: { tab } })
@@ -131,7 +162,7 @@ export default {
       if(init) {
         return { ...state, list, tab, loading }
       }
-      return { ...state, list, loading }
+      return { ...state, list, loading, navOpen: false }
     },
     queryMoreSuccess(state, action) {
       const { tab, data } = action.payload
@@ -139,8 +170,14 @@ export default {
       return { ...state, list }
     },
     switchNav(state) {
+      isNavOpen = !navOpen
       const { navOpen } = state
       return { ...state, navOpen: !navOpen }
+    },
+    closeNav(state) {
+      isNavOpen = false
+      const { navOpen } = state
+      return { ...state, navOpen: false }
     },
     loadingSuccess(state, action) {
       const { tab } = action.payload

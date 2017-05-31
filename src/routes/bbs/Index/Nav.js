@@ -9,7 +9,7 @@ const Item = Flex.Item
 const Nav = ({ list, token, navOpen }) => {
   return (
     <div className={styles['nav-box']}>
-      <div className={classnames(styles['nav-top'], { close: !navOpen })}>
+      <div id="navTop" className={classnames(styles['nav-top'], { close: !navOpen })}>
         <Flex>
           {list && list.map((item, key) => {
             const id = item.cid === 0 ? item.alias : item.cid

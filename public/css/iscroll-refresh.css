@@ -11,9 +11,9 @@ body,ul,li {
 	border: 0;
 }
 
-body {
+/*body {
 	overflow: hidden;
-}
+}*/
 
 #ir-bd-wrapper{ background-color: #eee; position:absolute; width: 100%;overflow: hidden;top: 44px;left: 0px;bottom: 0px;}
 .ir-bd-scroller{position: absolute;top: 0px; bottom: 0px;left: 0px;z-index: 1;
