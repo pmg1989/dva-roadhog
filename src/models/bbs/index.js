@@ -38,16 +38,16 @@ export default {
       function bindEvent() {
         $(document).on('tap',"#ir-bd-wrapper .ir-scroller li", function(e){
           var id = $(this).attr('data-id')
-          alert(id)
+          console.log(e.target);
           //location.href = "detail.html?id=" + id
         })
 
-        $("#ir-bd-wrapper").on('touchmove', function (event) {
+        document.querySelector("#ir-bd-wrapper").addEventListener('touchmove', function () {
           if(isNavOpen) {
             dispatch({ type: 'closeNav' })
           }
           event.preventDefault()
-        })
+        }, false)
       }
 
       history.listen((location) => {
