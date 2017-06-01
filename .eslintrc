@@ -33,6 +33,7 @@
     "no-cond-assign": [0],
     "import/no-unresolved": [0],
     "require-yield": [1],
+    "no-underscore-dangle": 0,
   },
   "parserOptions": {
     "ecmaFeatures": {

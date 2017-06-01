@@ -18,7 +18,8 @@ app.model(require('./models/app'))
 // app.model(require('./models/bbs/category'))
 
 // 3. Router
-app.router(require('./router'))
+// app.router(require('./router'))
+app.router(require('./router-dynamic'))
 
 // 4. Start
 app.start('#root')
