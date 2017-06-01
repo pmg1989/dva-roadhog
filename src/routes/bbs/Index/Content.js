@@ -1,48 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
+import ListView from '../ListView'
 import styles from './Content.less'
-
-const Loading = ({ loading }) => {
-  if (!loading) {
-    return null
-  }
-  return (
-    <li className="clear-fix">
-      <div className="loader">
-        <div className="line-scale">
-          <div /><div /><div />
-          <div /><div />
-        </div>
-        <div style={{ marginTop: '50px' }}>加载中...</div>
-      </div>
-    </li>
-  )
-}
-
-const handleClick = (item) => {
-  console.log(item.bbs_sendid)
-}
-
-const List = ({ list, loading }) => {
-  return (
-    <div className="ir-wrapper">
-      <ul className="ir-scroller">
-        {list && list.map((item, key) => {
-          return (
-            <li key={key} className="clear-fix" onClick={() => handleClick(item)}>
-              <img src={item.user_img} alt={item.title} />
-              <div className="li-body">
-                <h3>{item.title}</h3>
-                <p>{item.user_name}</p>
-              </div>
-            </li>
-          )
-        })}
-        <Loading loading={loading} />
-      </ul>
-    </div>
-  )
-}
 
 const Content = ({ loading, list, tab }) => {
   return (
@@ -52,17 +11,13 @@ const Content = ({ loading, list, tab }) => {
           <a className={classnames({ active: tab === 0 })}><span>最新</span></a>
           <a className={classnames({ active: tab === 1 })}><span>热门</span></a>
           <a className={classnames({ active: tab === 2 })}><span>附近</span></a>
-          {/* <a className={classnames({ active: tab === 0 })}>最新</a>
-          <a className={classnames({ active: tab === 1 })}>热门</a>
-          <a className={classnames({ active: tab === 2 })}>附近</a> */}
         </div>
       </div>
-      <div style={{ clear: 'both' }} />
       <div id="ir-bd-wrapper">
         <div className="ir-bd-scroller">
-          <List list={list[0]} loading={loading[0]} />
-          <List list={list[1]} loading={loading[1]} />
-          <List list={list[2]} loading={loading[2]} />
+          <ListView list={list[0]} loading={loading[0]} />
+          <ListView list={list[1]} loading={loading[1]} />
+          <ListView list={list[2]} loading={loading[2]} />
         </div>
       </div>
     </div>
