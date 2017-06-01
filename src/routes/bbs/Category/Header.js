@@ -1,20 +1,21 @@
 import React from 'react'
-import { Flex } from 'antd-mobile'
+import { Link } from 'dva/router'
+import { Flex, Icon } from 'antd-mobile'
 import { Header } from '../../../components'
 
-const CategoryHeader = () => {
-  // const { query: { token } } = location
+const CategoryHeader = ({ category, token }) => {
 
   const headerProps = {
     rightContent: (
-      <Flex>
-        <Flex className="navbar-right-content">发布</Flex>
-      </Flex>
+      <Link to={`/bbs/add?token=${token}`} className="flex-box">
+        <Flex><Icon type={require('../../../svg/release.svg')} /></Flex>
+        <Flex className="navbar-right-content">发帖</Flex>
+      </Link>
     ),
   }
 
   return (
-    <Header {...headerProps}>发布帖子</Header>
+    <Header {...headerProps}>{category.name || ''}</Header>
   )
 }
 
