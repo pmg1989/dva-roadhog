@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { Toast } from 'antd-mobile'
 import { stringify } from 'qs'
+import NProgress from 'nprogress'
 import { queryString } from './utils'
 
 axios.defaults.baseURL = 'http://ec2-54-223-130-122.cn-north-1.compute.amazonaws.com.cn:81'
@@ -34,6 +35,7 @@ function checkStatus(res) {
 }
 
 function handelData(res) {
+  NProgress.done()
   const data = res.data
   if (data && data.message !== 'Success') {
     Toast.fail(data.msg)
@@ -46,6 +48,7 @@ function handelData(res) {
 }
 
 function handleError(error) {
+  NProgress.done()
   const data = error.response.data
   if (data.errors) {
     Toast.fail(`${data.message}：${data.errors}`)
@@ -62,11 +65,12 @@ function handleError(error) {
 
 export default function request(url, options) {
   const urlToken = `${url}?access_token=${queryString('token')}`
-
+  NProgress.start()
   return fetch(urlToken, options)
         .then(checkStatus)
         .then(handelData)
         .catch(handleError)
+
 }
 
 export function get(url, options) {
