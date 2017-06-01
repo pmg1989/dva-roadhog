@@ -4,7 +4,6 @@ import { Flex, Icon } from 'antd-mobile'
 import { Header } from '../../../components'
 
 const CategoryHeader = ({ category, token }) => {
-
   const headerProps = {
     rightContent: (
       <Link to={`/bbs/add?token=${token}`} className="flex-box">
