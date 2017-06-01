@@ -2,7 +2,7 @@ import iScrollRefresh from 'iScrollRefresh'
 import { getList } from '../../services/bbs/index'
 
 const pageSize = 10
-let ir, catId
+let ir, catId, isNavOpen = true
 
 export default {
   namespace: 'bbsCategory',
@@ -28,9 +28,9 @@ export default {
       function bindEvent() {
 
         document.querySelector("#ir-bd-wrapper").addEventListener('touchmove', function () {
-          // if(isNavOpen) {
-          //   dispatch({ type: 'closeNav' })
-          // }
+          if(isNavOpen) {
+            dispatch({ type: 'closeNav' })
+          }
           event.preventDefault()
         }, false)
       }
@@ -117,22 +117,13 @@ export default {
       const { navHeight, navOpen } = state
       isNavOpen = !navOpen
       if(navHeight === 'auto') {
-        return { ...state, navOpen: !navOpen, navHeight: document.querySelector("#navTop").offsetHeight }
+        return { ...state, navOpen: !navOpen, navHeight: document.querySelector("#categoryHeader").offsetHeight }
       }
       return { ...state, navOpen: !navOpen }
     },
     closeNav(state) {
       isNavOpen = false
-      const { navHeight } = state
-      if(navHeight === 'auto') {
-        return { ...state, navOpen: false, navHeight: document.querySelector("#navTop").offsetHeight }
-      }
       return { ...state, navOpen: false }
-    },
-    loadingSuccess(state, action) {
-      const { tab } = action.payload
-      const loading = state.loading.map((item, index) => (index === tab ? false: item))
-      return { ...state, loading }
     },
   },
 }

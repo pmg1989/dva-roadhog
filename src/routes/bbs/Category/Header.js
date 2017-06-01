@@ -1,10 +1,13 @@
 import React from 'react'
+import QueueAnim from 'rc-queue-anim'
+import styles from './Header.less'
 import { Link } from 'dva/router'
 import { Flex, Icon } from 'antd-mobile'
 import { Header } from '../../../components'
 
-const CategoryHeader = ({ category, token }) => {
+const CategoryHeader = ({ category, token, navOpen, navHeight }) => {
   const headerProps = {
+    className: navOpen && styles.transparent,
     rightContent: (
       <Link to={`/bbs/add?token=${token}`} className="flex-box">
         <Flex><Icon type={require('../../../svg/release.svg')} /></Flex>
@@ -14,7 +17,18 @@ const CategoryHeader = ({ category, token }) => {
   }
 
   return (
-    <Header {...headerProps}>{category.name || ''}</Header>
+    <div id="categoryHeader" className={styles.header}>
+      <QueueAnim appear={false} duration={500} animConfig={{ height: [navHeight, 0] }}>
+        {navOpen ?
+        [
+          <div key="1">
+            <img className={styles.navImg} src={category.big_image_url} alt={category.name} />
+          </div>,
+        ] : null
+        }
+      </QueueAnim>
+      <Header {...headerProps}>{category.name || ''}</Header>
+    </div>
   )
 }
 

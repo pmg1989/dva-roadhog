@@ -3,22 +3,21 @@ import { connect } from 'dva'
 import Header from './Header'
 import Content from './Content'
 
-const Category = ({ dispatch, location, bbsCategory }) => {
+const Category = ({ location, bbsCategory }) => {
   const { query: { token } } = location
-  const { loading, list, navOpen, category } = bbsCategory
+  const { loading, list, navOpen, navHeight, category } = bbsCategory
 
   const headerProps = {
     navOpen,
     category,
-    onSwitchNav() {
-      dispatch({ type: 'bbsIndex/switchNav' })
-    },
+    navHeight,
   }
 
   const contentProps = {
     loading,
     list,
     token,
+    navOpen,
   }
 
   return (

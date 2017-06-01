@@ -44,9 +44,9 @@ const List = ({ list, loading }) => {
   )
 }
 
-const Content = ({ loading, list }) => {
+const Content = ({ loading, list, navOpen }) => {
   return (
-    <div className={classnames('content', styles.content)}>
+    <div className={classnames(navOpen ? '' : 'content', styles.content)}>
       <div id="ir-bd-wrapper">
         <div className="ir-bd-scroller">
           <List list={list} loading={loading} />
