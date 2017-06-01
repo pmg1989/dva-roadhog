@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import styles from './App.less'
-import '../../themes/index.less'
 
 const App = ({ children }) => {
   console.log('app')
