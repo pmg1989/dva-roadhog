@@ -70,7 +70,6 @@ export default function request(url, options) {
         .then(checkStatus)
         .then(handelData)
         .catch(handleError)
-
 }
 
 export function get(url, options) {
