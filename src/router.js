@@ -1,16 +1,18 @@
 import React from 'react'
-import { Router, Route } from 'dva/router'
+import { Router, Route, IndexRoute } from 'dva/router'
 // import App from './routes/App'
 
 function RouterConfig({ history }) {
   return (
-    <Router history={history} component={require('./routes/App')}>
-      <Route path="/" component={require('./routes/bbs/Index')} />
-      <Route path="bbs/index" component={require('./routes/bbs/Index')} />
-      <Route path="bbs/category" component={require('./routes/bbs/Category')} />
-      <Route path="bbs/detail" component={require('./routes/bbs/Detail')} />
-      <Route path="bbs/add" component={require('./routes/bbs/Add')} />
-      <Route path="*" component={require('./routes/Error')} />
+    <Router history={history}>
+      <Route path="/" component={require('./routes/App')}>
+        <IndexRoute component={require('./routes/bbs/Index')}/>
+        <Route path="bbs/index" component={require('./routes/bbs/Index')} />
+        <Route path="bbs/category" component={require('./routes/bbs/Category')} />
+        <Route path="bbs/detail" component={require('./routes/bbs/Detail')} />
+        <Route path="bbs/add" component={require('./routes/bbs/Add')} />
+        <Route path="*" component={require('./routes/Error')} />
+      </Route>
     </Router>
   )
 }
