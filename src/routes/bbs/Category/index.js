@@ -11,6 +11,7 @@ const Category = ({ location, bbsCategory }) => {
     navOpen,
     category,
     navHeight,
+    token,
   }
 
   const contentProps = {
