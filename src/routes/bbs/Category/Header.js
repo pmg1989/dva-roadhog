@@ -1,9 +1,9 @@
 import React from 'react'
-import QueueAnim from 'rc-queue-anim'
-import styles from './Header.less'
 import { Link } from 'dva/router'
 import { Flex, Icon } from 'antd-mobile'
+import QueueAnim from 'rc-queue-anim'
 import { Header } from '../../../components'
+import styles from './Header.less'
 
 const CategoryHeader = ({ category, token, navOpen, navHeight }) => {
   const headerProps = {
