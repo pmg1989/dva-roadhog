@@ -1,7 +1,7 @@
 import React from 'react'
 import { Flex, Icon } from 'antd-mobile'
 import { Link } from 'dva/router'
-import { Header } from '../../../components'
+import { Header } from 'NbComponent'
 import styles from './Header.less'
 
 const IndexHeader = ({ token, navOpen, onSwitchNav }) => {

@@ -25,6 +25,7 @@ export default {
         ["module-resolver", {
           "root": ["./src"],
           "alias": {
+            "NbComponent": "./src/components/",
             "$": "./src/lib/jquery.2.1.4.min.js",
             "jQuery": "./src/lib/jquery.2.1.4.min.js",
             "iScroll": "./src/lib/iscroll-probe.js",
