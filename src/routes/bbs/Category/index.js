@@ -23,7 +23,7 @@ const Category = ({ dispatch, location, bbsCategory }) => {
 
   return (
     <div>
-      <Header {...headerProps}/>
+      <Header {...headerProps} />
       <Content {...contentProps} />
     </div>
   )
