@@ -23,7 +23,7 @@ import { Router } from 'dva/router'
 //   }
 // }
 
-const cached = {};
+const cached = {}
 function registerModel(app, model) {
   if (!cached[model.namespace]) {
     app.model(model)
