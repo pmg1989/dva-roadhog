@@ -18,7 +18,7 @@ const Nav = ({ list, token, navOpen, navHeight }) => {
               const id = item.cid === 0 ? item.alias : item.cid
               return (
                 <Item key={key}>
-                  <Link to={`/bbs/category?id=${id}&token=${token}`}><img alt={item.name} src={item.image_url} /></Link>
+                  <Link to={`/bbs/category?cid=${id}&token=${token}`}><img alt={item.name} src={item.image_url} /></Link>
                 </Item>
               )
             })}

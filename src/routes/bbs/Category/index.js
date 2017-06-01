@@ -1,24 +1,36 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'dva'
-import { Flex } from 'antd-mobile'
-import { Header } from '../../../components'
+import Header from './Header'
+import Content from './Content'
 
-const Add = () => {
-  // const { query: { token } } = location
+const Category = ({ dispatch, location, bbsCategory }) => {
+  const { query: { token } } = location
+  const { loading, list, navOpen, category } = bbsCategory
 
   const headerProps = {
-    rightContent: (
-      <Flex>
-        <Flex className="navbar-right-content">发布</Flex>
-      </Flex>
-    ),
+    navOpen,
+    category,
+    onSwitchNav() {
+      dispatch({ type: 'bbsIndex/switchNav' })
+    },
+  }
+
+  const contentProps = {
+    loading,
+    list,
+    token,
   }
 
   return (
     <div>
-      <Header {...headerProps}>发布帖子</Header>
+      <Header {...headerProps}/>
+      <Content {...contentProps} />
     </div>
   )
 }
 
-export default connect()(Add)
+Category.propTypes = {
+  bbsCategory: PropTypes.object.isRequired,
+}
+
+export default connect(({ bbsCategory }) => ({ bbsCategory }))(Category)

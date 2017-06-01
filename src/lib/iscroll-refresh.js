@@ -78,19 +78,21 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
 
   function createScroll() {
 		/* 计算选项卡的宽度并初始化scroll*/
-
-    tabElements = _this.tabScroller.children
-    let tabWidth = 0,
-      tagName
-    for (var i = 0; i < tabElements.length; i++) {
-      tabWidth += tabElements[i].offsetWidth
-      tabElements[i].style.width = `${tabElements[i].offsetWidth}px`
-      tagName = tabElements[i].tagName
+    if(_this.tabScroller) {
+      tabElements = _this.tabScroller.children
+      let tabWidth = 0,
+        tagName
+      for (var i = 0; i < tabElements.length; i++) {
+        tabWidth += tabElements[i].offsetWidth
+        tabElements[i].style.width = `${tabElements[i].offsetWidth}px`
+        tagName = tabElements[i].tagName
+      }
+      tabWidth += 1
+      _this.tabScroller.style.width = `${tabWidth}px`
+      tabsScroll = new IScroll(_this.tabWrapper, { scrollX: true, scrollY: false, snap: tagName, tap: true })
+    } else {
+      _this.bdWrapper.style.top = 0
     }
-    tabWidth += 1
-    _this.tabScroller.style.width = `${tabWidth}px`
-    tabsScroll = new IScroll(_this.tabWrapper, { scrollX: true, scrollY: false, snap: tagName, tap: true })
-
     const swiper = _this.bdWrapper.children[0]
     bdWidth = _this.bdWrapper.offsetWidth
     bdHeight = _this.bdWrapper.offsetHeight
@@ -128,9 +130,11 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
 
     bdScroll = new IScroll(_this.bdWrapper, { scrollX: true, scrollY: false, momentum: false, snap: true })
 
-    bdScroll.on('scrollEnd', bdEndHandler)
+    if(_this.tabScroller) {
+			bdScroll.on('scrollEnd',bdEndHandler)
 
-    initTab()
+			initTab()
+		}
   }
   _this.index = function(current, obj) {
     for (let i = 0; i < obj.length; i++) {
@@ -595,10 +599,12 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
   }
 
   function init(tab, bd, conf) {
-    config.tabs = tab
-    config.tabs_bd = bd
-    _this.tabWrapper = typeof tab === 'string' ? document.querySelector(tab) : tab
-    _this.tabScroller = _this.tabWrapper.children[0]
+    if(tab) {
+      config.tabs = tab
+      config.tabs_bd = bd
+      _this.tabWrapper = typeof tab === 'string' ? document.querySelector(tab) : tab
+      _this.tabScroller = _this.tabWrapper.children[0]
+    }
     _this.bdWrapper = typeof bd === 'string' ? document.querySelector(bd) : bd
     _this.bdScroller = _this.bdWrapper.children[0]
 

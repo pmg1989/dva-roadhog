@@ -1,3 +1,4 @@
 /src/lib/**
-/src/models/bbs/index.js
 /src/utils/utils.js
+/src/models/bbs/index.js
+/src/models/bbs/category.js

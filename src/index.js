@@ -15,6 +15,7 @@ const app = dva({
 // 2. Model
 app.model(require('./models/app'))
 app.model(require('./models/bbs/index'))
+app.model(require('./models/bbs/category'))
 
 // 3. Router
 app.router(require('./router'))
