@@ -1,7 +1,8 @@
 @import "./vars.less";
 
-.text-overflow {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+.ellipsis(@width: 100%) {
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   overflow: hidden;
+   width: @width;
 }

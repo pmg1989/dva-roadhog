@@ -27,6 +27,7 @@ const Index = ({ dispatch, location, bbsIndex }) => {
     loading,
     list,
     tab,
+    token,
   }
 
   return (
