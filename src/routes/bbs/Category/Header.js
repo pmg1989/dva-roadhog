@@ -3,7 +3,10 @@ import { Link } from 'dva/router'
 import { Flex, Icon } from 'antd-mobile'
 import QueueAnim from 'rc-queue-anim'
 import { Header } from 'NbComponent'
+import utils from 'utils'
 import styles from './Header.less'
+
+const { queryString, getCategoryImage } = utils
 
 const CategoryHeader = ({ category, token, navOpen, navHeight }) => {
   const headerProps = {
@@ -22,7 +25,7 @@ const CategoryHeader = ({ category, token, navOpen, navHeight }) => {
         {navOpen ?
         [
           <div key="1">
-            <img className={styles.navImg} src={category.big_image_url} alt={category.name} />
+            <img className={styles.navImg} src={getCategoryImage(queryString('cid'))} alt={category.name} />
           </div>,
         ] : null
         }

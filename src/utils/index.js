@@ -1,2 +1,2 @@
-export utils from './utils'
+export default from './utils'
 export request from './request'
