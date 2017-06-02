@@ -3,7 +3,6 @@ import { connect } from 'dva'
 import './App.less'
 
 const App = ({ children }) => {
-
   return (
     <div>{children}</div>
   )
