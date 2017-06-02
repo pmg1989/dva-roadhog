@@ -10,7 +10,7 @@ const Item = Flex.Item
 const Nav = ({ list, token, navOpen, navHeight }) => {
   return (
     <div className={styles['nav-box']}>
-      <QueueAnim appear={false} duration={500} animConfig={{ height: [navHeight, 0] }}>
+      <QueueAnim appear={false} duration={500} animConfig={{ marginTop: [0, -navHeight] }}>
         {navOpen ?
         [<div id="navTop" key="1" className={classnames(styles['nav-top'], { close: !navOpen })}>
           <Flex>
