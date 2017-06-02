@@ -1,13 +1,19 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
-import styles from './App.less'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import './App.less'
 
-const App = ({ children }) => {
-  console.log('app')
+const App = ({ children, location: { pathname }, app }) => {
+  const key = pathname
+  const { type } = app
+
   return (
-    <div className={styles.wrap}>
-      {children}
-    </div>
+    <ReactCSSTransitionGroup
+      component="div" transitionName={type}
+      transitionEnterTimeout={450} transitionLeaveTimeout={450}
+    >
+      { children && React.cloneElement(children, { key })}
+    </ReactCSSTransitionGroup>
   )
 }
 

@@ -1,19 +1,19 @@
 export default {
   namespace: 'app',
   state: {
+    type: 'slide',
   },
   subscriptions: {
     // setup({ dispatch, history }) {
     // },
   },
   effects: {
-    // *fetch({ payload }, { call, put }) {
-    //   yield put({ type: 'save' })
-    // },
+
   },
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload }
+    pageTransition(state, action) {
+      const { type } = action.payload
+      return { ...state, type }
     },
   },
 }

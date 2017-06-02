@@ -22,7 +22,7 @@ const Category = ({ location, bbsCategory }) => {
   }
 
   return (
-    <div>
+    <div className="page-slide">
       <Header {...headerProps} />
       <Content {...contentProps} />
     </div>

@@ -30,7 +30,7 @@ const Index = ({ dispatch, location, bbsIndex }) => {
   }
 
   return (
-    <div>
+    <div className="page-slide">
       <Header {...headerProps} />
       <Nav {...navProps} />
       <Content {...contentProps} />
