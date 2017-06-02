@@ -6,18 +6,34 @@ import utils from 'utils'
 import Loading from './Loading'
 import styles from './List.less'
 
-const handleClick = (item) => {
-  console.log(item.bbs_sendid)
-}
+const List = ({ list, loading, token, linkTo }) => {
+  const LinkToDetail = (item) => {
+    console.log(item.bbs_sendid)
+    linkTo(`/bbs/detail/${item.bbs_sendid}?token=${token}`)
+  }
 
-const List = ({ list, loading, token }) => {
+  const handleShare = (e, item) => {
+    e.stopPropagation()
+    console.log('share success', item)
+  }
+
+  const handleLike = (e, item) => {
+    e.stopPropagation()
+    console.log('like', item)
+  }
+
+  const handleUnLike = (e, item) => {
+    e.stopPropagation()
+    console.log('unlike', item)
+  }
+
   return (
     <div className="ir-wrapper">
       <ul className="ir-scroller">
         <Loading loading={loading} />
         {list && list.map((item, key) => {
           return (
-            <li key={key} onClick={() => handleClick(item)}>
+            <li key={key} onClick={() => LinkToDetail(item)}>
               <div className="flex-box">
                 <div className={styles.thumb_box}>
                   <img src={item.user_img} alt={item.title} />
@@ -41,20 +57,20 @@ const List = ({ list, loading, token }) => {
                   </div>
                   <div className={styles.bottom}>
                     <div className={styles.label_box}>
-                      <Link className={styles.cname} to={`/bbs/category?cid=${item.bbs_cid}&token=${token}`}>{item.bbs_cname}</Link>
+                      <Link className={styles.cname} to={`/bbs/category?cid=${item.bbs_cid}&token=${token}`} onClick={(e) => { e.stopPropagation() }}>{item.bbs_cname}</Link>
                       {item.label.map((lb, cur) => (
-                        <Link key={cur} className={styles.label} to={`/bbs/tag?tag=${lb.label_id}&name=${lb.label_name}&token=${token}`}>#{lb.label_name}</Link>
+                        <Link key={cur} className={styles.label} to={`/bbs/tag?tag=${lb.label_id}&name=${lb.label_name}&token=${token}`} onClick={(e) => { e.stopPropagation() }}>#{lb.label_name}</Link>
                       ))}
                     </div>
                     <div className={classnames('flex-box', styles.opt_box)}>
                       {item.like === '1' &&
-                      <div className={classnames('flex-item', styles.like)}>
+                      <div className={classnames('flex-item', styles.like)} onClick={e => handleUnLike(e, item)}>
                         <span><Icon type={require('../../../svg/like.svg')} /></span>
                         <span className={styles.count}>{item.heart_times}</span>
                       </div>
                       }
                       {item.like === '0' &&
-                      <div className={classnames('flex-item', styles.unlike)}>
+                      <div className={classnames('flex-item', styles.unlike)} onClick={e => handleLike(e, item)}>
                         <span><Icon type={require('../../../svg/unlike.svg')} /></span>
                         <span className={styles.count}>{item.heart_times}</span>
                       </div>
@@ -63,7 +79,7 @@ const List = ({ list, loading, token }) => {
                         <span><Icon type={require('../../../svg/discu.svg')} /></span>
                         <span className={styles.count}>{item.fellow_times}</span>
                       </div>
-                      <div className={classnames('flex-item', styles.share)}>
+                      <div className={classnames('flex-item', styles.share)} onClick={e => handleShare(e, item)}>
                         <span><Icon type={require('../../../svg/share.svg')} /></span>
                       </div>
                     </div>

@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import { routerRedux } from 'dva/router'
 import Header from './Header'
 import Content from './Content'
 
-const Category = ({ location, bbsCategory }) => {
+const Category = ({ dispatch, location, bbsCategory }) => {
   const { query: { token } } = location
   const { loading, list, navOpen, navHeight, category } = bbsCategory
 
@@ -19,6 +20,11 @@ const Category = ({ location, bbsCategory }) => {
     list,
     token,
     navOpen,
+    linkTo(url) {
+      dispatch(routerRedux.push({
+        pathname: url,
+      }))
+    },
   }
 
   return (

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'dva'
+import { routerRedux } from 'dva/router'
 import Header from './Header'
 import Nav from './Nav'
 import Content from './Content'
@@ -28,6 +29,11 @@ const Index = ({ dispatch, location, bbsIndex }) => {
     list,
     tab,
     token,
+    linkTo(url) {
+      dispatch(routerRedux.push({
+        pathname: url,
+      }))
+    },
   }
 
   return (
