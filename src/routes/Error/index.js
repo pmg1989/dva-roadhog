@@ -3,7 +3,7 @@ import { Result, Icon, WingBlank } from 'antd-mobile'
 import { Header } from '../../components'
 
 const Error = () => (
-  <div className="page-slide">
+  <div>
     <Header>404 Not Found</Header>
     <WingBlank size="md">
       <Result

@@ -6,11 +6,7 @@ import styles from './Header.less'
 
 const Header = ({ dispatch, children, ...headerProps }) => {
   const handleBack = () => {
-    dispatch({ type: 'app/pageTransition', payload: { type: 'slide-back' } })
     dispatch(routerRedux.goBack())
-    setTimeout(() => {
-      dispatch({ type: 'app/pageTransition', payload: { type: 'slide' } })
-    }, 300)
   }
 
   const navBarProps = {
