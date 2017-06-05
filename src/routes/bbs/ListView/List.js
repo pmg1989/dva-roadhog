@@ -7,7 +7,7 @@ import Loading from './Loading'
 import styles from './List.less'
 
 const renderTimes = (times) => {
-  if(times > 999) {
+  if (times > 999) {
     return '+999'
   } else if (times > 0) {
     return times
