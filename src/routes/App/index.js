@@ -10,8 +10,8 @@ const App = ({ children }) => {
 
 App.propTypes = {
   children: PropTypes.element.isRequired,
-  //location: PropTypes.object.isRequired,
-  //dispatch: PropTypes.func.isRequired,
+  // location: PropTypes.object.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   // app: PropTypes.object,
   // loading: PropTypes.object,
 }
