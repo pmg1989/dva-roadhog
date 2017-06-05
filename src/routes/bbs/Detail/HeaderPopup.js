@@ -8,7 +8,7 @@ const Item = Popover.Item
 class HeaderPopup extends Component {
 
   state = {
-    visible: true,
+    visible: false,
     selected: '',
   }
 

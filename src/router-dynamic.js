@@ -22,7 +22,6 @@ const Routers = ({ history, app }) => {
       childRoutes: [
         {
           path: 'bbs/index',
-          name: 'bbs/index',
           getComponent(nextState, cb) {
             require.ensure([], (require) => {
               registerModel(app, require('./models/bbs/index'))
@@ -32,12 +31,20 @@ const Routers = ({ history, app }) => {
         },
         {
           path: 'bbs/category',
-          name: 'bbs/category',
           getComponent(nextState, cb) {
             require.ensure([], (require) => {
               registerModel(app, require('./models/bbs/category'))
               cb(null, require('./routes/bbs/Category'))
             }, 'bbs-category')
+          },
+        },
+        {
+          path: 'bbs/detail/:id',
+          getComponent(nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/bbs/detail'))
+              cb(null, require('./routes/bbs/Detail'))
+            }, 'bbs-detail')
           },
         },
         {
