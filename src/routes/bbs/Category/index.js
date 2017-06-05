@@ -25,6 +25,18 @@ const Category = ({ dispatch, location, bbsCategory }) => {
         pathname: url,
       }))
     },
+    like(params) {
+      dispatch({
+        type: 'bbsCategory/like',
+        payload: params,
+      })
+    },
+    unlike(params) {
+      dispatch({
+        type: 'bbsCategory/unlike',
+        payload: params,
+      })
+    },
   }
 
   return (

@@ -1,8 +1,9 @@
 import iScrollRefresh from 'iScrollRefresh'
 import { getCategory, getList } from '../../services/bbs/index'
+import { like, unlike } from '../../services/bbs/base'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
-const pageSize = 10
+const pageSize = 5
 let ir, isLoading = [true, true, true], isNavOpen = true
 
 export default {
@@ -128,6 +129,30 @@ export default {
         yield put({ type: 'initData', payload: { tab } })
       }
     },
+    *like({ payload }, {call, put}) {
+      const { sendid, tab } = payload
+
+      yield put({ type: 'likeSuccess', payload: { sendid, tab } })
+
+      const data = yield call(like, {
+        sendagree: {
+          fellowid: '',
+          sendid,
+        }
+      })
+    },
+    *unlike({ payload }, {call, put}) {
+      const { sendid, tab } = payload
+
+      yield put({ type: 'unlikeSuccess', payload: { sendid, tab } })
+
+      const data = yield call(unlike, {
+        sendagree: {
+          fellowid: '',
+          sendid,
+        }
+      })
+    },
   },
   reducers: {
     queryCategorySuccess(state, action) {
@@ -167,6 +192,28 @@ export default {
       const { tab } = action.payload
       const loading = state.loading.map((item, index) => (index === tab ? false: item))
       return { ...state, loading }
+    },
+    likeSuccess(state, action) {
+      const { sendid, tab } = action.payload
+      const list = state.list.map((item, index) => {
+        if(tab === index) {
+          return item.map(cur => (cur.bbs_sendid === sendid ? { ...cur, like: '1', heart_times: +cur.heart_times + 1 } : cur))
+        } else {
+          return item
+        }
+      })
+      return { ...state, list }
+    },
+    unlikeSuccess(state, action) {
+      const { sendid, tab } = action.payload
+      const list = state.list.map((item, index) => {
+        if(tab === index) {
+          return item.map(cur => (cur.bbs_sendid === sendid ? { ...cur, like: '0', heart_times: +cur.heart_times - 1 } : cur))
+        } else {
+          return item
+        }
+      })
+      return { ...state, list }
     },
   },
 }

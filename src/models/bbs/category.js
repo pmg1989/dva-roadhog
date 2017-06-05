@@ -1,7 +1,8 @@
 import iScrollRefresh from 'iScrollRefresh'
 import { getList } from '../../services/bbs/index'
+import { like, unlike } from '../../services/bbs/base'
 
-const pageSize = 10
+const pageSize = 5
 let ir, catId, isNavOpen = true
 
 export default {
@@ -103,6 +104,30 @@ export default {
         }, 100)
       }
     },
+    *like({ payload }, {call, put}) {
+      const { sendid } = payload
+      
+      yield put({ type: 'likeSuccess', payload: { sendid } })
+
+      const data = yield call(like, {
+        sendagree: {
+          fellowid: '',
+          sendid,
+        }
+      })
+    },
+    *unlike({ payload }, {call, put}) {
+      const { sendid } = payload
+
+      yield put({ type: 'unlikeSuccess', payload: { sendid } })
+
+      const data = yield call(unlike, {
+        sendagree: {
+          fellowid: '',
+          sendid,
+        }
+      })
+    },
   },
   reducers: {
     querySuccess(state, action) {
@@ -124,6 +149,16 @@ export default {
     closeNav(state) {
       isNavOpen = false
       return { ...state, navOpen: false }
+    },
+    likeSuccess(state, action) {
+      const { sendid } = action.payload
+      const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: '1', heart_times: +item.heart_times + 1 } : item))
+      return { ...state, list }
+    },
+    unlikeSuccess(state, action) {
+      const { sendid } = action.payload
+      const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: '0', heart_times: +item.heart_times - 1 } : item))
+      return { ...state, list }
     },
   },
 }

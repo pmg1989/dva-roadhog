@@ -6,7 +6,16 @@ import utils from 'utils'
 import Loading from './Loading'
 import styles from './List.less'
 
-const List = ({ list, loading, token, linkTo }) => {
+const renderTimes = (times) => {
+  if(times > 999) {
+    return '+999'
+  } else if (times > 0) {
+    return times
+  }
+  return ''
+}
+
+const List = ({ list, tab = 0, loading, token, linkTo, like, unlike }) => {
   const LinkToDetail = (item) => {
     console.log(item.bbs_sendid)
     linkTo(`/bbs/detail/${item.bbs_sendid}?token=${token}`)
@@ -19,12 +28,12 @@ const List = ({ list, loading, token, linkTo }) => {
 
   const handleLike = (e, item) => {
     e.stopPropagation()
-    console.log('like', item)
+    like({ sendid: item.bbs_sendid, tab })
   }
 
   const handleUnLike = (e, item) => {
     e.stopPropagation()
-    console.log('unlike', item)
+    unlike({ sendid: item.bbs_sendid, tab })
   }
 
   return (
@@ -66,18 +75,18 @@ const List = ({ list, loading, token, linkTo }) => {
                       {item.like === '1' &&
                       <div className={classnames('flex-item', styles.like)} onClick={e => handleUnLike(e, item)}>
                         <span><Icon type={require('../../../svg/like.svg')} /></span>
-                        <span className={styles.count}>{item.heart_times}</span>
+                        <span className={styles.count}>{renderTimes(+item.heart_times)}</span>
                       </div>
                       }
                       {item.like === '0' &&
                       <div className={classnames('flex-item', styles.unlike)} onClick={e => handleLike(e, item)}>
                         <span><Icon type={require('../../../svg/unlike.svg')} /></span>
-                        <span className={styles.count}>{item.heart_times}</span>
+                        <span className={styles.count}>{renderTimes(+item.heart_times)}</span>
                       </div>
                       }
                       <div className={classnames('flex-item', styles.replay)}>
                         <span><Icon type={require('../../../svg/discu.svg')} /></span>
-                        <span className={styles.count}>{item.fellow_times}</span>
+                        <span className={styles.count}>{renderTimes(+item.fellow_times)}</span>
                       </div>
                       <div className={classnames('flex-item', styles.share)} onClick={e => handleShare(e, item)}>
                         <span><Icon type={require('../../../svg/share.svg')} /></span>
