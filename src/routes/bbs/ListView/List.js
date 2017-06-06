@@ -53,7 +53,7 @@ const List = ({ list, tab = 0, loading, token, linkTo, like, unlike }) => {
                   </div>
                   <div className={styles.middle}>
                     <p className={styles.title}>{item.title}</p>
-                    {/* <div className={styles.text} dangerouslySetInnerHTML={{__html: utils.renderContent(item.content)}}></div> */}
+                    <div className={styles.text} dangerouslySetInnerHTML={{__html: utils.renderContent(item.content)}}></div>
                   </div>
                   <div className={styles.bottom}>
                     <div className={styles.label_box}>
