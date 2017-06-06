@@ -54,8 +54,15 @@ const Routers = ({ history, app }) => {
       path: 'video',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
-          registerModel(app, require('./models/bbs/video'))
           cb(null, require('./routes/bbs/Video'))
+        }, 'bbs-video')
+      },
+    },
+    {
+      path: 'audio',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./routes/bbs/Audio'))
         }, 'bbs-video')
       },
     },

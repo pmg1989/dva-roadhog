@@ -31,7 +31,8 @@ export default {
             "jQuery": "./src/lib/jquery.2.1.4.min.js",
             "iScroll": "./src/lib/iscroll-probe.js",
             "iScrollRefresh": "./src/lib/iscroll-refresh.js",
-            "iScrollRefreshStyles": "./src/lib/iscroll-refresh.less"
+            "iScrollRefreshStyles": "./src/lib/iscroll-refresh.less",
+            "audioplayer": "./src/lib/audioplayer.js",
           }
         }]
       ],
@@ -55,7 +56,8 @@ export default {
             "jQuery": "./src/lib/jquery.2.1.4.min.js",
             "iScroll": "./src/lib/iscroll-probe.js",
             "iScrollRefresh": "./src/lib/iscroll-refresh.js",
-            "iScrollRefreshStyles": "./src/lib/iscroll-refresh.less"
+            "iScrollRefreshStyles": "./src/lib/iscroll-refresh.less",
+            "audioplayer": "./src/lib/audioplayer.js",
           }
         }]
       ],
