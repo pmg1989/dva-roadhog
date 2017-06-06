@@ -9,6 +9,7 @@ function queryString(value) {
   }
 }
 
+//获取分类ID图片
 function getCategoryImage(cid) {
   const dic = {
     1: 'https://o9u2lnvze.qnssl.com/upload/bcef7efd6fd47892dd275f7e9da49ed6.png?1495444468',
@@ -24,6 +25,7 @@ function getCategoryImage(cid) {
   return dic[cid] || dic[6]
 }
 
+//获取发布BBS距离当前的时间
 const minute = 1000 * 60
 const hour = minute * 60
 const day = hour * 24
@@ -65,8 +67,19 @@ function renderDate(timespan) {
 	return result
 }
 
+//点赞/评论数
+function renderTimes(times) {
+  if (times > 999) {
+    return '+999'
+  } else if (times > 0) {
+    return times
+  }
+  return ''
+}
+
 export default {
   queryString,
   getCategoryImage,
   renderDate,
+  renderTimes,
 }
