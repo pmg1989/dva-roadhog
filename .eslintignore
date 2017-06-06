@@ -1,4 +1,5 @@
 /src/lib/**
 /src/utils/utils.js
+/src/utils/global.js
 /src/models/bbs/index.js
 /src/models/bbs/category.js

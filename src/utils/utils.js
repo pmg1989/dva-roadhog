@@ -77,9 +77,15 @@ function renderTimes(times) {
   return ''
 }
 
+//详情内容过滤
+function renderContent(content) {
+  return content
+}
+
 export default {
   queryString,
   getCategoryImage,
   renderDate,
   renderTimes,
+  renderContent,
 }

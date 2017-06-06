@@ -27,7 +27,8 @@ const Content = ({ token, item }) => {
           </div>
           <div className={styles.middle}>
             <p className={styles.title}>{item.title}</p>
-            {/* <div className={styles.text} dangerouslySetInnerHTML={{__html: item.content}}></div> */}
+            {/* <iframe width="100%" height="100%" frameBorder="0" scrolling="yes" onload="setWinHeight(this)" src="/video.html?video=http://bbs.nwbasset.com/Fho4qcj9lDlgi0XXePR3FwMTfcZz"></iframe> */}
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
           </div>
           <div className={styles.bottom}>
             <div className={styles.label_box}>

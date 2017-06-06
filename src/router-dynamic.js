@@ -47,16 +47,26 @@ const Routers = ({ history, app }) => {
             }, 'bbs-detail')
           },
         },
-        {
-          path: '*',
-          name: 'error',
-          getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-              cb(null, require('./routes/Error'))
-            }, 'error')
-          },
-        },
+
       ],
+    },
+    {
+      path: 'video.html',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          registerModel(app, require('./models/bbs/video'))
+          cb(null, require('./routes/bbs/Video'))
+        }, 'bbs-video')
+      },
+    },
+    {
+      path: '*',
+      name: 'error',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          cb(null, require('./routes/Error'))
+        }, 'error')
+      },
     },
   ]
 
