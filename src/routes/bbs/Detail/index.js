@@ -6,7 +6,7 @@ import ReplayList from './ReplayList'
 
 const Detail = ({ dispatch, location, bbsDetail }) => {
   const { query: { token } } = location
-  const { item, dataSource, hasMore } = bbsDetail
+  const { item, dataSource, total, hasMore } = bbsDetail
 
   const contentProps = {
     token,
@@ -15,9 +15,13 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
 
   const replayListProps = {
     dataSource,
+    total,
     hasMore,
     queryMoreList() {
       dispatch({ type: 'bbsDetail/queryMoreReplayList' })
+    },
+    changeOrderBy(orderby) {
+      dispatch({ type: 'bbsDetail/changeOrderBy', payload: { orderby } })
     },
   }
 

@@ -10,6 +10,8 @@ export default {
     page: 1,
     count: 10,
     hasMore: true,
+    total: 0,
+    orderby: 'dateAsc',
     dataSource: [],
   },
   subscriptions: {
@@ -31,29 +33,48 @@ export default {
         yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0] } })
       }
     },
+    *changeOrderBy({ payload }, { put, select }) {
+      const { sendid } = yield select(state => state.bbsDetail)
+      yield put({ type: 'changeOrderBySuccess', payload })
+      yield put({ type: 'queryReplayList', payload: { id: sendid } })
+    },
     *queryReplayList({ payload }, { call, put, select }) {
-      const { count } = yield select(state => state.bbsDetail)
+      const { count, orderby } = yield select(state => state.bbsDetail)
       const data = yield call(getReplayList, {
         sendid: payload.id,
-        orderby: 'dateAsc',
+        orderby,
         page: 1,
         count,
       })
       if (data.success) {
-        yield put({ type: 'queryReplayListSuccess', payload: { dataSource: data.fellows, page: 2, sendid: payload.id, hasMore: data.fellows.length < +data.count } })
+        yield put({ type: 'queryReplayListSuccess',
+          payload: {
+            dataSource: data.fellows,
+            page: 2,
+            total: +data.count,
+            sendid: payload.id,
+            hasMore: data.fellows.length < +data.count,
+          },
+        })
       }
     },
     *queryMoreReplayList({ payload }, { call, put, select }) {
-      const { sendid, page, count } = yield select(state => state.bbsDetail)
+      const { sendid, page, count, orderby } = yield select(state => state.bbsDetail)
       const data = yield call(getReplayList, {
         sendid,
-        orderby: 'dateAsc',
+        orderby,
         page,
         count,
       })
       if (data.success) {
         const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
-        yield put({ type: 'queryMoreReplayListSuccess', payload: { dataSource: data.fellows, page: page + 1, hasMore } })
+        yield put({ type: 'queryMoreReplayListSuccess',
+          payload: {
+            dataSource: data.fellows,
+            page: page + 1,
+            hasMore,
+          },
+        })
       }
     },
   },
@@ -67,6 +88,10 @@ export default {
     queryMoreReplayListSuccess(state, action) {
       const { dataSource, page, hasMore } = action.payload
       return { ...state, dataSource: [...state.dataSource, ...dataSource], page, hasMore }
+    },
+    changeOrderBySuccess(state, action) {
+      const { orderby } = action.payload
+      return { ...state, orderby }
     },
   },
 }

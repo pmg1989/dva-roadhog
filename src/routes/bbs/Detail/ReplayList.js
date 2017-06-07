@@ -51,6 +51,29 @@ class ReplayList extends Component {
   }
 
   render() {
+    const ListHeader = () => {
+      const { total } = this.props
+
+      const handleChange = (e) => {
+        this.props.changeOrderBy(e.target.value)
+      }
+
+      return (
+        <div className={classnames('flex-box', styles.header)}>
+          <div className="flex-item">
+            评论&nbsp;(共<span>{total}</span>条)
+          </div>
+          <div className={classnames('flex-item', styles.filter_box)}>
+            <select className={styles.filter} defaultValue="dateAsc" onChange={handleChange}>
+              <option value="dateAsc">按时间正序</option>
+              <option value="dateDesc">按时间倒序</option>
+              <option value="onlyHost">只看楼主</option>
+            </select>
+          </div>
+        </div>
+      )
+    }
+
     const row = (item, sectionID, rowID) => {
       return (
         <div key={rowID} className="flex-box list-view-row">
@@ -93,7 +116,7 @@ class ReplayList extends Component {
     return (
       <ListView
         dataSource={this.state.dataSource}
-        renderHeader={() => <span>header</span>}
+        renderHeader={ListHeader}
         renderFooter={() => (
           <div style={{ textAlign: 'center', paddingTop: '6px' }}>
             {this.state.isLoading ? <Icon type="loading" /> : '没有更多数据了~'}

@@ -3,13 +3,34 @@
 .replay_list {
 
   :global {
+    .am-list-header {
+      padding: 0;
+    }
+
     .am-list-body {
       border-top: none;
     }
 
     .list-view-row {
-      padding: 30px;
+      padding: 30px 30px 60px;
       border-bottom: 1px solid #f3f3f3;
+    }
+  }
+
+  .header {
+    line-height: 2.5;
+    padding: 0 30px;
+    background-color: #f3f3f3;
+    color: #666;
+
+    .filter_box {
+      text-align: right;
+
+      .filter {
+        color: @nb-blue;
+        border: none;
+        background-color: transparent;
+      }
     }
   }
 
@@ -78,7 +99,6 @@
   }
 
   .middle {
-    margin-bottom: 40px;
 
     .text {
       font-size: 28px;
