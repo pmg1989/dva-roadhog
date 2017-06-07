@@ -106,10 +106,10 @@ export default {
     },
     *like({ payload }, {call, put}) {
       const { sendid } = payload
-      
+
       yield put({ type: 'likeSuccess', payload: { sendid } })
 
-      const data = yield call(like, {
+      yield call(like, {
         sendagree: {
           fellowid: '',
           sendid,
@@ -121,7 +121,7 @@ export default {
 
       yield put({ type: 'unlikeSuccess', payload: { sendid } })
 
-      const data = yield call(unlike, {
+      yield call(unlike, {
         sendagree: {
           fellowid: '',
           sendid,

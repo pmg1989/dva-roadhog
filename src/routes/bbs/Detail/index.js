@@ -23,6 +23,12 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
     changeOrderBy(orderby) {
       dispatch({ type: 'bbsDetail/changeOrderBy', payload: { orderby } })
     },
+    like({ fellowid }) {
+      dispatch({ type: 'bbsDetail/like', payload: { fellowid } })
+    },
+    unlike({ fellowid }) {
+      dispatch({ type: 'bbsDetail/unlike', payload: { fellowid } })
+    },
   }
 
   return (

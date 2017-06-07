@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 import { getDetail, getReplayList } from '../../services/bbs/detail'
+import { like, unlike } from '../../services/bbs/base'
 
 export default {
   namespace: 'bbsDetail',
@@ -77,6 +78,32 @@ export default {
         })
       }
     },
+    *like({ payload }, { call, put, select }) {
+      const { fellowid } = payload
+      const { sendid } = yield select(state => state.bbsDetail)
+
+      yield put({ type: 'likeSuccess', payload: { fellowid } })
+
+      yield call(like, {
+        sendagree: {
+          fellowid,
+          sendid,
+        },
+      })
+    },
+    *unlike({ payload }, { call, put, select }) {
+      const { fellowid } = payload
+      const { sendid } = yield select(state => state.bbsDetail)
+
+      yield put({ type: 'unlikeSuccess', payload: { fellowid } })
+
+      yield call(unlike, {
+        sendagree: {
+          fellowid,
+          sendid,
+        },
+      })
+    },
   },
   reducers: {
     queryDetailSuccess(state, action) {
@@ -92,6 +119,16 @@ export default {
     changeOrderBySuccess(state, action) {
       const { orderby } = action.payload
       return { ...state, orderby }
+    },
+    likeSuccess(state, action) {
+      const { fellowid } = action.payload
+      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '1', hearttimes: +item.hearttimes + 1 } : item))
+      return { ...state, dataSource }
+    },
+    unlikeSuccess(state, action) {
+      const { fellowid } = action.payload
+      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '0', hearttimes: +item.hearttimes - 1 } : item))
+      return { ...state, dataSource }
     },
   },
 }
