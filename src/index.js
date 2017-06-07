@@ -16,13 +16,13 @@ const app = dva({
 // 2. Model
 app.model(require('./models/app'))
 
-app.model(require('./models/bbs/index'))
-app.model(require('./models/bbs/category'))
-app.model(require('./models/bbs/detail'))
+// app.model(require('./models/bbs/index'))
+// app.model(require('./models/bbs/category'))
+// app.model(require('./models/bbs/detail'))
 
 // 3. Router
-app.router(require('./router'))
-// app.router(require('./router-dynamic'))
+// app.router(require('./router'))
+app.router(require('./router-dynamic'))
 
 // 4. Start
 app.start('#root')
