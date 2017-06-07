@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import classnames from 'classnames'
 import { ListView, Icon } from 'antd-mobile'
+import utils from 'utils'
 import styles from './ReplayList.less'
 
 class ReplayList extends Component {
@@ -38,15 +40,50 @@ class ReplayList extends Component {
     }
   }
 
+  handleLike(e, item) {
+    e.stopPropagation()
+    this.props.like({ fellowid: item.bbsfellowid })
+  }
+
+  handleUnLike(e, item) {
+    e.stopPropagation()
+    this.props.unlike({ fellowid: item.bbsfellowid })
+  }
+
   render() {
-    const row = (rowData, sectionID, rowID) => {
+    const row = (item, sectionID, rowID) => {
       return (
-        <div key={rowID} className="row">
-          <div className="row-title">{rowData.username}</div>
-          <div style={{ display: 'flex', padding: '0.3rem 0' }}>
-            <img style={{ height: '1.28rem', marginRight: '0.3rem' }} src={rowData.userimg} alt="icon" />
-            <div className="row-text">
-              <div><span style={{ fontSize: '0.6rem', color: '#FF6E27' }}>{rowData.bbsfellowid}</span></div>
+        <div key={rowID} className="flex-box list-view-row">
+          <div className={styles.thumb_box}>
+            <img src={item.userimg} alt={item.username} />
+          </div>
+          <div className={classnames('flex-item', styles.right_box)}>
+            <div className={classnames('flex-box', styles.top)}>
+              <div className="flex-item">
+                <span className={styles.name}>{item.username}</span><br />
+                <span className={styles.date}>{utils.renderDate(item.senddate)}</span>
+              </div>
+              <div className={classnames('flex-box', styles.opt_box)}>
+                {item.like === '1' &&
+                <div className={classnames('flex-item', styles.like)} onClick={e => this.handleUnLike(e, item)}>
+                  <span><Icon type={require('../../../svg/like.svg')} /></span>
+                  <span className={styles.count}>{utils.renderTimes(+item.hearttimes)}</span>
+                </div>
+                }
+                {item.like === '0' &&
+                <div className={classnames('flex-item', styles.unlike)} onClick={e => this.handleLike(e, item)}>
+                  <span><Icon type={require('../../../svg/unlike.svg')} /></span>
+                  <span className={styles.count}>{utils.renderTimes(+item.hearttimes)}</span>
+                </div>
+                }
+                <div className={classnames('flex-item', styles.replay)}>
+                  <span><Icon type={require('../../../svg/discu.svg')} /></span>
+                  <span className={styles.count}>{utils.renderTimes(+item.fellowtimes)}</span>
+                </div>
+              </div>
+            </div>
+            <div className={styles.middle}>
+              <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
             </div>
           </div>
         </div>
