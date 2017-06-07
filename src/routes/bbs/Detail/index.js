@@ -3,6 +3,7 @@ import { connect } from 'dva'
 import HeaderPopup from './HeaderPopup'
 import Content from './Content'
 import ReplayList from './ReplayList'
+import Footer from './Footer'
 
 const Detail = ({ dispatch, location, bbsDetail }) => {
   const { query: { token } } = location
@@ -32,10 +33,11 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
   }
 
   return (
-    <div>
+    <div style={{ paddingBottom: 65 }}>
       <HeaderPopup />
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
+      <Footer />
     </div>
   )
 }
