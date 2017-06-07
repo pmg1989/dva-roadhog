@@ -6,3 +6,10 @@ export async function getDetail(id, params) {
     data: params,
   })
 }
+
+export async function getReplayList(params) {
+  return request('/v2/getfellows-one', {
+    method: 'get',
+    data: params,
+  })
+}
