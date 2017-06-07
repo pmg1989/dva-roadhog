@@ -52,7 +52,7 @@ export default {
         count,
       })
       if (data.success) {
-        const hasMore = (page - 1) * count + data.fellows.length < +data.count
+        const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
         yield put({ type: 'queryMoreReplayListSuccess', payload: { dataSource: data.fellows, page: page + 1, hasMore } })
       }
     },
