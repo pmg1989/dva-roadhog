@@ -67,10 +67,13 @@ export default {
     },
   },
   effects: {
-    *queryCategory({ payload }, { call, put }) {
-      const data = yield call(getCategory)
-      if (data.success) {
-        yield put({ type: 'queryCategorySuccess', payload: { categories: data.categories } })
+    *queryCategory({ payload }, { call, put, select }) {
+      const { categories } = yield select(state => state.bbsIndex)
+      if(!categories.length) {
+        const data = yield call(getCategory)
+        if (data.success) {
+          yield put({ type: 'queryCategorySuccess', payload: { categories: data.categories } })
+        }
       }
     },
     *initData({ payload }, { call, put }) {

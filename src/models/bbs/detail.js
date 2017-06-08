@@ -17,10 +17,11 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      history.listen((location) => {
+      history.listen(() => {
         const match = pathToRegexp('/bbs/detail/:id').exec(location.pathname)
         if (match) {
           const id = match[1]
+          dispatch({ type: 'app/queryUser' })
           dispatch({ type: 'queryDetail', payload: { id } })
         }
       })
