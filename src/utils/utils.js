@@ -9,6 +9,18 @@ function queryString(value) {
   }
 }
 
+function isIOS() {
+  return /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
+}
+
+function isAndroid() {
+  return /(Android)/i.test(navigator.userAgent)
+}
+
+function isApp() {
+  return isIOS() || isAndroid()
+}
+
 //获取分类ID图片
 function getCategoryImage(cid) {
   const dic = {
@@ -90,6 +102,9 @@ function renderContent(content) {
 
 export default {
   queryString,
+  isIOS: isIOS(),
+  isAndroid: isAndroid(),
+  isApp: isApp(),
   getCategoryImage,
   renderDate,
   renderTimes,

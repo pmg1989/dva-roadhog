@@ -2,7 +2,7 @@ import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import utils from 'utils'
 import { getDetail, getReplayList, deleteSend } from '../../services/bbs/detail'
-import { like, unlike } from '../../services/bbs/base'
+import { like, unlike, deleteSendFellow } from '../../services/bbs/base'
 
 export default {
   namespace: 'bbsDetail',
@@ -143,6 +143,13 @@ export default {
         }))
       }
     },
+    *deleteReplay({ payload }, { call, put }) {
+      const { fellowid } = payload
+      const data = yield call(deleteSendFellow, fellowid)
+      if (data.success) {
+        yield put({ type: 'deleteReplaySuccess', payload: { fellowid } })
+      }
+    },
   },
   reducers: {
     queryDetailSuccess(state, action) {
@@ -175,6 +182,11 @@ export default {
     unlikeReplaySuccess(state, action) {
       const { fellowid } = action.payload
       const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '0', hearttimes: +item.hearttimes - 1 } : item))
+      return { ...state, dataSource }
+    },
+    deleteReplaySuccess(state, action) {
+      const { fellowid } = action.payload
+      const dataSource = state.dataSource.filter(item => item.bbsfellowid !== fellowid)
       return { ...state, dataSource }
     },
   },

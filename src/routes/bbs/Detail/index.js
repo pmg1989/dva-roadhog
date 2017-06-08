@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Empty } from 'NbComponent'
+import { routerRedux } from 'dva/router'
 import HeaderPopup from './HeaderPopup'
 import Content from './Content'
 import ReplayList from './ReplayList'
@@ -9,11 +10,10 @@ import Footer from './Footer'
 const Detail = ({ dispatch, location, bbsDetail, user }) => {
   const { query: { token } } = location
   const { sendid, item, dataSource, total, hasMore, sendStatus } = bbsDetail
-  const showDelete = user.id === +item.user_id
 
   const headerProps = {
     sendStatus,
-    showDelete,
+    showDelete: user.id === +item.user_id,
     deleteSend() {
       dispatch({ type: 'bbsDetail/deleteSend' })
     },
@@ -28,6 +28,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     dataSource,
     total,
     hasMore,
+    userId: user.id,
     queryMoreList() {
       dispatch({ type: 'bbsDetail/queryMoreReplayList' })
     },
@@ -39,6 +40,14 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     },
     unlikeReplay({ fellowid }) {
       dispatch({ type: 'bbsDetail/unlikeReplay', payload: { fellowid } })
+    },
+    linkToReplay({ fellowid }) {
+      dispatch(routerRedux.push({
+        pathname: `/replay?replay_id=${fellowid}&sendid=${sendid}&token=${token}`,
+      }))
+    },
+    deleteReplay({ fellowid }) {
+      dispatch({ type: 'bbsDetail/deleteReplay', payload: { fellowid } })
     },
   }
 

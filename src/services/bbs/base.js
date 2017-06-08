@@ -13,3 +13,10 @@ export async function unlike(params) {
     data: params,
   })
 }
+
+export async function deleteSendFellow(fellowid, params) {
+  return request(`v2/sendfellowdel/${fellowid}`, {
+    method: 'put',
+    data: params,
+  })
+}

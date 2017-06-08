@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
-import { ListView, Icon } from 'antd-mobile'
+import { ListView, Icon, ActionSheet, Modal, Toast } from 'antd-mobile'
 import utils from 'utils'
 import styles from './ReplayList.less'
+
+const alert = Modal.alert
 
 class ReplayList extends Component {
 
@@ -50,6 +52,54 @@ class ReplayList extends Component {
     this.props.unlikeReplay({ fellowid: item.bbsfellowid })
   }
 
+  handleRowClick(item) {
+    const isShowDelete = this.props.userId === +item.userid
+
+    let wrapProps = {}
+    if (utils.isIOS) {
+      wrapProps = {
+        onTouchStart: e => e.preventDefault(),
+      }
+    }
+
+    let BUTTONS = ['回复', '举报', '取消']
+    if (isShowDelete) {
+      BUTTONS = ['回复', '删除', '取消']
+    }
+    ActionSheet.showActionSheetWithOptions({
+      options: BUTTONS,
+      cancelButtonIndex: BUTTONS.length - 1,
+      destructiveButtonIndex: BUTTONS.length - 2,
+      maskClosable: true,
+      'data-seed': 'logId',
+      wrapProps,
+    },
+      (buttonIndex) => {
+        if (buttonIndex === 0) {
+          this.props.linkToReplay({ fellowid: item.bbsfellowid })
+        } else if (buttonIndex === 1) {
+          if (isShowDelete) {
+            alert('删除', '确定删除此贴吗?', [
+              { text: '取消' },
+              { text: '确定',
+                onPress: () => this.props.deleteReplay({ fellowid: item.bbsfellowid }),
+                style: { fontWeight: 'bold' },
+              },
+            ])
+          } else {
+            alert('举报', '确定举报此贴吗?', [
+              { text: '取消' },
+              { text: '确定',
+                onPress: () => Toast.success('举报成功!', 2),
+                style: { fontWeight: 'bold' },
+              },
+            ])
+          }
+        }
+      },
+    )
+  }
+
   render() {
     const ListHeader = () => {
       const { total } = this.props
@@ -76,7 +126,7 @@ class ReplayList extends Component {
 
     const row = (item, sectionID, rowID) => {
       return (
-        <div key={rowID} className="flex-box list-view-row">
+        <div key={rowID} className="flex-box list-view-row" onClick={() => this.handleRowClick(item)}>
           <div className={styles.thumb_box}>
             <img src={item.userimg} alt={item.username} />
           </div>
