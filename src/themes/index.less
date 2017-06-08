@@ -30,4 +30,45 @@
   .content {
     margin-top: 88px;
   }
+
+  .am-action-sheet-mask {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+  }
+
+  .am-action-sheet-wrap {
+
+    .am-action-sheet {
+      left: 30px;
+      right: 30px;
+      bottom: 30px;
+      width: e("calc(100vw - 60px)");
+      background-color: transparent;
+    }
+
+    .am-action-sheet-button-list-item {
+
+      &:first-child {
+        border-top-right-radius: 12px;
+        border-top-left-radius: 12px;
+      }
+
+      background-color: #fff;
+    }
+
+    .am-action-sheet-destructive-button {
+      border-bottom-right-radius: 12px;
+      border-bottom-left-radius: 12px;
+    }
+
+    .am-action-sheet-cancel-button {
+      border-radius: 12px;
+      border-top: none;
+    }
+
+    .am-action-sheet-cancel-button-mask {
+      height: 0 !important;
+      width: 0 !important;
+      border: none;
+    }
+  }
 }
