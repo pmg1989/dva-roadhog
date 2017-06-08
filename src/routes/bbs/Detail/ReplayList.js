@@ -42,12 +42,12 @@ class ReplayList extends Component {
 
   handleLike(e, item) {
     e.stopPropagation()
-    this.props.like({ fellowid: item.bbsfellowid })
+    this.props.likeReplay({ fellowid: item.bbsfellowid })
   }
 
   handleUnLike(e, item) {
     e.stopPropagation()
-    this.props.unlike({ fellowid: item.bbsfellowid })
+    this.props.unlikeReplay({ fellowid: item.bbsfellowid })
   }
 
   render() {

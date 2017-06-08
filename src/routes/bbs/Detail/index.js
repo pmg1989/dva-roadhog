@@ -7,7 +7,7 @@ import Footer from './Footer'
 
 const Detail = ({ dispatch, location, bbsDetail }) => {
   const { query: { token } } = location
-  const { item, dataSource, total, hasMore } = bbsDetail
+  const { sendid, item, dataSource, total, hasMore } = bbsDetail
 
   const contentProps = {
     token,
@@ -24,12 +24,18 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
     changeOrderBy(orderby) {
       dispatch({ type: 'bbsDetail/changeOrderBy', payload: { orderby } })
     },
-    like({ fellowid }) {
-      dispatch({ type: 'bbsDetail/like', payload: { fellowid } })
+    likeReplay({ fellowid }) {
+      dispatch({ type: 'bbsDetail/likeReplay', payload: { fellowid } })
     },
-    unlike({ fellowid }) {
-      dispatch({ type: 'bbsDetail/unlike', payload: { fellowid } })
+    unlikeReplay({ fellowid }) {
+      dispatch({ type: 'bbsDetail/unlikeReplay', payload: { fellowid } })
     },
+  }
+
+  const footerProps = {
+    token,
+    sendid,
+    item,
   }
 
   return (
@@ -37,7 +43,7 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
       <HeaderPopup />
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
-      <Footer />
+      <Footer {...footerProps}/>
     </div>
   )
 }

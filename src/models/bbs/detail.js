@@ -22,7 +22,6 @@ export default {
         if (match) {
           const id = match[1]
           dispatch({ type: 'queryDetail', payload: { id } })
-          dispatch({ type: 'queryReplayList', payload: { id } })
         }
       })
     },
@@ -32,6 +31,7 @@ export default {
       const data = yield call(getDetail, payload.id)
       if (data.success) {
         yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0] } })
+        yield put({ type: 'queryReplayList', payload: { id: payload.id } })
       }
     },
     *changeOrderBy({ payload }, { put, select }) {
@@ -78,11 +78,11 @@ export default {
         })
       }
     },
-    *like({ payload }, { call, put, select }) {
+    *likeReplay({ payload }, { call, put, select }) {
       const { fellowid } = payload
       const { sendid } = yield select(state => state.bbsDetail)
 
-      yield put({ type: 'likeSuccess', payload: { fellowid } })
+      yield put({ type: 'likeReplaySuccess', payload: { fellowid } })
 
       yield call(like, {
         sendagree: {
@@ -91,11 +91,11 @@ export default {
         },
       })
     },
-    *unlike({ payload }, { call, put, select }) {
+    *unlikeReplay({ payload }, { call, put, select }) {
       const { fellowid } = payload
       const { sendid } = yield select(state => state.bbsDetail)
 
-      yield put({ type: 'unlikeSuccess', payload: { fellowid } })
+      yield put({ type: 'unlikeReplaySuccess', payload: { fellowid } })
 
       yield call(unlike, {
         sendagree: {
@@ -120,12 +120,12 @@ export default {
       const { orderby } = action.payload
       return { ...state, orderby }
     },
-    likeSuccess(state, action) {
+    likeReplaySuccess(state, action) {
       const { fellowid } = action.payload
       const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '1', hearttimes: +item.hearttimes + 1 } : item))
       return { ...state, dataSource }
     },
-    unlikeSuccess(state, action) {
+    unlikeReplaySuccess(state, action) {
       const { fellowid } = action.payload
       const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '0', hearttimes: +item.hearttimes - 1 } : item))
       return { ...state, dataSource }
