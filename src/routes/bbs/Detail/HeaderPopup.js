@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Popover, Icon } from 'antd-mobile'
+import { Popover, Icon, Modal, Toast } from 'antd-mobile'
 import { Header } from '../../../components'
 import styles from './HeaderPopup.less'
 
 const Item = Popover.Item
+const alert = Modal.alert
 
 class HeaderPopup extends Component {
 
@@ -13,11 +14,36 @@ class HeaderPopup extends Component {
   }
 
   onSelect = (opt) => {
-    console.log(opt.props.value)
     this.setState({
       visible: false,
       selected: opt.props.value,
     })
+
+    switch (opt.props.value) {
+      case '1':
+        console.log("share")
+        break
+      case '2':
+        alert('举报', '确定举报此贴吗?', [
+          { text: '取消' },
+          { text: '确定',
+            onPress: () => Toast.success('举报成功!', 2),
+            style: { fontWeight: 'bold' }
+          },
+        ])
+        break
+      case '3':
+      alert('删除', '确定删除此贴吗?', [
+        { text: '取消' },
+        { text: '确定',
+          onPress: () => this.props.deleteSend(), 
+          style: { fontWeight: 'bold' }
+        },
+      ])
+        break
+      default:
+        break
+    }
   }
 
   handleVisibleChange = (visible) => {
@@ -27,17 +53,26 @@ class HeaderPopup extends Component {
   }
 
   render() {
+
+    const { showDelete } = this.props
+
+    const baseOverlay = ([
+      <Item key="1" value="1" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>分享</Item>,
+      <Item key="2" value="2" icon={<Icon type={require('../../../svg/release.svg')} size="xs" />}>举报</Item>,
+    ])
+
+    const Overlay = showDelete ? ([
+        ...baseOverlay,
+        <Item key="3" value="3" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>
+          <span style={{ marginRight: 5 }}>删除</span>
+        </Item>,
+      ]) : baseOverlay
+
     const headerProps = {
       rightContent: (
         <Popover
           visible={this.state.visible}
-          overlay={[
-              (<Item key="1" value="1" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>分享</Item>),
-              (<Item key="2" value="2" icon={<Icon type={require('../../../svg/release.svg')} size="xs" />}>举报</Item>),
-              (<Item key="3" value="3" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>
-                <span style={{ marginRight: 5 }}>删除</span>
-              </Item>),
-          ]}
+          overlay={Overlay}
           popupAlign={{
             overflow: { adjustY: 0, adjustX: 0 },
             offset: [-10, 10],

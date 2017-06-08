@@ -1,5 +1,7 @@
 import pathToRegexp from 'path-to-regexp'
-import { getDetail, getReplayList } from '../../services/bbs/detail'
+import { routerRedux } from 'dva/router'
+import utils from 'utils'
+import { getDetail, getReplayList, deleteSend } from '../../services/bbs/detail'
 import { like, unlike } from '../../services/bbs/base'
 
 export default {
@@ -128,6 +130,15 @@ export default {
           sendid,
         },
       })
+    },
+    *deleteSend({ payload }, { call, put, select }) {
+      const { sendid } = yield select(state => state.bbsDetail)
+      const data = yield call(deleteSend, sendid)
+      if (data.success) {
+        yield put(routerRedux.push({
+          pathname: `/?token=${utils.queryString('token')}`,
+        }))
+      }
     },
   },
   reducers: {

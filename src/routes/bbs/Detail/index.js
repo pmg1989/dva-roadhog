@@ -5,9 +5,17 @@ import Content from './Content'
 import ReplayList from './ReplayList'
 import Footer from './Footer'
 
-const Detail = ({ dispatch, location, bbsDetail }) => {
+const Detail = ({ dispatch, location, bbsDetail, user }) => {
   const { query: { token } } = location
   const { sendid, item, dataSource, total, hasMore } = bbsDetail
+  const showDelete = user.id === +item.user_id
+
+  const headerProps = {
+    showDelete,
+    deleteSend() {
+      dispatch({ type: 'bbsDetail/deleteSend' })
+    }
+  }
 
   const contentProps = {
     token,
@@ -46,7 +54,7 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
 
   return (
     <div style={{ paddingBottom: 65 }}>
-      <HeaderPopup />
+      <HeaderPopup {...headerProps}/>
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
       <Footer {...footerProps} />
@@ -54,4 +62,4 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
   )
 }
 
-export default connect(({ bbsDetail }) => ({ bbsDetail }))(Detail)
+export default connect(({ bbsDetail, app: { user } }) => ({ bbsDetail, user }))(Detail)

@@ -13,3 +13,10 @@ export async function getReplayList(params) {
     data: params,
   })
 }
+
+export async function deleteSend(sendId, params) {
+  return request(`v2/senddel/${sendId}`, {
+    method: 'put',
+    data: params,
+  })
+}
