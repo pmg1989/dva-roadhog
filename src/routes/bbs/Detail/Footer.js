@@ -6,7 +6,6 @@ import utils from 'utils'
 import styles from './Footer.less'
 
 const Footer = ({ share, token, sendid, item, like, unlike }) => {
-
   const ReplayFooter = () => (
     <div className="flex-box">
       <div className="flex-item">
@@ -34,7 +33,7 @@ const Footer = ({ share, token, sendid, item, like, unlike }) => {
     </div>
   )
 
-  const ShareFooter =() => (
+  const ShareFooter = () => (
     <a className={styles.btn_to_app} href="http://a.app.qq.com/o/simple.jsp?pkgname=com.newband">
       去牛班聊音乐
     </a>
@@ -42,7 +41,7 @@ const Footer = ({ share, token, sendid, item, like, unlike }) => {
 
   return (
     <div className={styles.fixed}>
-      { !!share ? <ShareFooter /> : <ReplayFooter /> }
+      { share ? <ShareFooter /> : <ReplayFooter /> }
     </div>
   )
 }
