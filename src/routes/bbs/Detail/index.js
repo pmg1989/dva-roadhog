@@ -36,6 +36,12 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
     token,
     sendid,
     item,
+    like() {
+      dispatch({ type: 'bbsDetail/like' })
+    },
+    unlike() {
+      dispatch({ type: 'bbsDetail/unlike' })
+    },
   }
 
   return (
@@ -43,7 +49,7 @@ const Detail = ({ dispatch, location, bbsDetail }) => {
       <HeaderPopup />
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
-      <Footer {...footerProps}/>
+      <Footer {...footerProps} />
     </div>
   )
 }

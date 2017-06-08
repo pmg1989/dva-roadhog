@@ -5,16 +5,7 @@ import { Icon } from 'antd-mobile'
 import utils from 'utils'
 import styles from './Footer.less'
 
-const Footer = ({ token, sendid, item }) => {
-
-  const handleLike = (e) => {
-    console.log(e);
-  }
-
-  const handleUnLike = (e) => {
-    console.log(e);
-  }
-
+const Footer = ({ token, sendid, item, like, unlike }) => {
   return (
     <div className={styles.fixed}>
       <div className="flex-box">
@@ -25,13 +16,13 @@ const Footer = ({ token, sendid, item }) => {
         </div>
         <div className={classnames('flex-box', styles.opt_box)}>
           {item.like === '1' &&
-          <div className={classnames('flex-item', styles.like)} onClick={handleUnLike}>
+          <div className={classnames('flex-item', styles.like)} onClick={unlike}>
             <span><Icon type={require('../../../svg/like.svg')} /></span>
             <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
           </div>
           }
           {item.like === '0' &&
-          <div className={classnames('flex-item', styles.unlike)} onClick={handleLike}>
+          <div className={classnames('flex-item', styles.unlike)} onClick={like}>
             <span><Icon type={require('../../../svg/unlike.svg')} /></span>
             <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
           </div>

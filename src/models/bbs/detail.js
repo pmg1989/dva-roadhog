@@ -78,6 +78,30 @@ export default {
         })
       }
     },
+    *like({ payload }, { call, put, select }) {
+      const { sendid } = yield select(state => state.bbsDetail)
+
+      yield put({ type: 'likeSuccess' })
+
+      yield call(like, {
+        sendagree: {
+          fellowid: '',
+          sendid,
+        },
+      })
+    },
+    *unlike({ payload }, { call, put, select }) {
+      const { sendid } = yield select(state => state.bbsDetail)
+
+      yield put({ type: 'unlikeSuccess' })
+
+      yield call(unlike, {
+        sendagree: {
+          fellowid: '',
+          sendid,
+        },
+      })
+    },
     *likeReplay({ payload }, { call, put, select }) {
       const { fellowid } = payload
       const { sendid } = yield select(state => state.bbsDetail)
@@ -119,6 +143,14 @@ export default {
     changeOrderBySuccess(state, action) {
       const { orderby } = action.payload
       return { ...state, orderby }
+    },
+    likeSuccess(state) {
+      const { item } = state
+      return { ...state, item: { ...item, like: '1', heart_times: +item.heart_times + 1 } }
+    },
+    unlikeSuccess(state) {
+      const { item } = state
+      return { ...state, item: { ...item, like: '0', heart_times: +item.heart_times - 1 } }
     },
     likeReplaySuccess(state, action) {
       const { fellowid } = action.payload
