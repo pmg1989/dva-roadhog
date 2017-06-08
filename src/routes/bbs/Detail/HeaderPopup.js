@@ -21,25 +21,25 @@ class HeaderPopup extends Component {
 
     switch (opt.props.value) {
       case '1':
-        console.log("share")
+        console.log('share')
         break
       case '2':
         alert('举报', '确定举报此贴吗?', [
           { text: '取消' },
           { text: '确定',
             onPress: () => Toast.success('举报成功!', 2),
-            style: { fontWeight: 'bold' }
+            style: { fontWeight: 'bold' },
           },
         ])
         break
       case '3':
-      alert('删除', '确定删除此贴吗?', [
-        { text: '取消' },
-        { text: '确定',
-          onPress: () => this.props.deleteSend(), 
-          style: { fontWeight: 'bold' }
-        },
-      ])
+        alert('删除', '确定删除此贴吗?', [
+          { text: '取消' },
+          { text: '确定',
+            onPress: () => this.props.deleteSend(),
+            style: { fontWeight: 'bold' },
+          },
+        ])
         break
       default:
         break
@@ -53,7 +53,6 @@ class HeaderPopup extends Component {
   }
 
   render() {
-
     const { showDelete } = this.props
 
     const baseOverlay = ([
@@ -62,11 +61,11 @@ class HeaderPopup extends Component {
     ])
 
     const Overlay = showDelete ? ([
-        ...baseOverlay,
-        <Item key="3" value="3" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>
-          <span style={{ marginRight: 5 }}>删除</span>
-        </Item>,
-      ]) : baseOverlay
+      ...baseOverlay,
+      <Item key="3" value="3" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>
+        <span style={{ marginRight: 5 }}>删除</span>
+      </Item>,
+    ]) : baseOverlay
 
     const headerProps = {
       rightContent: (

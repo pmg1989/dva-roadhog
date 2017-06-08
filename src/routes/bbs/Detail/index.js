@@ -14,7 +14,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     showDelete,
     deleteSend() {
       dispatch({ type: 'bbsDetail/deleteSend' })
-    }
+    },
   }
 
   const contentProps = {
@@ -54,7 +54,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
 
   return (
     <div style={{ paddingBottom: 65 }}>
-      <HeaderPopup {...headerProps}/>
+      <HeaderPopup {...headerProps} />
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
       <Footer {...footerProps} />
