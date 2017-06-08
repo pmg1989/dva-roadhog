@@ -38,7 +38,7 @@ function handelData(res) {
   NProgress.done()
   const data = res.data
   if (data && data.message !== 'Success') {
-    Toast.fail(data.msg)
+    Toast.fail(data.msg, 1)
     return { success: false }
   }
   // else if(data && data.msg && data.success) {
@@ -51,14 +51,14 @@ function handleError(error) {
   NProgress.done()
   const data = error.response.data
   if (data.errors) {
-    Toast.fail(`${data.message}：${data.errors}`)
+    Toast.fail(`${data.message}：${data.errors}`, 1)
   } else if (data.error) {
-    Toast.fail(`${data.error}：${data.error_description}`)
+    Toast.fail(`${data.error}：${data.error_description}`, 1)
     if (data.error === 'invalid_grant') {
       console.log('invalid_grant')
     }
   } else {
-    Toast.fail('未知错误！')
+    Toast.fail('未知错误！', 1)
   }
   return { success: false }
 }

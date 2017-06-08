@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
+import { Empty } from 'NbComponent'
 import HeaderPopup from './HeaderPopup'
 import Content from './Content'
 import ReplayList from './ReplayList'
@@ -7,10 +8,11 @@ import Footer from './Footer'
 
 const Detail = ({ dispatch, location, bbsDetail, user }) => {
   const { query: { token } } = location
-  const { sendid, item, dataSource, total, hasMore } = bbsDetail
+  const { sendid, item, dataSource, total, hasMore, sendStatus } = bbsDetail
   const showDelete = user.id === +item.user_id
 
   const headerProps = {
+    sendStatus,
     showDelete,
     deleteSend() {
       dispatch({ type: 'bbsDetail/deleteSend' })
@@ -53,11 +55,12 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
   }
 
   return (
-    <div style={{ paddingBottom: 65 }}>
+    <div style={sendStatus === 1 ? { paddingBottom: 65 } : {}}>
       <HeaderPopup {...headerProps} />
-      <Content {...contentProps} />
-      <ReplayList {...replayListProps} />
-      <Footer {...footerProps} />
+      {sendStatus === 1 && <Content {...contentProps} />}
+      {sendStatus === 1 && <ReplayList {...replayListProps} />}
+      {sendStatus === 1 && <Footer {...footerProps} />}
+      {sendStatus === 0 && <Empty><p>该帖子已被用户删除</p></Empty>}
     </div>
   )
 }

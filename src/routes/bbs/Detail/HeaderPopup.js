@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Popover, Icon, Modal, Toast } from 'antd-mobile'
-import { Header } from '../../../components'
+import { Header } from 'NbComponent'
 import styles from './HeaderPopup.less'
 
 const Item = Popover.Item
@@ -53,7 +53,7 @@ class HeaderPopup extends Component {
   }
 
   render() {
-    const { showDelete } = this.props
+    const { showDelete, sendStatus } = this.props
 
     const baseOverlay = ([
       <Item key="1" value="1" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>分享</Item>,
@@ -67,7 +67,7 @@ class HeaderPopup extends Component {
       </Item>,
     ]) : baseOverlay
 
-    const headerProps = {
+    const headerProps = sendStatus ? {
       rightContent: (
         <Popover
           visible={this.state.visible}
@@ -84,7 +84,7 @@ class HeaderPopup extends Component {
           </div>
         </Popover>
       ),
-    }
+    } : {}
 
     return (
       <Header {...headerProps}>帖子详情</Header>

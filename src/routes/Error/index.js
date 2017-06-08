@@ -1,18 +1,15 @@
 import React from 'react'
-import { Result, Icon, WingBlank } from 'antd-mobile'
-import { Header } from '../../components'
+import { Header, Empty } from 'NbComponent'
 
-const Error = () => (
-  <div>
-    <Header>404 Not Found</Header>
-    <WingBlank size="md">
-      <Result
-        img={<Icon type={require('../../svg/cry.svg')} className="icon" />}
-        title="404 Not Found"
-        message={'啊哦~一不小心闯进了未知领域，请点击下面按钮返回首页......'}
-      />
-    </WingBlank>
-  </div>
-)
+const Error = () => {
+  return (
+    <div>
+      <Header>404 Not Found</Header>
+      <Empty>
+        <p>抱歉您访问的页面不存在</p>
+      </Empty>
+    </div>
+  )
+}
 
 export default Error

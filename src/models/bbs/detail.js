@@ -8,6 +8,7 @@ export default {
   namespace: 'bbsDetail',
   state: {
     item: {},
+    sendStatus: 1, // 帖子的删除状态 1:未删除  0: 删除
     isLoading: false,
     sendid: null,
     page: 1,
@@ -33,8 +34,10 @@ export default {
     *queryDetail({ payload }, { call, put }) {
       const data = yield call(getDetail, payload.id)
       if (data.success) {
-        yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0] } })
+        yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0], sendStatus: 1 } })
         yield put({ type: 'queryReplayList', payload: { id: payload.id } })
+      } else {
+        yield put({ type: 'queryDetailSuccess', payload: { sendStatus: 0 } })
       }
     },
     *changeOrderBy({ payload }, { put, select }) {
