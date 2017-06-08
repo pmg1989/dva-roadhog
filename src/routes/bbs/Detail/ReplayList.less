@@ -12,7 +12,7 @@
     }
 
     .list-view-row {
-      padding: 30px 30px 60px;
+      padding: 30px 30px 50px;
       border-bottom: 1px solid #f3f3f3;
     }
   }
@@ -99,6 +99,7 @@
   }
 
   .middle {
+    margin-bottom: 30px;
 
     .text {
       font-size: 28px;
@@ -113,6 +114,40 @@
         height: 0.8rem !important;
         margin: 0.2rem 0 !important;
       }
+    }
+  }
+}
+
+.inner_box {
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  line-height: 1.8;
+  font-size: 30px;
+  color: #666;
+
+  dl, dd {
+    margin: 0;
+  }
+
+  .inner_name {
+    float: left;
+    .ellipsis(2rem);
+  }
+
+  .inner_text {
+
+  }
+
+  .inner_total {
+    color: @nb-blue;
+  }
+
+  :global {
+    #userName {
+      display: inline;
+      color: @nb-blue;
     }
   }
 }

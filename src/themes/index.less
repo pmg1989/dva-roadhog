@@ -18,6 +18,15 @@
     list-style: none;
   }
 
+  .clear-fix {
+    *zoom: 1;
+  }
+  .clear-fix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
   .am-navbar-dark {
     transition: background-color .25s ease;
     transition-delay: .25s;

@@ -25,6 +25,8 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
   }
 
   const replayListProps = {
+    sendid,
+    token,
     dataSource,
     total,
     hasMore,

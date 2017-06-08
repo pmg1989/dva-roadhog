@@ -1,10 +1,37 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { Link } from 'dva/router'
 import { ListView, Icon, ActionSheet, Modal, Toast } from 'antd-mobile'
 import utils from 'utils'
 import styles from './ReplayList.less'
 
 const alert = Modal.alert
+
+const ReplayInner = ({ item, token, sendid }) => {
+
+  // const renderHtml = (item) => {
+  //   const userStr = `<span id="userName">@${item.parentusername}</span>`
+  //   return userStr + item.content
+  // }
+
+  return (
+    <div className={styles.inner_box}>
+      {item.fellow_two_list.length > 0 && item.fellow_two_list.map((cur, key) => (
+        <dl className="clear-fix" key={key}>
+          <dt style={{ float: 'left' }}><span className={styles.inner_name}>{cur.name}</span>：</dt>
+          <dd className={styles.inner_text} dangerouslySetInnerHTML={{ __html: utils.renderContent(cur.content) }}>
+          </dd>
+        </dl>
+      ))}
+      {+item.fellow_two_total > 0 &&
+       <Link className={styles.inner_total}
+         to={`/replay-list?fellowid=${item.bbsfellowid}&sendid=${sendid}&token=${token}`}
+         onClick={(e) => e.stopPropagation()}
+         >共{item.fellow_two_total}条回复&nbsp;&gt;&gt;</Link>
+      }
+    </div>
+  )
+}
 
 class ReplayList extends Component {
 
@@ -157,6 +184,9 @@ class ReplayList extends Component {
             </div>
             <div className={styles.middle}>
               <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
+            </div>
+            <div className={styles.bottom}>
+              {item.fellow_two_list.length > 0 && <ReplayInner item={item} token={this.props.token} sendid={this.props.sendid}/>}
             </div>
           </div>
         </div>
