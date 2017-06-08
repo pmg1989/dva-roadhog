@@ -8,7 +8,7 @@ import ReplayList from './ReplayList'
 import Footer from './Footer'
 
 const Detail = ({ dispatch, location, bbsDetail, user }) => {
-  const { query: { token } } = location
+  const { query: { token, share } } = location
   const { sendid, item, dataSource, total, hasMore, sendStatus } = bbsDetail
 
   const headerProps = {
@@ -54,6 +54,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
   }
 
   const footerProps = {
+    share,
     token,
     sendid,
     item,
