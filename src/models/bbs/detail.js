@@ -9,7 +9,7 @@ export default {
   state: {
     item: {},
     sendStatus: 1, // 帖子的删除状态 1:未删除  0: 删除
-    share: false,  //帖子的分享状态 true:分享打开的 0: app内打开的
+    share: false,  // 帖子的分享状态 true:分享打开的 0: app内打开的
     isLoading: false,
     sendid: null,
     page: 1,
@@ -26,7 +26,7 @@ export default {
         if (match) {
           const sendid = match[1]
           const share = utils.queryString('share')
-          if(share === '1') {
+          if (share === '1') {
             dispatch({ type: 'queryDetail', payload: { sendid, share: true } })
           } else {
             dispatch({ type: 'app/queryUser' })
