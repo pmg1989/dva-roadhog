@@ -3,7 +3,7 @@ import { connect } from 'dva'
 import { Header } from 'NbComponent'
 import { routerRedux } from 'dva/router'
 import Content from './Content'
-// import ReplayList from './ReplayList'
+import ReplayList from './ReplayList'
 import Footer from './Footer'
 
 const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
@@ -22,35 +22,35 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
     },
   }
 
-  // const replayListProps = {
-  //   sendid,
-  //   token,
-  //   dataSource,
-  //   total,
-  //   hasMore,
-  //   userId: user.id,
-  //   queryMoreList() {
-  //     dispatch({ type: 'bbsDetail/queryMoreReplayList' })
-  //   },
-  //   changeOrderBy(orderby) {
-  //     dispatch({ type: 'bbsDetail/changeOrderBy', payload: { orderby } })
-  //   },
-  //   likeReplay({ fellowid }) {
-  //     dispatch({ type: 'bbsDetail/likeReplay', payload: { fellowid } })
-  //   },
-  //   unlikeReplay({ fellowid }) {
-  //     dispatch({ type: 'bbsDetail/unlikeReplay', payload: { fellowid } })
-  //   },
-  //   linkToReplay({ fellowid }) {
-  //     dispatch(routerRedux.push({
-  //       pathname: `/replay?replay_id=${fellowid}&sendid=${sendid}&token=${token}`,
-  //     }))
-  //   },
-  //   deleteReplay({ fellowid }) {
-  //     dispatch({ type: 'bbsDetail/deleteReplay', payload: { fellowid } })
-  //   },
-  // }
-  //
+  const replayListProps = {
+    sendid,
+    token,
+    dataSource,
+    total,
+    hasMore,
+    userId: user.id,
+    queryMoreList() {
+      dispatch({ type: 'bbsMoreReplay/queryMoreReplayList' })
+    },
+    changeOrderBy(orderby) {
+      dispatch({ type: 'bbsMoreReplay/changeOrderBy', payload: { orderby } })
+    },
+    likeReplayList({ fellowid }) {
+      dispatch({ type: 'bbsMoreReplay/likeReplayList', payload: { fellowid } })
+    },
+    unlikeReplayList({ fellowid }) {
+      dispatch({ type: 'bbsMoreReplay/unlikeReplayList', payload: { fellowid } })
+    },
+    linkToReplay({ fellowid }) {
+      dispatch(routerRedux.push({
+        pathname: `/replay?fellowid=${fellowid}&sendid=${sendid}&token=${token}`,
+      }))
+    },
+    deleteReplay({ fellowid }) {
+      dispatch({ type: 'bbsMoreReplay/deleteReplay', payload: { fellowid } })
+    },
+  }
+
   const footerProps = {
     token,
     sendid,
@@ -61,7 +61,7 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
     <div style={{ paddingBottom: 65 }}>
       <Header>更多回复</Header>
       <Content {...contentProps} />
-      {/* <ReplayList {...replayListProps} /> */}
+      <ReplayList {...replayListProps} />
       <Footer {...footerProps} />
     </div>
   )

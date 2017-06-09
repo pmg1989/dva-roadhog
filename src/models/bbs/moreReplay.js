@@ -51,6 +51,31 @@ export default {
         })
       }
     },
+    *queryMoreReplayList({ payload }, { call, put, select }) {
+      const { sendid, fellowid, page, count, orderby } = yield select(state => state.bbsMoreReplay)
+      const data = yield call(getMoreReplay, {
+        fellowid,
+        sendid,
+        orderby,
+        page,
+        count,
+      })
+      if (data.success) {
+        const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
+        yield put({ type: 'queryMoreReplayListSuccess',
+          payload: {
+            dataSource: data.fellows,
+            page: page + 1,
+            hasMore,
+          },
+        })
+      }
+    },
+    *changeOrderBy({ payload }, { put, select }) {
+      const { sendid, fellowid } = yield select(state => state.bbsMoreReplay)
+      yield put({ type: 'changeOrderBySuccess', payload })
+      yield put({ type: 'queryReplayList', payload: { sendid, fellowid } })
+    },
     *likeReplay({ payload }, { call, put, select }) {
       const { sendid, fellowid } = yield select(state => state.bbsMoreReplay)
 
@@ -79,6 +104,14 @@ export default {
   reducers: {
     queryMoreReplaySuccess(state, action) {
       return { ...state, ...action.payload }
+    },
+    queryMoreReplayListSuccess(state, action) {
+      const { dataSource, page, hasMore } = action.payload
+      return { ...state, dataSource: [...state.dataSource, ...dataSource], page, hasMore }
+    },
+    changeOrderBySuccess(state, action) {
+      const { orderby } = action.payload
+      return { ...state, orderby }
     },
     likeReplaySuccess(state) {
       const { item } = state
