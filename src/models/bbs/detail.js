@@ -115,25 +115,12 @@ export default {
       })
     },
     *likeReplay({ payload }, { call, put, select }) {
-      const { fellowid } = payload
+      const { fellowid, isLike } = payload
       const { sendid } = yield select(state => state.bbsDetail)
 
-      yield put({ type: 'likeReplaySuccess', payload: { fellowid } })
+      yield put({ type: 'likeReplaySuccess', payload: { fellowid, isLike } })
 
-      yield call(like, {
-        sendagree: {
-          fellowid,
-          sendid,
-        },
-      })
-    },
-    *unlikeReplay({ payload }, { call, put, select }) {
-      const { fellowid } = payload
-      const { sendid } = yield select(state => state.bbsDetail)
-
-      yield put({ type: 'unlikeReplaySuccess', payload: { fellowid } })
-
-      yield call(unlike, {
+      yield call(isLike ? unlike : like, {
         sendagree: {
           fellowid,
           sendid,
@@ -181,13 +168,8 @@ export default {
       return { ...state, item: { ...item, like: '0', heart_times: +item.heart_times - 1 } }
     },
     likeReplaySuccess(state, action) {
-      const { fellowid } = action.payload
-      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '1', hearttimes: +item.hearttimes + 1 } : item))
-      return { ...state, dataSource }
-    },
-    unlikeReplaySuccess(state, action) {
-      const { fellowid } = action.payload
-      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '0', hearttimes: +item.hearttimes - 1 } : item))
+      const { fellowid, isLike } = action.payload
+      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: isLike ? '0' : '1', hearttimes: isLike ? (+item.hearttimes - 1) : (+item.hearttimes + 1) } : item))
       return { ...state, dataSource }
     },
     deleteReplaySuccess(state, action) {

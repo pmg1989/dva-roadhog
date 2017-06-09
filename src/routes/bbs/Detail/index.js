@@ -38,11 +38,8 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     changeOrderBy(orderby) {
       dispatch({ type: 'bbsDetail/changeOrderBy', payload: { orderby } })
     },
-    likeReplay({ fellowid }) {
-      dispatch({ type: 'bbsDetail/likeReplay', payload: { fellowid } })
-    },
-    unlikeReplay({ fellowid }) {
-      dispatch({ type: 'bbsDetail/unlikeReplay', payload: { fellowid } })
+    likeReplay({ fellowid, isLike }) {
+      dispatch({ type: 'bbsDetail/likeReplay', payload: { fellowid, isLike } })
     },
     linkToReplay({ fellowid }) {
       dispatch(routerRedux.push({

@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { ListView, Icon, ActionSheet, Modal, Toast } from 'antd-mobile'
 import utils from 'utils'
+import { LikeIcon } from 'NbComponent'
 import styles from './ReplayList.less'
 
 const alert = Modal.alert
@@ -65,16 +66,6 @@ class ReplayList extends Component {
         this.props.queryMoreList()
       }
     }
-  }
-
-  handleLike(e, item) {
-    e.stopPropagation()
-    this.props.likeReplay({ fellowid: item.bbsfellowid })
-  }
-
-  handleUnLike(e, item) {
-    e.stopPropagation()
-    this.props.unlikeReplay({ fellowid: item.bbsfellowid })
   }
 
   handleRowClick(item) {
@@ -162,18 +153,7 @@ class ReplayList extends Component {
                 <span className={styles.date}>{utils.renderDate(item.senddate)}</span>
               </div>
               <div className={classnames('flex-box', styles.opt_box)}>
-                {item.like === '1' &&
-                <div className={classnames('flex-item', styles.like)} onClick={e => this.handleUnLike(e, item)}>
-                  <span><Icon type={require('../../../svg/like.svg')} /></span>
-                  <span className={styles.count}>{utils.renderTimes(+item.hearttimes)}</span>
-                </div>
-                }
-                {item.like === '0' &&
-                <div className={classnames('flex-item', styles.unlike)} onClick={e => this.handleLike(e, item)}>
-                  <span><Icon type={require('../../../svg/unlike.svg')} /></span>
-                  <span className={styles.count}>{utils.renderTimes(+item.hearttimes)}</span>
-                </div>
-                }
+                <LikeIcon item={item} handleLike={this.props.likeReplay} />
                 <div className={classnames('flex-item', styles.replay)}>
                   <span><Icon type={require('../../../svg/discu.svg')} /></span>
                   <span className={styles.count}>{utils.renderTimes(+item.fellowtimes)}</span>
