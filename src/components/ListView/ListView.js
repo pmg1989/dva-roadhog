@@ -5,9 +5,9 @@ import { Icon } from 'antd-mobile'
 import utils from 'utils'
 import { LikeIcon, ShareIcon } from 'NbComponent'
 import Loading from './Loading'
-import styles from './List.less'
+import styles from './ListView.less'
 
-const List = ({ list, loading, token, linkTo, like }) => {
+const ListView = ({ list, loading, token, linkTo, like }) => {
   const LinkToDetail = (item) => {
     linkTo(`/bbs/detail/${item.bbs_sendid}?token=${token}`)
   }
@@ -29,7 +29,7 @@ const List = ({ list, loading, token, linkTo, like }) => {
                       <span className={styles.name}>{item.user_name}</span><br />
                       {!!item.place &&
                       <span className={styles.place}>
-                        <span><Icon type={require('../../../svg/like.svg')} /></span>
+                        <span><Icon type={require('../../svg/like.svg')} /></span>
                         <span className={styles.place_str}>{item.place}</span>
                       </span>}
                       {!item.place && <span className={styles.place_gray}>{item.usercity}</span>}
@@ -50,7 +50,7 @@ const List = ({ list, loading, token, linkTo, like }) => {
                     <div className={classnames('flex-box', styles.opt_box)}>
                       <LikeIcon item={item} handleLike={like} type="send" />
                       <div className={classnames('flex-item', styles.replay)}>
-                        <span><Icon type={require('../../../svg/discu.svg')} /></span>
+                        <span><Icon type={require('../../svg/discu.svg')} /></span>
                         <span className={styles.count}>{utils.renderTimes(+item.fellow_times)}</span>
                       </div>
                       <ShareIcon item={item} />
@@ -66,4 +66,4 @@ const List = ({ list, loading, token, linkTo, like }) => {
   )
 }
 
-export default List
+export default ListView

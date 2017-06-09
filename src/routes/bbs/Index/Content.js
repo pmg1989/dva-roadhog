@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import ListView from '../ListView'
+import { ListView } from 'NbComponent'
 import styles from './Content.less'
 
 const Content = ({ loading, list, tab, token, linkTo, like }) => {
