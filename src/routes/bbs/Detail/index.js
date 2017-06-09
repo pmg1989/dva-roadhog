@@ -12,6 +12,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
   const { sendid, item, dataSource, total, hasMore, sendStatus } = bbsDetail
 
   const headerProps = {
+    item,
     sendStatus,
     showDelete: user.id === +item.user_id,
     deleteSend() {

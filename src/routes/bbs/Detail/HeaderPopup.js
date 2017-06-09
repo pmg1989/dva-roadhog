@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Popover, Icon, Modal, Toast } from 'antd-mobile'
 import { Header } from 'NbComponent'
+import utils from 'utils'
 import styles from './HeaderPopup.less'
 
 const Item = Popover.Item
@@ -20,9 +21,18 @@ class HeaderPopup extends Component {
     })
 
     switch (opt.props.value) {
-      case '1':
-        console.log('share')
+      case '1': {
+        const { item } = this.props
+        const content = utils.removeHTMLTag(item.content)
+        const shareParams = {
+          title: item.title,
+          content: content.length > 50 ? `${content.substring(0, 50)}...` : content,
+          image: item.user_img,
+          url: item.share_url,
+        }
+        console.log(shareParams)
         break
+      }
       case '2':
         alert('举报', '确定举报此贴吗?', [
           { text: '取消' },
@@ -56,7 +66,7 @@ class HeaderPopup extends Component {
     const { showDelete, sendStatus } = this.props
 
     const baseOverlay = ([
-      <Item key="1" value="1" icon={<Icon type={require('../../../svg/cancel.svg')} size="xs" />}>分享</Item>,
+      <Item key="1" value="1" icon={<Icon type={require('../../../svg/share.svg')} size="xs" />}>分享</Item>,
       <Item key="2" value="2" icon={<Icon type={require('../../../svg/release.svg')} size="xs" />}>举报</Item>,
     ])
 
