@@ -34,16 +34,16 @@ const Index = ({ dispatch, location, bbsIndex }) => {
         pathname: url,
       }))
     },
-    like(params) {
+    like({ sendid, isLike }) {
       dispatch({
         type: 'bbsIndex/like',
-        payload: params,
+        payload: { sendid, isLike },
       })
     },
-    unlike(params) {
+    unlike({ sendid, isLike }) {
       dispatch({
         type: 'bbsIndex/unlike',
-        payload: params,
+        payload: { sendid, isLike },
       })
     },
   }

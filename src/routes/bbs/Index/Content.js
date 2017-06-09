@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import ListView from '../ListView'
 import styles from './Content.less'
 
-const Content = ({ loading, list, tab, token, linkTo, like, unlike }) => {
+const Content = ({ loading, list, tab, token, linkTo, like }) => {
   return (
     <div className={styles.content}>
       <div id="ir-tabs-wrapper">
@@ -15,9 +15,9 @@ const Content = ({ loading, list, tab, token, linkTo, like, unlike }) => {
       </div>
       <div id="ir-bd-wrapper">
         <div className="ir-bd-scroller">
-          <ListView token={token} list={list[0]} tab={0} loading={loading[0]} linkTo={linkTo} like={like} unlike={unlike} />
-          <ListView token={token} list={list[1]} tab={1} loading={loading[1]} linkTo={linkTo} like={like} unlike={unlike} />
-          <ListView token={token} list={list[2]} tab={2} loading={loading[2]} linkTo={linkTo} like={like} unlike={unlike} />
+          <ListView token={token} list={list[0]} loading={loading[0]} linkTo={linkTo} like={like} />
+          <ListView token={token} list={list[1]} loading={loading[1]} linkTo={linkTo} like={like} />
+          <ListView token={token} list={list[2]} loading={loading[2]} linkTo={linkTo} like={like} />
         </div>
       </div>
     </div>

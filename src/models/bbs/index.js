@@ -4,7 +4,7 @@ import { like, unlike } from '../../services/bbs/base'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
 const pageSize = 5
-let ir, isLoading = [true, true, true], isNavOpen = true
+let ir, isLoading = [true, true, true], isNavOpen = true, tabIndex = 0
 
 export default {
   namespace: 'bbsIndex',
@@ -30,6 +30,7 @@ export default {
       }
 
       function slide(index) {
+        tabIndex = index
         if(isLoading[index]) {
           dispatch({ type: 'slide', payload: { tab: index } })
         }
@@ -57,6 +58,7 @@ export default {
       			ir.slideAction = slide     //左右滑动的回调函数
             slide(+tab || 0)
             if(+tab > 0) {
+              tabIndex = tab
       				ir.bdScroll.goToPage(+tab, 0, 0)
       			}
 
@@ -133,23 +135,11 @@ export default {
       }
     },
     *like({ payload }, {call, put}) {
-      const { sendid, tab } = payload
+      const { sendid, isLike } = payload
 
-      yield put({ type: 'likeSuccess', payload: { sendid, tab } })
+      yield put({ type: 'likeSuccess', payload: { sendid, isLike } })
 
-      yield call(like, {
-        sendagree: {
-          fellowid: '',
-          sendid,
-        }
-      })
-    },
-    *unlike({ payload }, {call, put}) {
-      const { sendid, tab } = payload
-
-      yield put({ type: 'unlikeSuccess', payload: { sendid, tab } })
-
-      yield call(unlike, {
+      yield call(isLike ? like : unlike, {
         sendagree: {
           fellowid: '',
           sendid,
@@ -197,21 +187,10 @@ export default {
       return { ...state, loading }
     },
     likeSuccess(state, action) {
-      const { sendid, tab } = action.payload
+      const { sendid, isLike } = action.payload
       const list = state.list.map((item, index) => {
-        if(tab === index) {
-          return item.map(cur => (cur.bbs_sendid === sendid ? { ...cur, like: '1', heart_times: +cur.heart_times + 1 } : cur))
-        } else {
-          return item
-        }
-      })
-      return { ...state, list }
-    },
-    unlikeSuccess(state, action) {
-      const { sendid, tab } = action.payload
-      const list = state.list.map((item, index) => {
-        if(tab === index) {
-          return item.map(cur => (cur.bbs_sendid === sendid ? { ...cur, like: '0', heart_times: +cur.heart_times - 1 } : cur))
+        if(tabIndex === index) {
+          return item.map(cur => (cur.bbs_sendid === sendid ? { ...cur, like: isLike ? '1' : '0', heart_times: isLike ? (+cur.heart_times + 1) : (+cur.heart_times - 1) } : cur))
         } else {
           return item
         }
