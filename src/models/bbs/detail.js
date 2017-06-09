@@ -10,7 +10,6 @@ export default {
     item: {},
     sendStatus: 1, // 帖子的删除状态 1:未删除  0: 删除
     share: false,  // 帖子的分享状态 true:分享打开的 0: app内打开的
-    isLoading: false,
     sendid: null,
     page: 1,
     count: 10,

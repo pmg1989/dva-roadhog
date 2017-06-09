@@ -19,6 +19,7 @@ app.model(require('./models/app'))
 // app.model(require('./models/bbs/index'))
 // app.model(require('./models/bbs/category'))
 // app.model(require('./models/bbs/detail'))
+// app.model(require('./models/bbs/moreReplay'))
 
 // 3. Router
 // app.router(require('./router'))

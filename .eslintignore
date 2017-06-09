@@ -4,3 +4,6 @@
 /src/models/bbs/index.js
 /src/models/bbs/category.js
 /src/routes/bbs/Video/index.js
+
+/src/routes/bbs/MoreReplay/index.js
+/src/models/bbs/moreReplay.js

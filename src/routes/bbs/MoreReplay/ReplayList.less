@@ -1,0 +1,153 @@
+@import "../../../themes/mixin.less";
+
+.replay_list {
+
+  :global {
+    .am-list-header {
+      padding: 0;
+    }
+
+    .am-list-body {
+      border-top: none;
+    }
+
+    .list-view-row {
+      padding: 30px 30px 50px;
+      border-bottom: 1px solid #f3f3f3;
+    }
+  }
+
+  .header {
+    line-height: 2.5;
+    padding: 0 30px;
+    background-color: #f3f3f3;
+    color: #666;
+
+    .filter_box {
+      text-align: right;
+
+      .filter {
+        color: @nb-blue;
+        border: none;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .thumb_box {
+    flex-basis: 88px;
+    margin-right: 24px;
+
+    img {
+      display: block;
+      width: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  .right_box {
+    width: e("calc(100vw - 172px)");
+  }
+
+  .top {
+    height: 88px;
+    line-height: 44px;
+    margin-bottom: 40px;
+
+    .name {
+      font-size: 32px;
+      display: inline-block;
+      .ellipsis(2.5rem);
+    }
+
+    .date {
+      font-size: 24px;
+      color: @nb-gray-light;
+    }
+
+    .opt_box {
+      flex-basis: 40%;
+      color: #999;
+      align-items: flex-start;
+
+      :global {
+        .flex-item {
+          display: flex;
+          align-items: center;
+
+          span {
+            display: inherit;
+          }
+        }
+      }
+
+      .like {
+        color: @nb-blue;
+      }
+
+      .replay {
+        justify-content: flex-end;
+      }
+
+      .count {
+        font-size: 32px;
+        padding-left: 10px;
+        min-width: 32px;
+        text-align: right;
+      }
+    }
+  }
+
+  .middle {
+    margin-bottom: 30px;
+
+    .text {
+      font-size: 28px;
+      color: #666;
+      line-height: 1.8;
+
+      img {
+        width: 100%;
+      }
+
+      iframe[name=audio] {
+        height: 0.8rem !important;
+        margin: 0.2rem 0 !important;
+      }
+    }
+  }
+}
+
+.inner_box {
+  background-color: #f3f3f3;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  line-height: 1.8;
+  font-size: 30px;
+  color: #666;
+
+  dl, dd {
+    margin: 0;
+  }
+
+  .inner_name {
+    float: left;
+    .ellipsis(2rem);
+  }
+
+  .inner_text {
+
+  }
+
+  .inner_total {
+    color: @nb-blue;
+  }
+
+  :global {
+    #userName {
+      display: inline;
+      color: @nb-blue;
+    }
+  }
+}

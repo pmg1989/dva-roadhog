@@ -23,7 +23,7 @@ const ReplayInner = ({ item, token, sendid }) => {
       ))}
       {+item.fellow_two_total > 0 &&
       <Link className={styles.inner_total}
-        to={`/bbs/more-replay?fellowid=${item.bbsfellowid}&sendid=${sendid}&token=${token}`}
+        to={`/replay-list?fellowid=${item.bbsfellowid}&sendid=${sendid}&token=${token}`}
         onClick={e => e.stopPropagation()}
       >共{item.fellow_two_total}条回复&nbsp;&gt;&gt;</Link>
       }
