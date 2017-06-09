@@ -105,23 +105,10 @@ export default {
       }
     },
     *like({ payload }, {call, put}) {
-      const { sendid } = payload
+      const { sendid, isLike } = payload
+      yield put({ type: 'likeSuccess', payload: { sendid, isLike } })
 
-      yield put({ type: 'likeSuccess', payload: { sendid } })
-
-      yield call(like, {
-        sendagree: {
-          fellowid: '',
-          sendid,
-        }
-      })
-    },
-    *unlike({ payload }, {call, put}) {
-      const { sendid } = payload
-
-      yield put({ type: 'unlikeSuccess', payload: { sendid } })
-
-      yield call(unlike, {
+      yield call(isLike ? like : unlike, {
         sendagree: {
           fellowid: '',
           sendid,
@@ -151,13 +138,8 @@ export default {
       return { ...state, navOpen: false }
     },
     likeSuccess(state, action) {
-      const { sendid } = action.payload
-      const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: '1', heart_times: +item.heart_times + 1 } : item))
-      return { ...state, list }
-    },
-    unlikeSuccess(state, action) {
-      const { sendid } = action.payload
-      const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: '0', heart_times: +item.heart_times - 1 } : item))
+      const { sendid, isLike } = action.payload
+      const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: isLike ? '1' : '0', heart_times: isLike ? (+item.heart_times + 1) : (+item.heart_times - 1) } : item))
       return { ...state, list }
     },
   },

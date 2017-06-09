@@ -3,24 +3,13 @@ import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon } from 'antd-mobile'
 import utils from 'utils'
-import { ShareIcon } from 'NbComponent'
+import { LikeIcon, ShareIcon } from 'NbComponent'
 import Loading from './Loading'
 import styles from './List.less'
 
-const List = ({ list, tab = 0, loading, token, linkTo, like, unlike }) => {
+const List = ({ list, loading, token, linkTo, like }) => {
   const LinkToDetail = (item) => {
-    console.log(item.bbs_sendid)
     linkTo(`/bbs/detail/${item.bbs_sendid}?token=${token}`)
-  }
-
-  const handleLike = (e, item) => {
-    e.stopPropagation()
-    like({ sendid: item.bbs_sendid, tab })
-  }
-
-  const handleUnLike = (e, item) => {
-    e.stopPropagation()
-    unlike({ sendid: item.bbs_sendid, tab })
   }
 
   return (
@@ -59,18 +48,7 @@ const List = ({ list, tab = 0, loading, token, linkTo, like, unlike }) => {
                       ))}
                     </div>
                     <div className={classnames('flex-box', styles.opt_box)}>
-                      {item.like === '1' &&
-                      <div className={classnames('flex-item', styles.like)} onClick={e => handleUnLike(e, item)}>
-                        <span><Icon type={require('../../../svg/like.svg')} /></span>
-                        <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
-                      </div>
-                      }
-                      {item.like === '0' &&
-                      <div className={classnames('flex-item', styles.unlike)} onClick={e => handleLike(e, item)}>
-                        <span><Icon type={require('../../../svg/unlike.svg')} /></span>
-                        <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
-                      </div>
-                      }
+                      <LikeIcon item={item} handleLike={like} type="send" />
                       <div className={classnames('flex-item', styles.replay)}>
                         <span><Icon type={require('../../../svg/discu.svg')} /></span>
                         <span className={styles.count}>{utils.renderTimes(+item.fellow_times)}</span>

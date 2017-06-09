@@ -96,7 +96,7 @@ export default {
 
       yield put({ type: 'likeSuccess', payload: { isLike } })
 
-      yield call(isLike ? unlike : like, {
+      yield call(isLike ? like : unlike, {
         sendagree: {
           fellowid,
           sendid,
@@ -109,7 +109,7 @@ export default {
 
       yield put({ type: 'likeReplaySuccess', payload: { fellowid, isLike } })
 
-      yield call(isLike ? unlike : like, {
+      yield call(isLike ? like : unlike, {
         sendagree: {
           fellowid,
           sendid,
@@ -151,11 +151,11 @@ export default {
     likeSuccess(state, action) {
       const { isLike } = action.payload
       const { item } = state
-      return { ...state, item: { ...item, like: isLike ? '0' : '1', heart_times: isLike ? (+item.heart_times - 1) : +item.heart_times + 1 } }
+      return { ...state, item: { ...item, like: isLike ? '1' : '0', heart_times: isLike ? (+item.heart_times + 1) : +item.heart_times - 1 } }
     },
     likeReplaySuccess(state, action) {
       const { fellowid, isLike } = action.payload
-      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: isLike ? '0' : '1', hearttimes: isLike ? (+item.hearttimes - 1) : (+item.hearttimes + 1) } : item))
+      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: isLike ? '1' : '0', hearttimes: isLike ? (+item.hearttimes + 1) : (+item.hearttimes - 1) } : item))
       return { ...state, dataSource }
     },
     deleteReplaySuccess(state, action) {

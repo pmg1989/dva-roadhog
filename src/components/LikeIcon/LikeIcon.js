@@ -4,12 +4,16 @@ import { Icon } from 'antd-mobile'
 import utils from 'utils'
 import styles from './LikeIcon.less'
 
-const LikeIcon = ({ item, handleLike }) => {
+const LikeIcon = ({ item, handleLike, type }) => {
   const isLike = item.like === '1'
 
   const clickLike = (e) => {
     e.stopPropagation()
-    handleLike({ fellowid: item.bbsfellowid || '', isLike })
+    if (type === 'send') {
+      handleLike({ sendid: item.bbs_sendid, isLike: !isLike })
+    } else {
+      handleLike({ fellowid: item.bbsfellowid || '', isLike: !isLike })
+    }
   }
 
   return (
