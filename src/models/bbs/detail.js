@@ -91,25 +91,14 @@ export default {
       }
     },
     *like({ payload }, { call, put, select }) {
+      const { fellowid, isLike } = payload
       const { sendid } = yield select(state => state.bbsDetail)
 
-      yield put({ type: 'likeSuccess' })
+      yield put({ type: 'likeSuccess', payload: { isLike } })
 
-      yield call(like, {
+      yield call(isLike ? unlike : like, {
         sendagree: {
-          fellowid: '',
-          sendid,
-        },
-      })
-    },
-    *unlike({ payload }, { call, put, select }) {
-      const { sendid } = yield select(state => state.bbsDetail)
-
-      yield put({ type: 'unlikeSuccess' })
-
-      yield call(unlike, {
-        sendagree: {
-          fellowid: '',
+          fellowid,
           sendid,
         },
       })
@@ -159,13 +148,10 @@ export default {
       const { orderby } = action.payload
       return { ...state, orderby }
     },
-    likeSuccess(state) {
+    likeSuccess(state, action) {
+      const { isLike } = action.payload
       const { item } = state
-      return { ...state, item: { ...item, like: '1', heart_times: +item.heart_times + 1 } }
-    },
-    unlikeSuccess(state) {
-      const { item } = state
-      return { ...state, item: { ...item, like: '0', heart_times: +item.heart_times - 1 } }
+      return { ...state, item: { ...item, like: isLike ? '0' : '1', heart_times: isLike ? (+item.heart_times - 1) : +item.heart_times + 1 } }
     },
     likeReplaySuccess(state, action) {
       const { fellowid, isLike } = action.payload

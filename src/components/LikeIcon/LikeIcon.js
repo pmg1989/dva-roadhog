@@ -9,13 +9,13 @@ const LikeIcon = ({ item, handleLike }) => {
 
   const clickLike = (e) => {
     e.stopPropagation()
-    handleLike({ fellowid: item.bbsfellowid, isLike })
+    handleLike({ fellowid: item.bbsfellowid || '', isLike })
   }
 
   return (
     <div className={classnames('flex-item', isLike ? styles.like : styles.unlike)} onClick={clickLike}>
       <span><Icon type={isLike ? require('../../svg/like.svg') : require('../../svg/unlike.svg')} /></span>
-      <span className={styles.count}>{utils.renderTimes(+item.hearttimes)}</span>
+      <span className={styles.count}>{utils.renderTimes(+(item.hearttimes || item.heart_times))}</span>
     </div>
   )
 }

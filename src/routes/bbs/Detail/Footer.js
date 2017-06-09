@@ -1,12 +1,10 @@
 import React from 'react'
 import classnames from 'classnames'
 import { Link } from 'dva/router'
-import { Icon } from 'antd-mobile'
-import { ShareIcon } from 'NbComponent'
-import utils from 'utils'
+import { LikeIcon, ShareIcon } from 'NbComponent'
 import styles from './Footer.less'
 
-const Footer = ({ share, token, sendid, item, like, unlike }) => {
+const Footer = ({ share, token, sendid, item, like }) => {
   const ReplayFooter = () => (
     <div className="flex-box">
       <div className="flex-item">
@@ -15,18 +13,7 @@ const Footer = ({ share, token, sendid, item, like, unlike }) => {
         </Link>
       </div>
       <div className={classnames('flex-box', styles.opt_box)}>
-        {item.like === '1' &&
-        <div className={classnames('flex-item', styles.like)} onClick={unlike}>
-          <span><Icon type={require('../../../svg/like.svg')} /></span>
-          <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
-        </div>
-        }
-        {item.like === '0' &&
-        <div className={classnames('flex-item', styles.unlike)} onClick={like}>
-          <span><Icon type={require('../../../svg/unlike.svg')} /></span>
-          <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
-        </div>
-        }
+        <LikeIcon item={item} handleLike={like} />
         <ShareIcon item={item} />
       </div>
     </div>

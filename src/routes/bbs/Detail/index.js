@@ -56,11 +56,8 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     token,
     sendid,
     item,
-    like() {
-      dispatch({ type: 'bbsDetail/like' })
-    },
-    unlike() {
-      dispatch({ type: 'bbsDetail/unlike' })
+    like({ fellowid, isLike }) {
+      dispatch({ type: 'bbsDetail/like', payload: { fellowid, isLike } })
     },
   }
 
