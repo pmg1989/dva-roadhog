@@ -39,7 +39,7 @@ const Routers = ({ history, app }) => {
           },
         },
         {
-          path: 'bbs/detail/:id',
+          path: 'bbs/detail/:sendid',
           getComponent(nextState, cb) {
             require.ensure([], (require) => {
               registerModel(app, require('./models/bbs/detail'))

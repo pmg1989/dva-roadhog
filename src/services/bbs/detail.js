@@ -1,14 +1,16 @@
 import { request } from '../../utils'
 
-export async function getDetail(id, params) {
-  return request(`/v2/bbssend/${id}`, {
+export async function getDetail(id, share, params) {
+  const url = share ? `/v2/share-bbssend/${id}` : `/v2/bbssend/${id}`
+  return request(url, {
     method: 'get',
     data: params,
   })
 }
 
-export async function getReplayList(params) {
-  return request('/v2/getfellows-one', {
+export async function getReplayList(share, params) {
+  const url = share ? '/v2/share-getfellows-one' : '/v2/getfellows-one'
+  return request(url, {
     method: 'get',
     data: params,
   })

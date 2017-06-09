@@ -9,6 +9,7 @@ export default {
   state: {
     item: {},
     sendStatus: 1, // 帖子的删除状态 1:未删除  0: 删除
+    share: false,  //帖子的分享状态 true:分享打开的 0: app内打开的
     isLoading: false,
     sendid: null,
     page: 1,
@@ -21,21 +22,27 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(() => {
-        const match = pathToRegexp('/bbs/detail/:id').exec(location.pathname)
+        const match = pathToRegexp('/bbs/detail/:sendid').exec(location.pathname)
         if (match) {
-          const id = match[1]
-          dispatch({ type: 'app/queryUser' })
-          dispatch({ type: 'queryDetail', payload: { id } })
+          const sendid = match[1]
+          const share = utils.queryString('share')
+          if(share === '1') {
+            dispatch({ type: 'queryDetail', payload: { sendid, share: true } })
+          } else {
+            dispatch({ type: 'app/queryUser' })
+            dispatch({ type: 'queryDetail', payload: { sendid, share: false } })
+          }
         }
       })
     },
   },
   effects: {
     *queryDetail({ payload }, { call, put }) {
-      const data = yield call(getDetail, payload.id)
+      const { sendid, share } = payload
+      const data = yield call(getDetail, sendid, share)
       if (data.success) {
-        yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0], sendStatus: 1 } })
-        yield put({ type: 'queryReplayList', payload: { id: payload.id } })
+        yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0], sendStatus: 1, share } })
+        yield put({ type: 'queryReplayList', payload: { sendid } })
       } else {
         yield put({ type: 'queryDetailSuccess', payload: { sendStatus: 0 } })
       }
@@ -43,12 +50,12 @@ export default {
     *changeOrderBy({ payload }, { put, select }) {
       const { sendid } = yield select(state => state.bbsDetail)
       yield put({ type: 'changeOrderBySuccess', payload })
-      yield put({ type: 'queryReplayList', payload: { id: sendid } })
+      yield put({ type: 'queryReplayList', payload: { sendid } })
     },
     *queryReplayList({ payload }, { call, put, select }) {
-      const { count, orderby } = yield select(state => state.bbsDetail)
-      const data = yield call(getReplayList, {
-        sendid: payload.id,
+      const { count, orderby, share } = yield select(state => state.bbsDetail)
+      const data = yield call(getReplayList, share, {
+        sendid: payload.sendid,
         orderby,
         page: 1,
         count,
@@ -59,15 +66,15 @@ export default {
             dataSource: data.fellows,
             page: 2,
             total: +data.count,
-            sendid: payload.id,
+            sendid: payload.sendid,
             hasMore: data.fellows.length < +data.count,
           },
         })
       }
     },
     *queryMoreReplayList({ payload }, { call, put, select }) {
-      const { sendid, page, count, orderby } = yield select(state => state.bbsDetail)
-      const data = yield call(getReplayList, {
+      const { sendid, page, count, orderby, share } = yield select(state => state.bbsDetail)
+      const data = yield call(getReplayList, share, {
         sendid,
         orderby,
         page,
