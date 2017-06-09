@@ -46,8 +46,8 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
         pathname: `/replay?fellowid=${fellowid}&sendid=${sendid}&token=${token}`,
       }))
     },
-    deleteReplay({ fellowid }) {
-      dispatch({ type: 'bbsMoreReplay/deleteReplay', payload: { fellowid } })
+    deleteReplayList({ fellowid }) {
+      dispatch({ type: 'bbsMoreReplay/deleteReplayList', payload: { fellowid } })
     },
   }
 

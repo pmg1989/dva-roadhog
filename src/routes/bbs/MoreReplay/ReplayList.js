@@ -44,12 +44,12 @@ class ReplayList extends Component {
 
   handleLike(e, item) {
     e.stopPropagation()
-    this.props.likeReplay({ fellowid: item.bbsfellowid })
+    this.props.likeReplayList({ fellowid: item.bbsfellowid })
   }
 
   handleUnLike(e, item) {
     e.stopPropagation()
-    this.props.unlikeReplay({ fellowid: item.bbsfellowid })
+    this.props.unlikeReplayList({ fellowid: item.bbsfellowid })
   }
 
   handleRowClick(item) {
@@ -82,7 +82,7 @@ class ReplayList extends Component {
             alert('删除', '确定删除此贴吗?', [
               { text: '取消' },
               { text: '确定',
-                onPress: () => this.props.deleteReplay({ fellowid: item.bbsfellowid }),
+                onPress: () => this.props.deleteReplayList({ fellowid: item.bbsfellowid }),
                 style: { fontWeight: 'bold' },
               },
             ])

@@ -1,5 +1,4 @@
-import utils from 'utils'
-import { getDetail, getMoreReplay, deleteSend } from '../../services/bbs/moreReplay'
+import { getMoreReplay } from '../../services/bbs/moreReplay'
 import { like, unlike, deleteSendFellow } from '../../services/bbs/base'
 
 export default {
@@ -100,6 +99,39 @@ export default {
         },
       })
     },
+    *likeReplayList({ payload }, { call, put, select }) {
+      const { fellowid } = payload
+      const { sendid } = yield select(state => state.bbsMoreReplay)
+
+      yield put({ type: 'likeReplayListSuccess', payload: { fellowid } })
+
+      yield call(like, {
+        sendagree: {
+          fellowid,
+          sendid,
+        },
+      })
+    },
+    *unlikeReplayList({ payload }, { call, put, select }) {
+      const { fellowid } = payload
+      const { sendid } = yield select(state => state.bbsMoreReplay)
+
+      yield put({ type: 'unlikeReplayListSuccess', payload: { fellowid } })
+
+      yield call(unlike, {
+        sendagree: {
+          fellowid,
+          sendid,
+        },
+      })
+    },
+    *deleteReplayList({ payload }, { call, put }) {
+      const { fellowid } = payload
+      const data = yield call(deleteSendFellow, fellowid)
+      if (data.success) {
+        yield put({ type: 'deleteReplayListSuccess', payload: { fellowid } })
+      }
+    },
   },
   reducers: {
     queryMoreReplaySuccess(state, action) {
@@ -120,6 +152,21 @@ export default {
     unlikeReplaySuccess(state) {
       const { item } = state
       return { ...state, item: { ...item, like: '0', hearttimes: +item.hearttimes - 1 } }
+    },
+    likeReplayListSuccess(state, action) {
+      const { fellowid } = action.payload
+      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '1', hearttimes: +item.hearttimes + 1 } : item))
+      return { ...state, dataSource }
+    },
+    unlikeReplayListSuccess(state, action) {
+      const { fellowid } = action.payload
+      const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: '0', hearttimes: +item.hearttimes - 1 } : item))
+      return { ...state, dataSource }
+    },
+    deleteReplayListSuccess(state, action) {
+      const { fellowid } = action.payload
+      const dataSource = state.dataSource.filter(item => item.bbsfellowid !== fellowid)
+      return { ...state, dataSource }
     },
   },
 }
