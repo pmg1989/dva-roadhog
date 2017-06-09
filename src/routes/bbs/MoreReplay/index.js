@@ -4,7 +4,7 @@ import { Header } from 'NbComponent'
 import { routerRedux } from 'dva/router'
 import Content from './Content'
 // import ReplayList from './ReplayList'
-// import Footer from './Footer'
+import Footer from './Footer'
 
 const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
   const { query: { token } } = location
@@ -51,25 +51,18 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
   //   },
   // }
   //
-  // const footerProps = {
-  //   share,
-  //   token,
-  //   sendid,
-  //   item,
-  //   like() {
-  //     dispatch({ type: 'bbsDetail/like' })
-  //   },
-  //   unlike() {
-  //     dispatch({ type: 'bbsDetail/unlike' })
-  //   },
-  // }
+  const footerProps = {
+    token,
+    sendid,
+    item,
+  }
 
   return (
     <div style={{ paddingBottom: 65 }}>
       <Header>更多回复</Header>
       <Content {...contentProps} />
-      {/* <ReplayList {...replayListProps} />
-      <Footer {...footerProps} /> */}
+      {/* <ReplayList {...replayListProps} /> */}
+      <Footer {...footerProps} />
     </div>
   )
 }

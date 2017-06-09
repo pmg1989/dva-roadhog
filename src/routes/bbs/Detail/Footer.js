@@ -9,7 +9,7 @@ const Footer = ({ share, token, sendid, item, like, unlike }) => {
   const ReplayFooter = () => (
     <div className="flex-box">
       <div className="flex-item">
-        <Link className={styles.btn_replay} to={`/replay?replay_id=0&sendid=${sendid}&token=${token}`}>
+        <Link className={styles.btn_replay} to={`/replay?fellowid=0&sendid=${sendid}&token=${token}`}>
           回复帖子...
         </Link>
       </div>
