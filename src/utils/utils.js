@@ -100,6 +100,15 @@ function renderContent(content) {
   return content
 }
 
+//去除html标签取内容
+function removeHTMLTag(str) {
+    str = str.replace(/<\/?[^>]*>/g,'')      //去除HTML tag
+    str = str.replace(/[ | ]*\n/g,'\n')      //去除行尾空白
+    str = str.replace(/\n[\s| | ]*\r/g,'\n') //去除多余空行
+    str=str.replace(/ /ig,'')                //去掉
+    return str
+}
+
 export default {
   queryString,
   isIOS: isIOS(),
@@ -109,4 +118,5 @@ export default {
   renderDate,
   renderTimes,
   renderContent,
+  removeHTMLTag,
 }

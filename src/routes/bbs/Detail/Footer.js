@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon } from 'antd-mobile'
+import { ShareIcon } from 'NbComponent'
 import utils from 'utils'
 import styles from './Footer.less'
 
@@ -26,9 +27,7 @@ const Footer = ({ share, token, sendid, item, like, unlike }) => {
           <span className={styles.count}>{utils.renderTimes(+item.heart_times)}</span>
         </div>
         }
-        <div className={classnames('flex-item', styles.share)}>
-          <span><Icon type={require('../../../svg/share.svg')} /></span>
-        </div>
+        <ShareIcon item={item} />
       </div>
     </div>
   )

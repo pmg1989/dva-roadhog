@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon } from 'antd-mobile'
 import utils from 'utils'
+import { ShareIcon } from 'NbComponent'
 import Loading from './Loading'
 import styles from './List.less'
 
@@ -10,11 +11,6 @@ const List = ({ list, tab = 0, loading, token, linkTo, like, unlike }) => {
   const LinkToDetail = (item) => {
     console.log(item.bbs_sendid)
     linkTo(`/bbs/detail/${item.bbs_sendid}?token=${token}`)
-  }
-
-  const handleShare = (e, item) => {
-    e.stopPropagation()
-    console.log('share success', item)
   }
 
   const handleLike = (e, item) => {
@@ -79,9 +75,7 @@ const List = ({ list, tab = 0, loading, token, linkTo, like, unlike }) => {
                         <span><Icon type={require('../../../svg/discu.svg')} /></span>
                         <span className={styles.count}>{utils.renderTimes(+item.fellow_times)}</span>
                       </div>
-                      <div className={classnames('flex-item', styles.share)} onClick={e => handleShare(e, item)}>
-                        <span><Icon type={require('../../../svg/share.svg')} /></span>
-                      </div>
+                      <ShareIcon item={item} />
                     </div>
                   </div>
                 </div>
