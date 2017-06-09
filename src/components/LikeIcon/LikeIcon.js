@@ -5,7 +5,6 @@ import utils from 'utils'
 import styles from './LikeIcon.less'
 
 const LikeIcon = ({ item, handleLike }) => {
-
   const isLike = item.like === '1'
 
   const clickLike = (e) => {
