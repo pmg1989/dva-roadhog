@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon } from 'antd-mobile'
 import utils from 'utils'
-import { LikeIcon, ShareIcon } from 'NbComponent'
+import { LikeIcon, ShareIcon, AddressIcon } from 'NbComponent'
 import Loading from './Loading'
 import styles from './ListView.less'
 
@@ -27,12 +27,7 @@ const ListView = ({ list, loading, token, linkTo, like }) => {
                   <div className={classnames('flex-box', styles.top)}>
                     <div className="flex-item">
                       <span className={styles.name}>{item.user_name}</span><br />
-                      {!!item.place &&
-                      <span className={styles.place}>
-                        <span><Icon type={require('../../svg/like.svg')} /></span>
-                        <span className={styles.place_str}>{item.place}</span>
-                      </span>}
-                      {!item.place && <span className={styles.place_gray}>{item.usercity}</span>}
+                      <AddressIcon place={item.place} usercity={item.usercity} />
                     </div>
                     <div className={styles.date}>{utils.renderDate(item.create_date)}</div>
                   </div>
