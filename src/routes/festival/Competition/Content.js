@@ -26,7 +26,7 @@ const Competition = () => (
       <div className={styles.title}>本期指定曲目</div>
       <div className={classnames(styles.flex_box, styles.practice)}>
         <div className={styles.thumb_box}>
-          <img className={styles.thumb} alt='' src="https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19?vframe/jpg/offset/0" />
+          <img className={styles.thumb} alt="" src="https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19?vframe/jpg/offset/0" />
           <div className={styles.info}>
             <span className={styles.name}>风继续吹</span>
             <span className={styles.author}>歌曲作者</span>
@@ -42,7 +42,7 @@ const Competition = () => (
       <div className={styles.title}>大师教学示范</div>
       <div className={classnames(styles.flex_box, styles.master)}>
         <div className={styles.thumb_box}>
-          <img className={styles.thumb} alt='' src="https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19?vframe/jpg/offset/0" />
+          <img className={styles.thumb} alt="" src="https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19?vframe/jpg/offset/0" />
           <div className={styles.info}>
             <span className={styles.name}>胡彦斌</span>
             <span className={styles.author}>描述</span>

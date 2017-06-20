@@ -20,7 +20,7 @@ export default {
     },
   },
   effects: {
-    //*query({ payload }, { call, put }) {
+    //* query({ payload }, { call, put }) {
       // const { sendid, share } = payload
       // const data = yield call(getDetail, sendid, share)
       // if (data.success) {
@@ -29,7 +29,7 @@ export default {
       // } else {
       //   yield put({ type: 'queryDetailSuccess', payload: { sendStatus: 0 } })
       // }
-    //},
+    // },
   },
   reducers: {
     queryDetailSuccess(state, action) {
