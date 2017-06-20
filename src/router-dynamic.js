@@ -56,6 +56,20 @@ const Routers = ({ history, app }) => {
             }, 'bbs-more-replay')
           },
         },
+        {
+          path: 'festival',
+          childRoutes: [
+            {
+              path: 'competition/:id',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/festival/competition'))
+                  cb(null, require('./routes/festival/Competition'))
+                }, 'festival-competition')
+              },
+            },
+          ],
+        },
       ],
     },
     {
