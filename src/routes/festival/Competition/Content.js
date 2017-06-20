@@ -5,7 +5,7 @@ import Video from '../../bbs/Video'
 import styles from './Content.less'
 
 const Competition = () => (
-  <div>
+  <div className={styles.content_box}>
     <div className={styles.top}>
       <Video src={'https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19'} />
     </div>

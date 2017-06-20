@@ -1,0 +1,80 @@
+@import "../../../themes/mixin.less";
+
+.list_box {
+  padding-bottom: 110px;
+
+  :global {
+
+    .am-tabs-bar {
+      .am-tabs-ink-bar {
+        background-color: @nb-blue-light;
+        width: 30% !important;
+        margin-left: 10%;
+      }
+
+      .am-tabs-tab {
+        border-bottom: 1px solid #e7e7e7;
+      }
+    }
+  }
+
+  .list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+
+    li {
+      flex-basis: 48.5%;
+
+      .top {
+        position: relative;
+
+        .thumb {
+          display: block;
+          width: 100%;
+        }
+
+        .mask_box {
+          background-color: rgba(0, 0, 0, 0.3);
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          color: #fff;
+          font-size: 32px;
+          padding: 20px;
+        }
+
+      }
+
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 20px;
+        color: #666;
+
+        .vote_icon {
+          display: flex;
+          align-items: center;
+
+          .icon {
+            display: inherit;
+            margin-right: 5px;
+          }
+
+        }
+
+        .btn_vote {
+          color: #666;
+          font-size: 28px;
+          padding: 0 30px;
+          height: 50px;
+          line-height: 50px;
+          border: 1px solid currentColor;
+          border-radius: 25px;
+        }
+      }
+    }
+  }
+}

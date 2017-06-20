@@ -1,5 +1,9 @@
 @import "../../../themes/mixin.less";
 
+.content_box {
+  position: relative;
+}
+
 .info_box {
   font-size: 28px;
   padding: 30px;
@@ -25,7 +29,7 @@
   padding: 30px;
 
   .title {
-    color: #4AD87F;
+    color: @nb-blue-light;
     font-size: 32px;
     margin-bottom: 30px;
   }
@@ -48,7 +52,7 @@
     }
 
     &.practice:before {
-      background-color: #4AD87F;
+      background-color: @nb-blue-light;
     }
 
     &.master:before {
