@@ -1,6 +1,6 @@
 import React from 'react'
 // import classnames from 'classnames'
-import { Tabs, Icon } from 'antd-mobile'
+import { Tabs, Icon, Button } from 'antd-mobile'
 import styles from './List.less'
 
 const TabPane = Tabs.TabPane
@@ -30,9 +30,9 @@ const List = () => {
               <div className={styles.bottom}>
                 <div className={styles.vote_icon}>
                   <span className={styles.icon}><Icon type={require('../../../svg/lock.svg')} /></span>
-                  <span>123456</span>
+                  <span>12</span>
                 </div>
-                <a className={styles.btn_vote}>投票</a>
+                <Button className={styles.btn_vote}>投票</Button>
               </div>
             </li>
           </ul>
@@ -50,9 +50,9 @@ const List = () => {
               <div className={styles.bottom}>
                 <div className={styles.vote_icon}>
                   <span className={styles.icon}><Icon type={require('../../../svg/lock.svg')} /></span>
-                  <span>123456</span>
+                  <span>16</span>
                 </div>
-                <a className={styles.btn_vote}>投票</a>
+                <Button className={styles.btn_vote}>投票</Button>
               </div>
             </li>
           </ul>

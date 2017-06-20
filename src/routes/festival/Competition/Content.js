@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import { Icon } from 'antd-mobile'
+import { Button } from 'antd-mobile'
 import Video from '../../bbs/Video'
 import styles from './Content.less'
 
@@ -33,10 +33,9 @@ const Competition = () => (
           </div>
         </div>
         <div className={styles.download_box}>
-          <a className={styles.download}>
-            <span className={styles.icon}><Icon type={require('../../../svg/lock.svg')} /></span>
-            <span>下载观看</span>
-          </a>
+          <Button className={styles.download} icon={require('../../../svg/lock.svg')}>
+            下载观看
+          </Button>
         </div>
       </div>
       <div className={styles.title}>大师教学示范</div>
@@ -49,10 +48,9 @@ const Competition = () => (
           </div>
         </div>
         <div className={styles.download_box}>
-          <a className={styles.download}>
-            <span className={styles.icon}><Icon type={require('../../../svg/lock.svg')} /></span>
-            <span>解锁观看</span>
-          </a>
+          <Button className={styles.download} icon={require('../../../svg/lock.svg')}>
+            解锁观看
+          </Button>
         </div>
       </div>
     </div>
