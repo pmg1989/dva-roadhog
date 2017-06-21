@@ -14,11 +14,8 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
     sendid,
     token,
     item,
-    likeReplay() {
-      dispatch({ type: 'bbsMoreReplay/likeReplay' })
-    },
-    unlikeReplay() {
-      dispatch({ type: 'bbsMoreReplay/unlikeReplay' })
+    like({ fellowid, isLike }) {
+      dispatch({ type: 'bbsMoreReplay/like', payload: { fellowid, isLike } })
     },
   }
 
@@ -36,14 +33,14 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
       dispatch({ type: 'bbsMoreReplay/changeOrderBy', payload: { orderby } })
     },
     likeReplay({ fellowid, isLike }) {
-      dispatch({ type: 'bbsMoreReplay/likeReplayList', payload: { fellowid, isLike } })
+      dispatch({ type: 'bbsMoreReplay/likeReplay', payload: { fellowid, isLike } })
     },
     linkToReplay({ fellowid }) {
       dispatch(routerRedux.push({
         pathname: `/replay?fellowid=${fellowid}&sendid=${sendid}&token=${token}`,
       }))
     },
-    deleteReplayList({ fellowid }) {
+    deleteReplay({ fellowid }) {
       dispatch({ type: 'bbsMoreReplay/deleteReplayList', payload: { fellowid } })
     },
   }

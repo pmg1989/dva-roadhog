@@ -75,35 +75,24 @@ export default {
       yield put({ type: 'changeOrderBySuccess', payload })
       yield put({ type: 'queryReplayList', payload: { sendid, fellowid } })
     },
-    *likeReplay({ payload }, { call, put, select }) {
-      const { sendid, fellowid } = yield select(state => state.bbsMoreReplay)
-
-      yield put({ type: 'likeReplaySuccess' })
-
-      yield call(like, {
-        sendagree: {
-          fellowid,
-          sendid,
-        },
-      })
-    },
-    *unlikeReplay({ payload }, { call, put, select }) {
-      const { sendid, fellowid } = yield select(state => state.bbsMoreReplay)
-
-      yield put({ type: 'unlikeReplaySuccess' })
-
-      yield call(unlike, {
-        sendagree: {
-          fellowid,
-          sendid,
-        },
-      })
-    },
-    *likeReplayList({ payload }, { call, put, select }) {
+    *like({ payload }, { call, put, select }) {
       const { fellowid, isLike } = payload
       const { sendid } = yield select(state => state.bbsMoreReplay)
 
-      yield put({ type: 'likeReplayListSuccess', payload: { fellowid, isLike } })
+      yield put({ type: 'likeSuccess', payload: { isLike } })
+
+      yield call(isLike ? like : unlike, {
+        sendagree: {
+          fellowid,
+          sendid,
+        },
+      })
+    },
+    *likeReplay({ payload }, { call, put, select }) {
+      const { fellowid, isLike } = payload
+      const { sendid } = yield select(state => state.bbsMoreReplay)
+
+      yield put({ type: 'likeReplaySuccess', payload: { fellowid, isLike } })
 
       yield call(isLike ? like : unlike, {
         sendagree: {
@@ -132,15 +121,12 @@ export default {
       const { orderby } = action.payload
       return { ...state, orderby }
     },
-    likeReplaySuccess(state) {
+    likeSuccess(state, action) {
+      const { isLike } = action.payload
       const { item } = state
-      return { ...state, item: { ...item, like: '1', hearttimes: +item.hearttimes + 1 } }
+      return { ...state, item: { ...item, like: isLike ? '1' : '0', hearttimes: isLike ? (+item.hearttimes + 1) : +item.hearttimes - 1 } }
     },
-    unlikeReplaySuccess(state) {
-      const { item } = state
-      return { ...state, item: { ...item, like: '0', hearttimes: +item.hearttimes - 1 } }
-    },
-    likeReplayListSuccess(state, action) {
+    likeReplaySuccess(state, action) {
       const { fellowid, isLike } = action.payload
       const dataSource = state.dataSource.map(item => (item.bbsfellowid === fellowid ? { ...item, like: isLike ? '1' : '0', hearttimes: isLike ? (+item.hearttimes + 1) : (+item.hearttimes - 1) } : item))
       return { ...state, dataSource }
