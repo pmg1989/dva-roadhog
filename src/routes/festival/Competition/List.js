@@ -29,7 +29,7 @@ const List = () => {
               </div>
               <div className={styles.bottom}>
                 <div className={styles.vote_icon}>
-                  <span className={styles.icon}><Icon type={require('../../../svg/lock.svg')} /></span>
+                  <span className={styles.icon}><Icon type={require('../../../svg/festival/vote.svg')} /></span>
                   <span>12</span>
                 </div>
                 <Button className={styles.btn_vote}>投票</Button>
@@ -49,7 +49,7 @@ const List = () => {
               </div>
               <div className={styles.bottom}>
                 <div className={styles.vote_icon}>
-                  <span className={styles.icon}><Icon type={require('../../../svg/lock.svg')} /></span>
+                  <span className={styles.icon}><Icon type={require('../../../svg/festival/vote.svg')} /></span>
                   <span>16</span>
                 </div>
                 <Button className={styles.btn_vote}>投票</Button>

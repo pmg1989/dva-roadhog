@@ -33,7 +33,7 @@ const Content = () => (
           </div>
         </div>
         <div className={styles.download_box}>
-          <Button className={styles.download} icon={require('../../../svg/lock.svg')}>
+          <Button className={styles.download} icon={require('../../../svg/festival/download.svg')}>
             下载观看
           </Button>
         </div>
@@ -48,7 +48,7 @@ const Content = () => (
           </div>
         </div>
         <div className={styles.download_box}>
-          <Button className={styles.download} icon={require('../../../svg/lock.svg')}>
+          <Button className={styles.download} icon={require('../../../svg/festival/lock.svg')}>
             解锁观看
           </Button>
         </div>
