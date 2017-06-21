@@ -45,7 +45,6 @@ const ReplayList = ({
   linkToReplay,
   deleteReplay,
 }) => {
-
   const handleRowClick = (item) => {
     const isShowDelete = userId === +item.userid
 
@@ -95,7 +94,6 @@ const ReplayList = ({
   }
 
   const Header = () => {
-
     const handleChange = (e) => {
       changeOrderBy(e.target.value)
     }
