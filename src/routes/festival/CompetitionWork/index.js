@@ -8,7 +8,7 @@ const CompetitionWork = ({ dispatch, festivalCompetitionWork }) => {
   const { item, dataSource, total, hasMore } = festivalCompetitionWork
 
   const contentProps = {
-    item
+    item,
   }
 
   const replayListProps = {
@@ -22,7 +22,7 @@ const CompetitionWork = ({ dispatch, festivalCompetitionWork }) => {
 
   return (
     <div>
-      <Content {...contentProps}/>
+      <Content {...contentProps} />
       <ReplayList {...replayListProps} />
       {/* <Bottom /> */}
     </div>
