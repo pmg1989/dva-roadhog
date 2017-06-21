@@ -68,6 +68,15 @@ const Routers = ({ history, app }) => {
                 }, 'festival-competition')
               },
             },
+            {
+              path: 'competition-work/:id',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/festival/competitionWork'))
+                  cb(null, require('./routes/festival/CompetitionWork'))
+                }, 'festival-competition-work')
+              },
+            },
           ],
         },
       ],
