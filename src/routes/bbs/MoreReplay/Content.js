@@ -7,7 +7,6 @@ import { LikeIcon } from 'NbComponent'
 import styles from './Content.less'
 
 const Content = ({ sendid, token, item, like }) => {
-
   return (
     <div className={classnames('content', styles.content)}>
       <div className="flex-box">
