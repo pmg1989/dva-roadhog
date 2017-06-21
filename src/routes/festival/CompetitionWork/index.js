@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'dva'
 import Content from './Content'
 import ReplayList from './ReplayList'
-// import Bottom from './Bottom'
+import Bottom from './Bottom'
 
 const CompetitionWork = ({ dispatch, festivalCompetitionWork }) => {
   const { item, dataSource, total, hasMore } = festivalCompetitionWork
@@ -24,7 +24,7 @@ const CompetitionWork = ({ dispatch, festivalCompetitionWork }) => {
     <div>
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
-      {/* <Bottom /> */}
+      <Bottom />
     </div>
   )
 }

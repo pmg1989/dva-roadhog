@@ -7,7 +7,7 @@ export default {
   state: {
     item: {},
     page: 1,
-    count: 4,
+    count: 10,
     hasMore: true,
     total: 0,
     dataSource: [],
