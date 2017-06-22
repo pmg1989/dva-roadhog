@@ -14,17 +14,9 @@ const Rank = ({ rank }) => {
 }
 
 const List = () => {
-  function callback(key) {
-    console.log('onChange', key)
-  }
-
-  function handleTabClick(key) {
-    console.log('onTabClick', key)
-  }
-
   return (
     <div className={styles.list_box}>
-      <Tabs defaultActiveKey="1" onChange={callback} onTabClick={handleTabClick} swipeable={false}>
+      <Tabs defaultActiveKey="1" swipeable={false}>
         <TabPane tab="本期榜单" key="1">
           <ul className={styles.list}>
             <li>

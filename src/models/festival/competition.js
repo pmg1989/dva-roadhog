@@ -1,11 +1,16 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-// import { getDetail, getReplayList, deleteSend } from '../../services/bbs/detail'
-// import { like, unlike, deleteSendFellow } from '../../services/bbs/base'
+import { getMoreReplay } from '../../services/bbs/moreReplay'
 
 export default {
   namespace: 'festivalCompetition',
   state: {
+    item: {},
+    page: 1,
+    count: 4,
+    hasMore: true,
+    total: 0,
+    dataSource: [],
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -14,26 +19,61 @@ export default {
         if (match) {
           const id = match[1]
           console.log(id)
-          dispatch({ type: 'query', payload: { id } })
+          dispatch({ type: 'queryReplayList', payload: { id } })
         }
       })
     },
   },
   effects: {
-    //* query({ payload }, { call, put }) {
-      // const { sendid, share } = payload
-      // const data = yield call(getDetail, sendid, share)
-      // if (data.success) {
-      //   yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0], sendStatus: 1, share } })
-      //   yield put({ type: 'queryReplayList', payload: { sendid } })
-      // } else {
-      //   yield put({ type: 'queryDetailSuccess', payload: { sendStatus: 0 } })
-      // }
-    // },
+    *queryReplayList({ payload }, { call, put, select }) {
+      const { count } = yield select(state => state.festivalCompetition)
+      const data = yield call(getMoreReplay, {
+        fellowid: '1686',
+        sendid: '1043',
+        orderby: 'dateAsc',
+        page: 1,
+        count,
+      })
+      if (data.success) {
+        yield put({ type: 'queryReplaySuccess',
+          payload: {
+            item: data.fellow_info,
+            dataSource: data.fellows,
+            page: 2,
+            total: +data.count,
+            hasMore: data.fellows.length < +data.count,
+          },
+        })
+      }
+    },
+    *queryMoreReplayList({ payload }, { call, put, select }) {
+      const { page, count } = yield select(state => state.festivalCompetition)
+      const data = yield call(getMoreReplay, {
+        fellowid: '1686',
+        sendid: '1043',
+        orderby: 'dateAsc',
+        page,
+        count,
+      })
+      if (data.success) {
+        const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
+        yield put({ type: 'queryMoreReplayListSuccess',
+          payload: {
+            dataSource: data.fellows,
+            page: page + 1,
+            hasMore,
+          },
+        })
+      }
+    },
   },
   reducers: {
-    queryDetailSuccess(state, action) {
+    queryReplaySuccess(state, action) {
       return { ...state, ...action.payload }
+    },
+    queryMoreReplayListSuccess(state, action) {
+      const { dataSource, page, hasMore } = action.payload
+      return { ...state, dataSource: [...state.dataSource, ...dataSource], page, hasMore }
     },
   },
 }

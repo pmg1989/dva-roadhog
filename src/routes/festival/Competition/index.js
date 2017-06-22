@@ -4,12 +4,29 @@ import Content from './Content'
 import List from './List'
 import Bottom from './Bottom'
 
-const Competition = () => (
-  <div>
-    <Content />
-    <List />
-    <Bottom />
-  </div>
-)
+const Competition = ({ dispatch, festivalCompetition }) => {
+  const { item, dataSource, total, hasMore } = festivalCompetition
 
-export default connect()(Competition)
+  const contentProps = {
+    item,
+  }
+
+  const listProps = {
+    dataSource,
+    total,
+    hasMore,
+    queryMoreList() {
+      dispatch({ type: 'festivalCompetition/queryMoreReplayList' })
+    },
+  }
+
+  return (
+    <div>
+      <Content {...contentProps} />
+      <List {...listProps} />
+      <Bottom />
+    </div>
+  )
+}
+
+export default connect(({ festivalCompetition }) => ({ festivalCompetition }))(Competition)
