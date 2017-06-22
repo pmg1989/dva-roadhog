@@ -21,7 +21,7 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
         <div className={styles.top}>
           <img className={styles.thumb} alt="" src={item.userimg} />
           <div className={styles.mask_box}>
-            <span>{item.content}</span>
+            <span>{item.username}</span>
           </div>
           {type === 1 && <Rank rank={+rowID} />}
           {type === 2 && <div className={styles.tag}><span>第二期</span></div>}
