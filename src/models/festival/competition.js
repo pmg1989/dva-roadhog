@@ -7,10 +7,19 @@ export default {
   state: {
     item: {},
     page: 1,
-    count: 4,
-    hasMore: true,
-    total: 0,
-    dataSource: [],
+    count: 18,
+    rank: {
+      firstLoad: false,
+      hasMore: true,
+      total: 0,
+      dataSource: [],
+    },
+    newest: {
+      firstLoad: false,
+      hasMore: true,
+      total: 0,
+      dataSource: [],
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -19,13 +28,14 @@ export default {
         if (match) {
           const id = match[1]
           console.log(id)
-          dispatch({ type: 'queryReplayList', payload: { id } })
+          dispatch({ type: 'queryRankList', payload: { id } })
+          // dispatch({ type: 'queryNewestList', payload: { id } })
         }
       })
     },
   },
   effects: {
-    *queryReplayList({ payload }, { call, put, select }) {
+    *queryRankList({ payload }, { call, put, select }) {
       const { count } = yield select(state => state.festivalCompetition)
       const data = yield call(getMoreReplay, {
         fellowid: '1686',
@@ -35,18 +45,20 @@ export default {
         count,
       })
       if (data.success) {
-        yield put({ type: 'queryReplaySuccess',
+        yield put({ type: 'queryRankListSuccess',
           payload: {
-            item: data.fellow_info,
-            dataSource: data.fellows,
             page: 2,
-            total: +data.count,
-            hasMore: data.fellows.length < +data.count,
+            rank: {
+              firstLoad: true,
+              dataSource: data.fellows,
+              total: +data.count,
+              hasMore: data.fellows.length < +data.count,
+            },
           },
         })
       }
     },
-    *queryMoreReplayList({ payload }, { call, put, select }) {
+    *queryMoreRankList({ payload }, { call, put, select }) {
       const { page, count } = yield select(state => state.festivalCompetition)
       const data = yield call(getMoreReplay, {
         fellowid: '1686',
@@ -57,23 +69,96 @@ export default {
       })
       if (data.success) {
         const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
-        yield put({ type: 'queryMoreReplayListSuccess',
+        yield put({ type: 'queryMoreRankListSuccess',
           payload: {
-            dataSource: data.fellows,
             page: page + 1,
-            hasMore,
+            rank: {
+              dataSource: data.fellows,
+              total: +data.count,
+              hasMore,
+            },
+          },
+        })
+      }
+    },
+    *queryNewestList({ payload }, { call, put, select }) {
+      const { count } = yield select(state => state.festivalCompetition)
+      const data = yield call(getMoreReplay, {
+        fellowid: '1686',
+        sendid: '1043',
+        orderby: 'dateDesc',
+        page: 1,
+        count,
+      })
+      if (data.success) {
+        yield put({ type: 'queryNewestListSuccess',
+          payload: {
+            page: 2,
+            newest: {
+              firstLoad: true,
+              dataSource: data.fellows,
+              total: +data.count,
+              hasMore: data.fellows.length < +data.count,
+            },
+          },
+        })
+      }
+    },
+    *queryMoreNewestList({ payload }, { call, put, select }) {
+      const { page, count } = yield select(state => state.festivalCompetition)
+      const data = yield call(getMoreReplay, {
+        fellowid: '1686',
+        sendid: '1043',
+        orderby: 'dateDesc',
+        page,
+        count,
+      })
+      if (data.success) {
+        const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
+        yield put({ type: 'queryMoreNewestListSuccess',
+          payload: {
+            page: page + 1,
+            newest: {
+              dataSource: data.fellows,
+              hasMore,
+            },
           },
         })
       }
     },
   },
   reducers: {
-    queryReplaySuccess(state, action) {
+    queryRankListSuccess(state, action) {
       return { ...state, ...action.payload }
     },
-    queryMoreReplayListSuccess(state, action) {
-      const { dataSource, page, hasMore } = action.payload
-      return { ...state, dataSource: [...state.dataSource, ...dataSource], page, hasMore }
+    queryMoreRankListSuccess(state, action) {
+      const { page, rank } = action.payload
+      return {
+        ...state,
+        page,
+        rank: {
+          firstLoad: true,
+          total: rank.total,
+          hasMore: rank.hasMore,
+          dataSource: [...state.rank.dataSource, ...rank.dataSource],
+        },
+      }
+    },
+    queryNewestListSuccess(state, action) {
+      return { ...state, ...action.payload }
+    },
+    queryMoreNewestListSuccess(state, action) {
+      const { page, newest } = action.payload
+      return {
+        ...state,
+        page,
+        newest: {
+          firstLoad: true,
+          total: newest.total,
+          hasMore: newest.hasMore,
+          dataSource: [...state.newest.dataSource, ...newest.dataSource],
+        },
+      }
     },
   },
 }

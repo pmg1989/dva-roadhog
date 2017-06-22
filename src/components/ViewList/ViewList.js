@@ -8,7 +8,7 @@ class ViewList extends Component {
     hasMore: PropTypes.bool.isRequired,
     queryMoreList: PropTypes.func.isRequired,
     className: PropTypes.string.isRequired,
-    Header: PropTypes.func.isRequired,
+    Header: PropTypes.func,
     Row: PropTypes.func.isRequired,
   }
 

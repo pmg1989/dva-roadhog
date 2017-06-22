@@ -19,12 +19,17 @@
   }
 
   .list {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 20px;
 
-    li {
+    :global {
+      .list-view-section-body {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 20px;
+      }
+    }
+
+    .list_row {
       flex-basis: 48.5%;
 
       .top {

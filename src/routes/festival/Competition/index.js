@@ -5,18 +5,23 @@ import List from './List'
 import Bottom from './Bottom'
 
 const Competition = ({ dispatch, festivalCompetition }) => {
-  const { item, dataSource, total, hasMore } = festivalCompetition
+  const { item, rank, newest } = festivalCompetition
 
   const contentProps = {
     item,
   }
 
   const listProps = {
-    dataSource,
-    total,
-    hasMore,
-    queryMoreList() {
-      dispatch({ type: 'festivalCompetition/queryMoreReplayList' })
+    rank,
+    newest,
+    queryMoreRankList() {
+      dispatch({ type: 'festivalCompetition/queryMoreRankList' })
+    },
+    queryNewestList() {
+      dispatch({ type: 'festivalCompetition/queryNewestList' })
+    },
+    queryMoreNewestList() {
+      dispatch({ type: 'festivalCompetition/queryMoreNewestList' })
     },
   }
 
