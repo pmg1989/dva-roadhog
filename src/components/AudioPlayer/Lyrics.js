@@ -50,6 +50,10 @@ class Lyrics extends Component {
       })
     })
 
+    player.addEventListener('ended', () => {
+      this.setState({ isPlay: false })
+    })
+
     player.addEventListener('timeupdate', (e) => {
       const { currentTime, duration } = e.target
 
