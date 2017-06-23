@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // import classnames from 'classnames'
-import { Slider } from 'antd-mobile'
+import { Slider, Icon } from 'antd-mobile'
 import $ from 'jQuery'
 import lyric from './lyric'
 import styles from './Lyrics.less'
@@ -31,6 +31,7 @@ class Lyrics extends Component {
     super(props)
 
     this.state = {
+      isPlay: false,
       currentTime: 0,
       totalTime: 0,
       percent: 0,
@@ -44,7 +45,7 @@ class Lyrics extends Component {
 
     player.addEventListener('canplay', (e) => {
       lyric.getLyric(this.props.url, (lyricList) => {
-        this.setState({ lyricList, totalTime: e.target.duration })
+        this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
         player.play()
       })
     })
@@ -63,8 +64,20 @@ class Lyrics extends Component {
     })
   }
 
+  handlePlayPause() {
+    if (this.state.isPlay) {
+      player.pause()
+    } else {
+      player.play()
+    }
+    this.setState(prevState => ({
+      isPlay: !prevState.isPlay,
+    }))
+  }
+
   render() {
-    const { lyricList, percent, currentTime, totalTime } = this.state
+    const { lyricList, percent, currentTime, totalTime, isPlay } = this.state
+
     const slideProps = {
       step: 0.1,
       value: percent,
@@ -95,6 +108,10 @@ class Lyrics extends Component {
             {lyricList.map((item, key) => (
               <p key={key} id={`line-${key}`}>{item[1]}</p>
             ))}
+          </div>
+          <div className={styles.opt_box} onClick={::this.handlePlayPause}>
+            {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
+            {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
           </div>
         </div>
         <div className={styles.slider_box}>
