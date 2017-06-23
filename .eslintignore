@@ -4,3 +4,4 @@
 /src/models/bbs/index.js
 /src/models/bbs/category.js
 /src/routes/bbs/Video/index.js
+/src/components/AudioPlayer/lyric.js
