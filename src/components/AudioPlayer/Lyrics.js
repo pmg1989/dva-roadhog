@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+// import classnames from 'classnames'
 import $ from 'jQuery'
 import lyric from './lyric'
 import styles from './Lyrics.less'
@@ -27,11 +28,10 @@ class Lyrics extends Component {
 
     player.addEventListener('timeupdate', (e) => {
       this.state.lyricList.forEach((item, i) => {
-        if (e.target.currentTime > item[0] - 0.50) {
+        if (e.target.currentTime > item[0] - 1) { /* preload the lyric by 0.50s*/
           const line = $(`#line-${i}`)
-              // prevLine = $('line-' + (i > 0 ? i - 1 : i))
           line.addClass('current-line-1').siblings('p').removeClass('current-line-1')
-          lyricContainer.style.top = `${0 - line[0].offsetTop}px`
+          lyricContainer.style.top = `-${line[0].offsetTop}px`
         }
       })
     })
