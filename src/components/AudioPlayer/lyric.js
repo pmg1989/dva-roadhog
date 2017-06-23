@@ -4,15 +4,17 @@ class lyric {
     const request = new XMLHttpRequest()
     request.open('GET', url, true)
     request.responseType = 'text'
-      // fix for the messy code problem for Chinese.  reference: http://xx.time8.org/php/20101218/ajax-xmlhttprequest.html
-      // request['overrideMimeType'] && request.overrideMimeType("text/html;charset=gb2312");
+    // fix for the messy code problem for Chinese.  reference: http://xx.time8.org/php/20101218/ajax-xmlhttprequest.html
+    // request['overrideMimeType'] && request.overrideMimeType("text/html;charset=gb2312");
     request.onload = () => {
       cb(this.parseLyric(request.response))
     }
-    request.onerror = request.onabort = function(e) {
+    request.onerror = (e) => {
       console.log(e)
     }
-      // this.lyricContainer.textContent = 'loading lyric...';
+    request.onabort = (e) => {
+      console.log(e)
+    }
     request.send()
   }
 
@@ -34,12 +36,12 @@ class lyric {
     lines[lines.length - 1].length === 0 && lines.pop()
     // display all content on the page
     lines.forEach((v) => {
-      const time = v.match(pattern),
-        value = v.replace(pattern, '')
+      const time = v.match(pattern)
+      const value = v.replace(pattern, '')
       time.forEach((v1) => {
             // convert the [min:sec] to secs format then store into result
         const t = v1.slice(1, -1).split(':')
-        result.push([parseInt(t[0], 10) * 60 + parseFloat(t[1]) + parseInt(offset) / 1000, value])
+        result.push([(parseInt(t[0], 10) * 60) + parseFloat(t[1]) + (parseInt(offset, 10) / 1000), value])
       })
     })
     // sort the result by time
@@ -53,8 +55,8 @@ class lyric {
     // Returns offset in miliseconds.
     let offset = 0
     try {
-      const offsetLine = text.match(/\[offset:\-?\+?\d+\]/g)[0],
-        offset = parseInt(offsetLine.split(':')[1])
+      const offsetLine = text.match(/\[offset:\-?\+?\d+\]/g)[0]
+      offset = parseInt(offsetLine.split(':')[1], 10)
     } catch (err) {
       offset = 0
     }
