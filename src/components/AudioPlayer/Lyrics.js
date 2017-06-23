@@ -28,7 +28,7 @@ class Lyrics extends Component {
 
     player.addEventListener('timeupdate', (e) => {
       this.state.lyricList.forEach((item, i) => {
-        if (e.target.currentTime > item[0] - 1) { /* preload the lyric by 0.50s*/
+        if (e.target.currentTime > item[0] - 0.5) { /* preload the lyric by 0.50s*/
           const line = $(`#line-${i}`)
           line.addClass('current-line-1').siblings('p').removeClass('current-line-1')
           lyricContainer.style.top = `-${line[0].offsetTop}px`
