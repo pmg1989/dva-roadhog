@@ -20,6 +20,7 @@
   position: relative;
   color: #fff;
   text-align: center;
+  // transition: height 0.25s ease-in-out;
 
   .lyric_container {
     position: relative;
@@ -30,12 +31,22 @@
     p {
       margin: 0;
       line-height: 2;
+      // font-size: 28px;
+      white-space: nowrap;
     }
 
     :global {
       .current-line-1 {
         color: #ff1493;
       }
+    }
+  }
+
+  &.nomarl {
+    height: e("calc(100vw - 92px)");
+
+    .lyric_container {
+      top: 400px;
     }
   }
 }
@@ -69,7 +80,7 @@
 .opt_box {
   position: absolute;
   right:30px;
-  top: 40px;
+  bottom: 0;
 
   :global {
     .am-icon {
