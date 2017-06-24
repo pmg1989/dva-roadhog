@@ -107,23 +107,25 @@ class AudioPlayer extends Component {
 
     return (
       <div className={styles.box}>
-        <div className={styles.lyric_wrapper}>
-          <div className={styles.lyric_container} id="lyricContainer">
-            {lyricList.map((item, key) => (
-              <p key={key} id={`line-${key}`}>{item[1]}</p>
-            ))}
+        <div className={styles.container}>
+          <div className={styles.lyric_wrapper}>
+            <div className={styles.lyric_container} id="lyricContainer">
+              {lyricList.map((item, key) => (
+                <p key={key} id={`line-${key}`}>{item[1]}</p>
+              ))}
+            </div>
+            <div className={styles.opt_box} onClick={::this.handlePlayPause}>
+              {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
+              {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
+            </div>
           </div>
-          <div className={styles.opt_box} onClick={::this.handlePlayPause}>
-            {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
-            {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
+          <div className={styles.slider_box}>
+            <span className={styles.curtime}>{AudioPlayer.parseTime(currentTime)}</span>
+            <Slider {...slideProps} />
+            <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
           </div>
+          <audio id="audio" src={source}>audio not supported :(</audio>
         </div>
-        <div className={styles.slider_box}>
-          <span className={styles.curtime}>{AudioPlayer.parseTime(currentTime)}</span>
-          <Slider {...slideProps} />
-          <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
-        </div>
-        <audio id="audio" src={source}>audio not supported :(</audio>
       </div>
     )
   }
