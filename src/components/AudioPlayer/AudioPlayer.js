@@ -1,28 +1,129 @@
 import React, { Component } from 'react'
-import Lyrics from './Lyrics'
-import './AudioPlayer.less'
+import { Slider, Icon } from 'antd-mobile'
+import $ from 'jQuery'
+import lyric from './lyric'
+import styles from './AudioPlayer.less'
+
+// const SliderWithTooltip = createTooltip(Slider)
+let player
+let lyricContainer
 
 class AudioPlayer extends Component {
-  // constructor() {
-  //
-  // }
+
+  static handleChangeSlider(percent) {
+    player.currentTime = player.duration * (percent / 100)
+  }
+
+  static parseTime(time) {
+    let min = String(parseInt(time / 60, 10))
+    let sec = String(parseInt(time % 60, 10))
+    if (min.length === 1) {
+      min = `0${min}`
+    }
+    if (sec.length === 1) {
+      sec = `0${sec}`
+    }
+    return `${min}:${sec}`
+  }
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isPlay: false,
+      currentTime: 0,
+      totalTime: 0,
+      percent: 0,
+      lyricList: [],
+    }
+  }
 
   componentDidMount() {
+    player = document.getElementById('audio')
+    lyricContainer = document.getElementById('lyricContainer')
 
+    player.addEventListener('canplay', (e) => {
+      lyric.getLyric(this.props.lrc, (lyricList) => {
+        this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
+        player.play()
+      })
+    })
+
+    player.addEventListener('ended', () => {
+      this.setState({ isPlay: false })
+    })
+
+    player.addEventListener('timeupdate', (e) => {
+      const { currentTime, duration } = e.target
+
+      this.state.lyricList.forEach((item, i) => {
+        if (currentTime > item[0] - 0.5) { /* preload the lyric by 0.50s*/
+          const line = $(`#line-${i}`)
+          line.addClass('current-line-1').siblings('p').removeClass('current-line-1')
+          lyricContainer.style.top = `-${line[0].offsetTop}px`
+        }
+      })
+      this.setState({ currentTime, percent: (currentTime / duration) * 100 })
+    })
+  }
+
+  handlePlayPause() {
+    if (this.state.isPlay) {
+      player.pause()
+    } else {
+      player.play()
+    }
+    this.setState(prevState => ({
+      isPlay: !prevState.isPlay,
+    }))
   }
 
   render() {
+    const { lyricList, percent, currentTime, totalTime, isPlay } = this.state
+    const { source } = this.props
+
+    const slideProps = {
+      step: 0.1,
+      value: percent,
+      onChange: AudioPlayer.handleChangeSlider,
+      trackStyle: {
+        backgroundColor: '#52a9eb',
+        height: '3px',
+      },
+      railStyle: {
+        backgroundColor: '#cfcbd0',
+        height: '3px',
+      },
+      handleStyle: {
+        borderColor: '#52a9eb',
+        height: '12px',
+        width: '12px',
+        marginLeft: '-4px',
+        marginTop: '-4px',
+        backgroundColor: '#fff',
+        boxShadow: '0 0 1px 1px #52a9eb',
+      },
+    }
+
     return (
-      <div>
-        <Lyrics url={'https://o9u2lnvze.qnssl.com//competition5a1e4747-2e3e-48ba-bba8-8b08b462d9c8.lrc'} />
-        {/* <Lyrics url={'https://o9u2lnvze.qnssl.com//practice_song6a3745d8-fb66-4342-a5a4-a27b4d546f4b.lrc'} /> */}
-        <audio style={{ width: '100%' }}
-          id="audio"
-          controls
-          playsInline
-          src="/demo/tai_zao.mp3"
-        >!audio not supported :(
-        </audio>
+      <div className={styles.box}>
+        <div className={styles.lyric_wrapper}>
+          <div className={styles.lyric_container} id="lyricContainer">
+            {lyricList.map((item, key) => (
+              <p key={key} id={`line-${key}`}>{item[1]}</p>
+            ))}
+          </div>
+          <div className={styles.opt_box} onClick={::this.handlePlayPause}>
+            {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
+            {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
+          </div>
+        </div>
+        <div className={styles.slider_box}>
+          <span className={styles.curtime}>{AudioPlayer.parseTime(currentTime)}</span>
+          <Slider {...slideProps} />
+          <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
+        </div>
+        <audio id="audio" src={source}>audio not supported :(</audio>
       </div>
     )
   }
