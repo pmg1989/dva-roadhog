@@ -11,10 +11,6 @@ let lyricContainer
 
 class AudioPlayer extends Component {
 
-  static handleChangeSlider(percent) {
-    player.currentTime = player.duration * (percent / 100)
-  }
-
   static parseTime(time) {
     let min = String(parseInt(time / 60, 10))
     let sec = String(parseInt(time % 60, 10))
@@ -37,6 +33,7 @@ class AudioPlayer extends Component {
       percent: 0,
       lyricList: [],
       lrcStatus: true, // true： 两行歌词；false：多行歌词
+      isSliding: false,
     }
   }
 
@@ -65,7 +62,7 @@ class AudioPlayer extends Component {
           lyricContainer.style.top = `${oldTop - line[0].offsetTop}px`
         }
       })
-      this.setState({ currentTime, percent: (currentTime / duration) * 100 })
+      !this.state.isSliding && this.setState({ currentTime, percent: (currentTime / duration) * 100 })
     })
   }
 
@@ -94,21 +91,27 @@ class AudioPlayer extends Component {
     const slideProps = {
       step: 0.1,
       value: percent,
-      onChange: AudioPlayer.handleChangeSlider,
+      onChange: (per) => {
+        this.setState({ percent: per, isSliding: true, currentTime: (percent * totalTime) / 100 })
+      },
+      onAfterChange: (per) => {
+        this.setState({ isSliding: false })
+        player.currentTime = player.duration * (per / 100)
+      },
       trackStyle: {
         backgroundColor: '#52a9eb',
-        height: '3px',
+        height: '4px',
       },
       railStyle: {
         backgroundColor: '#cfcbd0',
-        height: '3px',
+        height: '4px',
       },
       handleStyle: {
         borderColor: '#52a9eb',
-        height: '12px',
-        width: '12px',
-        marginLeft: '-4px',
-        marginTop: '-4px',
+        height: '16px',
+        width: '16px',
+        marginLeft: '-6px',
+        marginTop: '-6px',
         backgroundColor: '#fff',
         boxShadow: '0 0 1px 1px #52a9eb',
       },
