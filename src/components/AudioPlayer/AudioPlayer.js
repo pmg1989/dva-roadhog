@@ -34,7 +34,7 @@ class AudioPlayer extends Component {
       lyricList: [],
       lrcStatus: true, // true： 两行歌词；false：多行歌词
       isSliding: false,
-      lrcClick: props.lrcClick
+      lrcClick: props.lrcClick,
     }
   }
 
@@ -93,7 +93,7 @@ class AudioPlayer extends Component {
       step: 0.1,
       value: percent,
       onChange: (per) => {
-        console.log(per);
+        console.log(per)
         this.setState({ percent: per, isSliding: true, currentTime: (percent * totalTime) / 100 })
       },
       onAfterChange: (per) => {
