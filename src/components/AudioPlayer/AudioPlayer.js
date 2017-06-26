@@ -11,6 +11,9 @@ let lyricContainer
 
 class AudioPlayer extends Component {
 
+  static lrcList = []
+  static lrcListLength = 0
+
   static parseTime(time) {
     let min = String(parseInt(time / 60, 10))
     let sec = String(parseInt(time % 60, 10))
@@ -45,6 +48,8 @@ class AudioPlayer extends Component {
     player.addEventListener('canplay', (e) => {
       player.play()
       lyric.getLyric(this.props.lrc, (lyricList) => {
+        AudioPlayer.lrcList = lyricList
+        AudioPlayer.lrcListLength = lyricList.length
         this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
       })
     })
@@ -56,13 +61,14 @@ class AudioPlayer extends Component {
     player.addEventListener('timeupdate', (e) => {
       const { currentTime, duration } = e.target
       const oldTop = this.state.lrcStatus ? 0 : 200
-      this.state.lyricList.forEach((item, i) => {
-        if (currentTime > item[0] - 0.5) { /* preload the lyric by 0.50s*/
+      for (let i = AudioPlayer.lrcListLength - 1; i >= 0; i = i - 1) {
+        if (currentTime > AudioPlayer.lrcList[i].time - 0.5) { /* preload the lyric by 0.50s*/
           const line = $(`#line-${i}`)
           line.addClass('current-line-1').siblings('p').removeClass('current-line-1')
           lyricContainer.style.top = `${oldTop - line[0].offsetTop}px`
+          break
         }
-      })
+      }
       !this.state.isSliding && this.setState({ currentTime, percent: (currentTime / duration) * 100 })
     })
   }
@@ -124,7 +130,7 @@ class AudioPlayer extends Component {
           <div className={classnames(styles.lyric_wrapper, { [styles.nomarl]: !lrcStatus })}>
             <div className={styles.lyric_container} id="lyricContainer">
               {lyricList.map((item, key) => (
-                <p key={key} id={`line-${key}`}>{item[1]}</p>
+                <p key={key} id={`line-${key}`}>{item.text}</p>
               ))}
               {lyricList.length === 0 && <p>歌词加载中...</p>}
             </div>

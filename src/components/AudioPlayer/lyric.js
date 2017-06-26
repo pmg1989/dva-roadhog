@@ -41,12 +41,16 @@ class lyric {
       time.forEach((v1) => {
             // convert the [min:sec] to secs format then store into result
         const t = v1.slice(1, -1).split(':')
-        result.push([(parseInt(t[0], 10) * 60) + parseFloat(t[1]) + (parseInt(offset, 10) / 1000), value])
+        //result.push([(parseInt(t[0], 10) * 60) + parseFloat(t[1]) + (parseInt(offset, 10) / 1000), value])
+        result.push({
+          time: (parseInt(t[0], 10) * 60) + parseFloat(t[1]) + (parseInt(offset, 10) / 1000),
+          text: value,
+        })
       })
     })
     // sort the result by time
     result.sort((a, b) => {
-      return a[0] - b[0]
+      return a.time - b.time
     })
     return result
   }
