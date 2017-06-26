@@ -33,11 +33,13 @@
       line-height: 2;
       // font-size: 28px;
       white-space: nowrap;
+      opacity: 0.6;
     }
 
     :global {
       .current-line-1 {
-        color: #ff1493;
+        // color: #4AD87F;
+        opacity: 1;
       }
     }
   }
@@ -79,13 +81,16 @@
 
 .opt_box {
   position: absolute;
-  right:30px;
-  bottom: 0;
+  width: 100%;
+  height: e("calc(100% - 92px)");
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   :global {
     .am-icon {
-      width: 0.6rem;
-      height: 0.6rem;
+      width: 1rem;
+      height: 1rem;
     }
   }
 }

@@ -34,6 +34,7 @@ class AudioPlayer extends Component {
       lyricList: [],
       lrcStatus: true, // true： 两行歌词；false：多行歌词
       isSliding: false,
+      lrcClick: props.lrcClick
     }
   }
 
@@ -79,7 +80,7 @@ class AudioPlayer extends Component {
   }
 
   changeLrcType() {
-    this.setState(prevState => ({
+    this.state.lrcClick && this.setState(prevState => ({
       lrcStatus: !prevState.lrcStatus,
     }))
   }
@@ -92,6 +93,7 @@ class AudioPlayer extends Component {
       step: 0.1,
       value: percent,
       onChange: (per) => {
+        console.log(per);
         this.setState({ percent: per, isSliding: true, currentTime: (percent * totalTime) / 100 })
       },
       onAfterChange: (per) => {
@@ -127,10 +129,6 @@ class AudioPlayer extends Component {
               ))}
               {lyricList.length === 0 && <p>歌词加载中...</p>}
             </div>
-            <div className={styles.opt_box} onClick={::this.handlePlayPause}>
-              {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
-              {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
-            </div>
           </div>
           <div className={styles.slider_box} onClick={e => e.stopPropagation()}>
             <span className={styles.curtime}>{AudioPlayer.parseTime(currentTime)}</span>
@@ -138,6 +136,12 @@ class AudioPlayer extends Component {
             <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
           </div>
           <audio id="audio" src={source}>audio not supported :(</audio>
+        </div>
+        <div className={styles.opt_box}>
+          <div onClick={::this.handlePlayPause}>
+            {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
+            {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
+          </div>
         </div>
       </div>
     )
