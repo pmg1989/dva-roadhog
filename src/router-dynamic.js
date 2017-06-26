@@ -81,7 +81,7 @@ const Routers = ({ history, app }) => {
               path: 'practice-work/:id',
               getComponent(nextState, cb) {
                 require.ensure([], (require) => {
-                  registerModel(app, require('./models/festival/competitionWork'))
+                  registerModel(app, require('./models/festival/practiceWork'))
                   cb(null, require('./routes/festival/PracticeWork'))
                 }, 'festival-practice-work')
               },

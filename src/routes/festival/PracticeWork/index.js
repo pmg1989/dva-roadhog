@@ -1,32 +1,32 @@
 import React from 'react'
 import { connect } from 'dva'
 import Content from './Content'
-// import ReplayList from './ReplayList'
-// import Bottom from './Bottom'
+import ReplayList from './ReplayList'
+import Bottom from './Bottom'
 
-const PracticeWork = ({ festivalCompetitionWork }) => {
-  const { item } = festivalCompetitionWork
+const PracticeWork = ({ dispatch, festivalPracticeWork }) => {
+  const { item, dataSource, total, hasMore } = festivalPracticeWork
 
   const contentProps = {
     item,
   }
 
-  // const replayListProps = {
-  //   dataSource,
-  //   total,
-  //   hasMore,
-  //   queryMoreList() {
-  //     dispatch({ type: 'festivalCompetitionWork/queryMoreReplayList' })
-  //   },
-  // }
+  const replayListProps = {
+    dataSource,
+    total,
+    hasMore,
+    queryMoreList() {
+      dispatch({ type: 'festivalPracticeWork/queryMoreReplayList' })
+    },
+  }
 
   return (
     <div>
       <Content {...contentProps} />
-      {/* <ReplayList {...replayListProps} />
-      <Bottom /> */}
+      <ReplayList {...replayListProps} />
+      <Bottom />
     </div>
   )
 }
 
-export default connect(({ festivalCompetitionWork }) => ({ festivalCompetitionWork }))(PracticeWork)
+export default connect(({ festivalPracticeWork }) => ({ festivalPracticeWork }))(PracticeWork)
