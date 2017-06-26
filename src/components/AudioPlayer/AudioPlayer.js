@@ -61,7 +61,7 @@ class AudioPlayer extends Component {
     player.addEventListener('timeupdate', (e) => {
       const { currentTime, duration } = e.target
       const oldTop = this.state.lrcStatus ? 0 : 200
-      for (let i = AudioPlayer.lrcListLength - 1; i >= 0; i = i - 1) {
+      for (let i = AudioPlayer.lrcListLength - 1; i >= 0; i -= 1) {
         if (currentTime > AudioPlayer.lrcList[i].time - 0.5) { /* preload the lyric by 0.50s*/
           const line = $(`#line-${i}`)
           line.addClass('current-line-1').siblings('p').removeClass('current-line-1')
