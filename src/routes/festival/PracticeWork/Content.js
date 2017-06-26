@@ -43,7 +43,7 @@ const Content = () => {
           我是大赛详细介绍我是大赛详细介绍我是大赛详细介绍我是大赛详细介绍我是大赛详细介绍我是大赛详细介绍我是大赛详细介绍
         </div>
       </div>
-      <div className={styles.row_box}></div>
+      <div className={styles.row_box} />
     </div>
   )
 }
