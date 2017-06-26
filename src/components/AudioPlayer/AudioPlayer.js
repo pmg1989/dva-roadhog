@@ -99,21 +99,21 @@ class AudioPlayer extends Component {
         player.currentTime = player.duration * (per / 100)
       },
       trackStyle: {
-        backgroundColor: '#52a9eb',
-        height: '4px',
+        backgroundColor: '#4AD87F',
+        height: '3px',
       },
       railStyle: {
         backgroundColor: '#cfcbd0',
-        height: '4px',
+        height: '3px',
       },
       handleStyle: {
-        borderColor: '#52a9eb',
+        borderColor: '#4AD87F',
         height: '16px',
         width: '16px',
-        marginLeft: '-6px',
-        marginTop: '-6px',
+        marginLeft: '-7px',
+        marginTop: '-7px',
         backgroundColor: '#fff',
-        boxShadow: '0 0 1px 1px #52a9eb',
+        boxShadow: '0 0 1px 1px #4AD87F',
       },
     }
 
