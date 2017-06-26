@@ -43,9 +43,9 @@ class AudioPlayer extends Component {
     lyricContainer = document.getElementById('lyricContainer')
 
     player.addEventListener('canplay', (e) => {
+      player.play()
       lyric.getLyric(this.props.lrc, (lyricList) => {
         this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
-        player.play()
       })
     })
 
@@ -93,7 +93,6 @@ class AudioPlayer extends Component {
       step: 0.1,
       value: percent,
       onChange: (per) => {
-        console.log(per)
         this.setState({ percent: per, isSliding: true, currentTime: (percent * totalTime) / 100 })
       },
       onAfterChange: (per) => {
@@ -135,7 +134,7 @@ class AudioPlayer extends Component {
             <Slider {...slideProps} />
             <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
           </div>
-          <audio id="audio" src={source}>audio not supported :(</audio>
+          <audio id="audio" src={source} autoPlay="autoplay">audio not supported :(</audio>
         </div>
         <div className={styles.opt_box}>
           <div onClick={::this.handlePlayPause}>
