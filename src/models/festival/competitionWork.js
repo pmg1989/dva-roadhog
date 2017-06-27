@@ -1,11 +1,17 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
+import { getWork } from '../../services/festival/competitionWork'
 import { getMoreReplay } from '../../services/bbs/moreReplay'
 
 export default {
   namespace: 'festivalCompetitionWork',
   state: {
-    item: {},
+    item: {
+      competition: {},
+      cover: {},
+      file: {},
+      user: {},
+    },
     page: 1,
     count: 4,
     hasMore: true,
@@ -19,12 +25,25 @@ export default {
         if (match) {
           const id = match[1]
           console.log(id)
+          dispatch({ type: 'getWork', payload: { id } })
           dispatch({ type: 'queryReplayList', payload: { id } })
         }
       })
     },
   },
   effects: {
+    *getWork({ payload }, { call, put }) {
+      const { id } = payload
+      const data = yield call(getWork, id)
+      if(data.success) {
+        yield put({
+          type: 'getWorkSuccess',
+          payload: {
+            item: data.work
+          },
+        })
+      }
+    },
     *queryReplayList({ payload }, { call, put, select }) {
       const { count } = yield select(state => state.festivalCompetitionWork)
       const data = yield call(getMoreReplay, {
@@ -37,7 +56,6 @@ export default {
       if (data.success) {
         yield put({ type: 'queryReplaySuccess',
           payload: {
-            item: data.fellow_info,
             dataSource: data.fellows,
             page: 2,
             total: +data.count,
@@ -68,6 +86,9 @@ export default {
     },
   },
   reducers: {
+    getWorkSuccess(state, action) {
+      return { ...state, ...action.payload }
+    },
     queryReplaySuccess(state, action) {
       return { ...state, ...action.payload }
     },
