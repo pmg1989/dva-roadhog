@@ -41,7 +41,7 @@ export default {
         cid: payload.id,
         order: 'hot',
         page: 1,
-        size
+        size,
       })
       if (data.success) {
         yield put({ type: 'queryRankListSuccess',
@@ -61,7 +61,7 @@ export default {
     *queryMoreRankList({ payload }, { call, put, select }) {
       const { cid, page, size } = yield select(state => state.festivalCompetition)
       const data = yield call(queryRankList, {
-        cid, page, size
+        cid, page, size,
       })
       if (data.success) {
         const hasMore = ((page - 1) * size) + data.songs.length < data.count
@@ -82,7 +82,7 @@ export default {
       const data = yield call(queryRankList, {
         cid,
         page: 1,
-        size
+        size,
       })
       if (data.success) {
         yield put({ type: 'queryNewestListSuccess',
@@ -102,7 +102,7 @@ export default {
     *queryMoreNewestList({ payload }, { call, put, select }) {
       const { cid, page, size } = yield select(state => state.festivalCompetition)
       const data = yield call(queryRankList, {
-        cid, page, size
+        cid, page, size,
       })
       if (data.success) {
         const hasMore = ((page - 1) * size) + data.songs.length < data.count

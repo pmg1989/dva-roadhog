@@ -18,7 +18,7 @@ const fetch = (url, options) => {
     case 'head':
       return axios.head(url, data, { headers })
     case 'post':
-      if(headers) {
+      if (headers) {
         return axios.post(url, stringify(data), { headers })
       } else {
         return axios.post(url, stringify(data))
