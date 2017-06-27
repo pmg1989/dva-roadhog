@@ -24,7 +24,6 @@ export default {
         const match = pathToRegexp('/festival/competition-work/:id').exec(location.pathname)
         if (match) {
           const id = match[1]
-          console.log(id)
           dispatch({ type: 'getWork', payload: { id } })
           dispatch({ type: 'queryReplayList', payload: { id } })
         }
