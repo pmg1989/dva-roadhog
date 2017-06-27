@@ -54,13 +54,13 @@ class AudioPlayer extends Component {
 
     player.addEventListener('canplay', (e) => {
       player.play()
-      if(this.props.lrcUrl) {
+      if (this.props.lrcUrl) {
         lyric.getLyric(this.props.lrcUrl, (lyricList) => {
           AudioPlayer.lrcList = lyricList
           AudioPlayer.lrcListLength = lyricList.length
           this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
         })
-      } else if(this.props.lrcData) {
+      } else if (this.props.lrcData) {
         const lyricList = lyric.parseLyric(this.props.lrcData)
         AudioPlayer.lrcList = lyricList
         AudioPlayer.lrcListLength = lyricList.length
