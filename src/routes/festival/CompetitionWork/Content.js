@@ -7,7 +7,7 @@ import Video from '../../bbs/Video'
 import styles from './Content.less'
 
 const Content = ({ item }) => {
-  console.log(item);
+  console.log(item)
 
   const audioPlayerProps = {
     source: item.file.full_url,

@@ -35,11 +35,11 @@ export default {
     *getWork({ payload }, { call, put }) {
       const { id } = payload
       const data = yield call(getWork, id)
-      if(data.success) {
+      if (data.success) {
         yield put({
           type: 'getWorkSuccess',
           payload: {
-            item: data.work
+            item: data.work,
           },
         })
       }
