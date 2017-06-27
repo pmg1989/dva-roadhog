@@ -10,7 +10,8 @@ const Content = ({ item }) => {
   console.log(item)
   const audioPlayerProps = {
     source: item.file.full_url,
-    lrc: 'https://o9u2lnvze.qnssl.com//competition5a1e4747-2e3e-48ba-bba8-8b08b462d9c8.lrc',
+    // lrcUrl: 'https://o9u2lnvze.qnssl.com//competition5a1e4747-2e3e-48ba-bba8-8b08b462d9c8.lrc',
+    lrcData: item.lrc,
     lrcClick: false,
   }
 

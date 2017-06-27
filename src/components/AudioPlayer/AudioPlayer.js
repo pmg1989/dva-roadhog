@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { Slider, Icon } from 'antd-mobile'
 import $ from 'jQuery'
@@ -10,6 +10,13 @@ let player
 let lyricContainer
 
 class AudioPlayer extends Component {
+
+  static propTypes = {
+    source: PropTypes.string.isRequired,
+    lrcUrl: PropTypes.string,
+    lrcData: PropTypes.string,
+    lrcClick: PropTypes.bool,
+  }
 
   static lrcList = []
   static lrcListLength = 0
@@ -47,11 +54,18 @@ class AudioPlayer extends Component {
 
     player.addEventListener('canplay', (e) => {
       player.play()
-      lyric.getLyric(this.props.lrc, (lyricList) => {
+      if(this.props.lrcUrl) {
+        lyric.getLyric(this.props.lrcUrl, (lyricList) => {
+          AudioPlayer.lrcList = lyricList
+          AudioPlayer.lrcListLength = lyricList.length
+          this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
+        })
+      } else if(this.props.lrcData) {
+        const lyricList = lyric.parseLyric(this.props.lrcData)
         AudioPlayer.lrcList = lyricList
         AudioPlayer.lrcListLength = lyricList.length
         this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
-      })
+      }
     })
 
     player.addEventListener('ended', () => {
