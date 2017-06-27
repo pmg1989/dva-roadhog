@@ -9,20 +9,24 @@ axios.defaults.baseURL = 'http://ec2-54-223-130-122.cn-north-1.compute.amazonaws
 axios.defaults.headers.common['X-Accept-Version'] = '3.7'
 
 const fetch = (url, options) => {
-  const { method = 'get', data } = options
+  const { method = 'get', data, headers } = options
   switch (method.toLowerCase()) {
     case 'get':
-      return axios.get(url, { params: data })
+      return axios.get(url, { params: data, headers })
     case 'delete':
-      return axios.delete(url, { data })
+      return axios.delete(url, { data, headers })
     case 'head':
-      return axios.head(url, data)
+      return axios.head(url, data, { headers })
     case 'post':
-      return axios.post(url, data)
+      if(headers) {
+        return axios.post(url, stringify(data), { headers })
+      } else {
+        return axios.post(url, stringify(data))
+      }
     case 'put':
-      return axios.put(url, stringify(data))
+      return axios.put(url, stringify(data), { headers })
     case 'patch':
-      return axios.patch(url, data)
+      return axios.patch(url, data, { headers })
     default:
       return axios(options)
   }

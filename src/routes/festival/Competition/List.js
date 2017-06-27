@@ -19,9 +19,9 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
     return (
       <div className={styles.list_row} key={rowID}>
         <div className={styles.top}>
-          <img className={styles.thumb} alt="" src={item.userimg} />
+          <img className={styles.thumb} alt="" src={item.user.image} />
           <div className={styles.mask_box}>
-            <span>{item.username}</span>
+            <span>{item.user.profile.name}</span>
           </div>
           {type === 1 && <Rank rank={+rowID} />}
           {type === 2 && <div className={styles.tag}><span>第二期</span></div>}
@@ -29,7 +29,7 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
         <div className={styles.bottom}>
           <div className={styles.vote_icon}>
             <span className={styles.icon}><Icon type={require('../../../svg/festival/vote.svg')} /></span>
-            <span>12</span>
+            <span>{item.votes}</span>
           </div>
           <Button className={styles.btn_vote}>投票</Button>
         </div>

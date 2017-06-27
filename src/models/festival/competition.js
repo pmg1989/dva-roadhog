@@ -1,13 +1,14 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-import { getMoreReplay } from '../../services/bbs/moreReplay'
+import { queryRankList } from '../../services/festival/competition'
 
 export default {
   namespace: 'festivalCompetition',
   state: {
+    cid: null,
     item: {},
     page: 1,
-    count: 18,
+    size: 18,
     rank: {
       firstLoad: false,
       hasMore: true,
@@ -27,7 +28,6 @@ export default {
         const match = pathToRegexp('/festival/competition/:id').exec(location.pathname)
         if (match) {
           const id = match[1]
-          console.log(id)
           dispatch({ type: 'queryRankList', payload: { id } })
           // dispatch({ type: 'queryNewestList', payload: { id } })
         }
@@ -36,45 +36,41 @@ export default {
   },
   effects: {
     *queryRankList({ payload }, { call, put, select }) {
-      const { count } = yield select(state => state.festivalCompetition)
-      const data = yield call(getMoreReplay, {
-        fellowid: '1686',
-        sendid: '1043',
-        orderby: 'dateAsc',
+      const { size } = yield select(state => state.festivalCompetition)
+      const data = yield call(queryRankList, {
+        cid: payload.id,
+        order: 'hot',
         page: 1,
-        count,
+        size
       })
       if (data.success) {
         yield put({ type: 'queryRankListSuccess',
           payload: {
+            cid: payload.id,
             page: 2,
             rank: {
               firstLoad: true,
-              dataSource: data.fellows,
-              total: +data.count,
-              hasMore: data.fellows.length < +data.count,
+              dataSource: data.songs,
+              total: data.count,
+              hasMore: data.songs.length < data.count,
             },
           },
         })
       }
     },
     *queryMoreRankList({ payload }, { call, put, select }) {
-      const { page, count } = yield select(state => state.festivalCompetition)
-      const data = yield call(getMoreReplay, {
-        fellowid: '1686',
-        sendid: '1043',
-        orderby: 'dateAsc',
-        page,
-        count,
+      const { cid, page, size } = yield select(state => state.festivalCompetition)
+      const data = yield call(queryRankList, {
+        cid, page, size
       })
       if (data.success) {
-        const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
+        const hasMore = ((page - 1) * size) + data.songs.length < data.count
         yield put({ type: 'queryMoreRankListSuccess',
           payload: {
             page: page + 1,
             rank: {
-              dataSource: data.fellows,
-              total: +data.count,
+              dataSource: data.songs,
+              total: data.count,
               hasMore,
             },
           },
@@ -82,44 +78,40 @@ export default {
       }
     },
     *queryNewestList({ payload }, { call, put, select }) {
-      const { count } = yield select(state => state.festivalCompetition)
-      const data = yield call(getMoreReplay, {
-        fellowid: '1686',
-        sendid: '1043',
-        orderby: 'dateDesc',
+      const { cid, size } = yield select(state => state.festivalCompetition)
+      const data = yield call(queryRankList, {
+        cid,
         page: 1,
-        count,
+        size
       })
       if (data.success) {
         yield put({ type: 'queryNewestListSuccess',
           payload: {
+            cid,
             page: 2,
             newest: {
               firstLoad: true,
-              dataSource: data.fellows,
-              total: +data.count,
-              hasMore: data.fellows.length < +data.count,
+              dataSource: data.songs,
+              total: data.count,
+              hasMore: data.songs.length < data.count,
             },
           },
         })
       }
     },
     *queryMoreNewestList({ payload }, { call, put, select }) {
-      const { page, count } = yield select(state => state.festivalCompetition)
-      const data = yield call(getMoreReplay, {
-        fellowid: '1686',
-        sendid: '1043',
-        orderby: 'dateDesc',
-        page,
-        count,
+      const { cid, page, size } = yield select(state => state.festivalCompetition)
+      const data = yield call(queryRankList, {
+        cid, page, size
       })
       if (data.success) {
-        const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
+        const hasMore = ((page - 1) * size) + data.songs.length < data.count
         yield put({ type: 'queryMoreNewestListSuccess',
           payload: {
             page: page + 1,
             newest: {
-              dataSource: data.fellows,
+              dataSource: data.songs,
+              total: data.count,
               hasMore,
             },
           },
