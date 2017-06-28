@@ -9,7 +9,7 @@ const Content = ({ item }) => {
   return (
     <div className={styles.content_box}>
       <div className={styles.top}>
-        <Video src={item.detail_file_detail && item.detail_file_detail.full_url} />
+        {item.detail_file_detail && <Video src={item.detail_file_detail.full_url} />}
       </div>
       <div className={styles.info_box}>
         <dl className={classnames(styles.date, 'flex-box')}>
