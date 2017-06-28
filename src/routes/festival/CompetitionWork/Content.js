@@ -45,9 +45,7 @@ const Content = ({ item }) => {
             </div>
           </div>
         </div>
-        <div className={styles.description}>
-          {item.description}
-        </div>
+        <div className={styles.description} dangerouslySetInnerHTML={{ __html: item.description }} />
       </div>
       <div className={styles.row_box}>
         <div className={styles.row}>

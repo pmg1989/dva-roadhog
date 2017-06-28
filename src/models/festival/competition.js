@@ -1,6 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-import { queryRankList } from '../../services/festival/competition'
+import { get, queryRankList } from '../../services/festival/competition'
 
 export default {
   namespace: 'festivalCompetition',
@@ -28,13 +28,24 @@ export default {
         const match = pathToRegexp('/festival/competition/:id').exec(location.pathname)
         if (match) {
           const id = match[1]
+          dispatch({ type: 'getCompetition', payload: { id } })
           dispatch({ type: 'queryRankList', payload: { id } })
-          // dispatch({ type: 'queryNewestList', payload: { id } })
         }
       })
     },
   },
   effects: {
+    *getCompetition({ payload }, { call, put }) {
+      const { id } = payload
+      const data = yield call(get, { id })
+      if (data.success) {
+        yield put({ type: 'getCompetitionSuccess',
+          payload: {
+            item: data.detail,
+          },
+        })
+      }
+    },
     *queryRankList({ payload }, { call, put, select }) {
       const { size } = yield select(state => state.festivalCompetition)
       const data = yield call(queryRankList, {
@@ -120,6 +131,9 @@ export default {
     },
   },
   reducers: {
+    getCompetitionSuccess(state, action) {
+      return { ...state, ...action.payload }
+    },
     queryRankListSuccess(state, action) {
       return { ...state, ...action.payload }
     },

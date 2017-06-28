@@ -24,7 +24,7 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
             <span>{item.user.profile.name}</span>
           </div>
           {type === 1 && <Rank rank={+rowID} />}
-          {type === 2 && <div className={styles.tag}><span>第二期</span></div>}
+          {type === 2 && <div className={styles.tag}><span>{item.competition.tag}</span></div>}
         </div>
         <div className={styles.bottom}>
           <div className={styles.vote_icon}>
