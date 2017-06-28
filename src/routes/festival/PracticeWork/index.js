@@ -7,6 +7,10 @@ import Bottom from './Bottom'
 const PracticeWork = ({ dispatch, festivalPracticeWork }) => {
   const { item, dataSource, total, hasMore } = festivalPracticeWork
 
+  const onDownLoadClick = () => {
+    goToDownLoad()
+  }
+
   const contentProps = {
     item,
   }
@@ -20,11 +24,15 @@ const PracticeWork = ({ dispatch, festivalPracticeWork }) => {
     },
   }
 
+  const bottomProps = {
+    onDownLoadClick,
+  }
+
   return (
     <div>
       <Content {...contentProps} />
       <ReplayList {...replayListProps} />
-      <Bottom />
+      <Bottom {...bottomProps} />
     </div>
   )
 }

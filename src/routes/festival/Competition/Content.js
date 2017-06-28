@@ -4,8 +4,9 @@ import { Button } from 'antd-mobile'
 import Video from '../../bbs/Video'
 import styles from './Content.less'
 
-const Content = ({ item }) => {
+const Content = ({ item, onDownLoadClick }) => {
   console.log(item)
+
   return (
     <div className={styles.content_box}>
       <div className={styles.top}>
@@ -34,7 +35,7 @@ const Content = ({ item }) => {
             </div>
           </div>
           <div className={styles.download_box}>
-            <Button className={styles.download} icon={require('../../../svg/festival/download.svg')}>
+            <Button onClick={onDownLoadClick} className={styles.download} icon={require('../../../svg/festival/download.svg')}>
               下载观看
             </Button>
           </div>
@@ -49,7 +50,7 @@ const Content = ({ item }) => {
             </div>
           </div>
           <div className={styles.download_box}>
-            <Button className={styles.download} icon={require('../../../svg/festival/lock.svg')}>
+            <Button onClick={onDownLoadClick} className={styles.download} icon={require('../../../svg/festival/lock.svg')}>
               解锁观看
             </Button>
           </div>

@@ -6,7 +6,7 @@ import utils from 'utils'
 import Video from '../../bbs/Video'
 import styles from './Content.less'
 
-const Content = ({ item }) => {
+const Content = ({ item, onDownLoadClick }) => {
   console.log(item)
 
   const audioPlayerProps = {
@@ -48,11 +48,11 @@ const Content = ({ item }) => {
         <div className={styles.description} dangerouslySetInnerHTML={{ __html: item.description }} />
       </div>
       <div className={styles.row_box}>
-        <div className={styles.row}>
+        <div className={styles.row} onClick={onDownLoadClick}>
           <span className={styles.tips}>该作品参加了“{item.competition.title}”</span>
           <span><Icon type={require('../../../svg/festival/enter.svg')} /></span>
         </div>
-        <div className={styles.row}>
+        <div className={styles.row} onClick={onDownLoadClick}>
           <div className={styles.thumb_box}>
             <img alt="" src={'http://image.xishiqu.cn/upload/userUpload/920/160/920160622//m/5AF70F21-E6BA-BB06-2E6D-A32CE56B3600.jpg'} />
             <span>哈哈帮助阿花达成了“<span className={styles.blue}>金唱片</span>”成就！</span>

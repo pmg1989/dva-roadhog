@@ -7,13 +7,19 @@ import Bottom from './Bottom'
 const Competition = ({ dispatch, festivalCompetition }) => {
   const { item, rank, newest } = festivalCompetition
 
+  const onDownLoadClick = () => {
+    goToDownLoad()
+  }
+
   const contentProps = {
     item,
+    onDownLoadClick,
   }
 
   const listProps = {
     rank,
     newest,
+    onDownLoadClick,
     queryMoreRankList() {
       dispatch({ type: 'festivalCompetition/queryMoreRankList' })
     },
@@ -25,11 +31,16 @@ const Competition = ({ dispatch, festivalCompetition }) => {
     },
   }
 
+  const bottomProps = {
+    expired: true,
+    onDownLoadClick,
+  }
+
   return (
     <div>
       <Content {...contentProps} />
       <List {...listProps} />
-      <Bottom />
+      <Bottom {...bottomProps} />
     </div>
   )
 }

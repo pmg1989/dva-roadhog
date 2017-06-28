@@ -17,3 +17,11 @@ window.iFrameHeight = function(id) {
     ifm.height = subWeb.body.clientHeight + 5
   }
 }
+
+window.goToDownLoad = function (params) {
+  if(params) {
+
+  } else {
+    window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.newband'
+  }
+}

@@ -14,7 +14,7 @@ const Rank = ({ rank }) => {
   )
 }
 
-const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
+const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type, onDownLoadClick }) => {
   const Row = (item, sectionID, rowID) => {
     return (
       <div className={styles.list_row} key={rowID}>
@@ -31,7 +31,7 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
             <span className={styles.icon}><Icon type={require('../../../svg/festival/vote.svg')} /></span>
             <span>{item.votes}</span>
           </div>
-          <Button className={styles.btn_vote}>投票</Button>
+          <Button className={styles.btn_vote} onClick={onDownLoadClick}>投票</Button>
         </div>
       </div>
     )
@@ -48,7 +48,7 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type }) => {
   return <ViewList {...viewListProps} />
 }
 
-const List = ({ rank, newest, queryMoreRankList, queryNewestList, queryMoreNewestList }) => {
+const List = ({ rank, newest, queryMoreRankList, queryNewestList, queryMoreNewestList, onDownLoadClick }) => {
   const handleTabChange = (key) => {
     if (key === '2' && !newest.firstLoad) {
       queryNewestList()
@@ -59,10 +59,10 @@ const List = ({ rank, newest, queryMoreRankList, queryNewestList, queryMoreNewes
     <div className={styles.list_box}>
       <Tabs defaultActiveKey="1" swipeable={false} onChange={handleTabChange}>
         <TabPane tab="本期榜单" key="1">
-          <Repeat modal={rank} queryMore={queryMoreRankList} type={1} />
+          <Repeat modal={rank} queryMore={queryMoreRankList} type={1} onDownLoadClick={onDownLoadClick} />
         </TabPane>
         <TabPane tab="最近上传" key="2">
-          <Repeat modal={newest} queryMore={queryMoreNewestList} type={2} />
+          <Repeat modal={newest} queryMore={queryMoreNewestList} type={2} onDownLoadClick={onDownLoadClick} />
         </TabPane>
       </Tabs>
     </div>

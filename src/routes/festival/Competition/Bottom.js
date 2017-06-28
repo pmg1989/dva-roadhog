@@ -1,12 +1,11 @@
 import React from 'react'
 import styles from './Bottom.less'
 
-const Bottom = () => {
+const Bottom = ({ expired, onDownLoadClick }) => {
   return (
     <div className={styles.bottom_box}>
-      <a className={styles.btn_blue}>
-        参赛
-      </a>
+      {!expired && <a className={styles.btn_blue} onClick={onDownLoadClick}>参赛</a>}
+      {expired && <a className={styles.btn_blue}>已结束</a>}
     </div>
   )
 }
