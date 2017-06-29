@@ -7,8 +7,6 @@ import Video from '../../bbs/Video'
 import styles from './Content.less'
 
 const Content = ({ item, onDownLoadClick }) => {
-
-
   const audioPlayerProps = {
     source: item.file.full_url,
     lrcUrl: item.practice_song.lyric.full_url,

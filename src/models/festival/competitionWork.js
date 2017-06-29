@@ -12,8 +12,8 @@ export default {
       file: {},
       user: {},
       practice_song: {
-        lyric: {}
-      }
+        lyric: {},
+      },
     },
     page: 1,
     count: 4,
