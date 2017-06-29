@@ -68,7 +68,7 @@ export default {
             bindEvent()
           }, 0)
 
-          axios.post("http://campaign2.newband.com/sfe/wxcfg", stringify({ url:location.href })).then(data => {
+          axios.post("http://staging.web.newband.com:5000/api/v1/social/wxcfg", stringify({ url:location.href })).then(data => {
             console.log(data);
           })
         }

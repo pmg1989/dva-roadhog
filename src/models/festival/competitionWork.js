@@ -11,6 +11,9 @@ export default {
       cover: {},
       file: {},
       user: {},
+      practice_song: {
+        lyric: {}
+      }
     },
     page: 1,
     count: 4,

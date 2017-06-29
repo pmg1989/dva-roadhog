@@ -10,8 +10,7 @@ const Content = ({ item }) => {
   console.log(item)
   const audioPlayerProps = {
     source: item.file.full_url,
-    // lrcUrl: 'https://o9u2lnvze.qnssl.com//competition5a1e4747-2e3e-48ba-bba8-8b08b462d9c8.lrc',
-    lrcData: item.lrc,
+    lrcUrl: item.practice_song.lyric.full_url,
     lrcClick: false,
   }
 
@@ -45,7 +44,11 @@ const Content = ({ item }) => {
             </div>
           </div>
         </div>
-        <div className={styles.description} dangerouslySetInnerHTML={{ __html: item.description }} />
+        <div className={styles.description}>
+          {item.description && item.description.split('\n').map((text, key) => {
+            return <span key={key}>{text}<br /></span>
+          })}
+        </div>
       </div>
       <div className={styles.row_box} />
     </div>

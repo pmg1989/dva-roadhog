@@ -20,7 +20,11 @@ const Content = ({ item, onDownLoadClick }) => {
           <dt>本期指定曲目：</dt>
           <dd>{item.practice_detail.title}</dd>
         </dl>
-        <div className={styles.description} dangerouslySetInnerHTML={{ __html: item.description }} />
+        <div className={styles.description}>
+          {item.description && item.description.split('\n').map((text, key) => {
+            return <span key={key}>{text}<br /></span>
+          })}
+        </div>
       </div>
       <div className={styles.course_box}>
         <div className={styles.title}>本期指定曲目</div>
