@@ -32,7 +32,7 @@ const Competition = ({ dispatch, festivalCompetition }) => {
   }
 
   const bottomProps = {
-    expired: true,
+    expired: item.vote_status === 3,
     onDownLoadClick,
   }
 

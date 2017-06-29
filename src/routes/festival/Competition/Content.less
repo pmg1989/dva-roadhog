@@ -60,31 +60,31 @@
     }
   }
 
-  .thumb_box {
-    display: flex;
+  .left_box {
     flex: 1;
+    display: flex;
 
-    .thumb {
-      display: block;
-      width: 120px;
-      height: 120px;
+    .thumb_box {
       margin-right: 30px;
+
+      .thumb {
+        display: block;
+        width: 120px;
+        height: 120px;
+      }
     }
 
     .info {
       line-height: 1.5;
-      flex: 1;
 
       .name {
         display: block;
         font-size: 32px;
-        .ellipsis();
       }
 
       .author {
         color: #999;
         font-size: 28px;
-        .ellipsis();
       }
     }
   }

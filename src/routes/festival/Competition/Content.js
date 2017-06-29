@@ -5,8 +5,6 @@ import Video from '../../bbs/Video'
 import styles from './Content.less'
 
 const Content = ({ item, onDownLoadClick }) => {
-  console.log(item)
-
   return (
     <div className={styles.content_box}>
       <div className={styles.top}>
@@ -27,8 +25,10 @@ const Content = ({ item, onDownLoadClick }) => {
       <div className={styles.course_box}>
         <div className={styles.title}>本期指定曲目</div>
         <div className={classnames(styles.flex_box, styles.practice)}>
-          <div className={styles.thumb_box}>
-            <img className={styles.thumb} alt="" src={item.practice_detail.cover_detail.full_url} />
+          <div className={styles.left_box}>
+            <div className={styles.thumb_box}>
+              <img className={styles.thumb} alt={item.practice_detail.title} src={item.practice_detail.cover_detail.full_url} />
+            </div>
             <div className={styles.info}>
               <span className={styles.name}>{item.practice_detail.title}</span>
               <span className={styles.author}>{item.practice_detail.actor}</span>
@@ -42,8 +42,10 @@ const Content = ({ item, onDownLoadClick }) => {
         </div>
         <div className={styles.title}>大师教学示范</div>
         <div className={classnames(styles.flex_box, styles.master)}>
-          <div className={styles.thumb_box}>
-            <img className={styles.thumb} alt={item.course_detail.title} src={item.course_detail.name} />
+          <div className={styles.left_box}>
+            <div className={styles.thumb_box}>
+              <img className={styles.thumb} alt={item.course_detail.title} src={item.course_detail.cover_image} />
+            </div>
             <div className={styles.info}>
               <span className={styles.name}>{item.course_detail.title}</span>
               <span className={styles.author}>{item.course_detail.description}</span>
