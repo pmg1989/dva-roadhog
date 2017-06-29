@@ -1,6 +1,9 @@
 import iScrollRefresh from 'iScrollRefresh'
 import { getCategory, getList } from '../../services/bbs/index'
 import { like, unlike } from '../../services/bbs/base'
+import wx from 'weixin-js-sdk'
+import axios from 'axios'
+import { stringify } from 'qs'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
 const pageSize = 5
@@ -64,6 +67,10 @@ export default {
 
             bindEvent()
           }, 0)
+
+          axios.post("http://campaign2.newband.com/sfe/wxcfg", stringify({ url:location.href })).then(data => {
+            console.log(data);
+          })
         }
       })
     },

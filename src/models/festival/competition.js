@@ -6,7 +6,12 @@ export default {
   namespace: 'festivalCompetition',
   state: {
     cid: null,
-    item: {},
+    item: {
+      course_detail: {},
+      practice_detail: {
+        cover_detail: {}
+      },
+    },
     page: 1,
     size: 18,
     rank: {
@@ -41,7 +46,7 @@ export default {
       if (data.success) {
         yield put({ type: 'getCompetitionSuccess',
           payload: {
-            item: data.detail,
+            item: data,
           },
         })
       }

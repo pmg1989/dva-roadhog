@@ -20,7 +20,7 @@ const Content = ({ item, onDownLoadClick }) => {
         </dl>
         <dl className={classnames(styles.practice, 'flex-box')}>
           <dt>本期指定曲目：</dt>
-          <dd>风继续吹风继续吹风继续吹风哈风继续</dd>
+          <dd>{item.practice_detail.title}</dd>
         </dl>
         <div className={styles.description} dangerouslySetInnerHTML={{ __html: item.description }} />
       </div>
@@ -28,10 +28,10 @@ const Content = ({ item, onDownLoadClick }) => {
         <div className={styles.title}>本期指定曲目</div>
         <div className={classnames(styles.flex_box, styles.practice)}>
           <div className={styles.thumb_box}>
-            <img className={styles.thumb} alt="" src="https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19?vframe/jpg/offset/0" />
+            <img className={styles.thumb} alt="" src={item.practice_detail.cover_detail.full_url} />
             <div className={styles.info}>
-              <span className={styles.name}>风继续吹</span>
-              <span className={styles.author}>歌曲作者</span>
+              <span className={styles.name}>{item.practice_detail.title}</span>
+              <span className={styles.author}>{item.practice_detail.actor}</span>
             </div>
           </div>
           <div className={styles.download_box}>
@@ -43,10 +43,10 @@ const Content = ({ item, onDownLoadClick }) => {
         <div className={styles.title}>大师教学示范</div>
         <div className={classnames(styles.flex_box, styles.master)}>
           <div className={styles.thumb_box}>
-            <img className={styles.thumb} alt="" src="https://o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19?vframe/jpg/offset/0" />
+            <img className={styles.thumb} alt={item.course_detail.title} src={item.course_detail.name} />
             <div className={styles.info}>
-              <span className={styles.name}>胡彦斌</span>
-              <span className={styles.author}>描述</span>
+              <span className={styles.name}>{item.course_detail.title}</span>
+              <span className={styles.author}>{item.course_detail.description}</span>
             </div>
           </div>
           <div className={styles.download_box}>

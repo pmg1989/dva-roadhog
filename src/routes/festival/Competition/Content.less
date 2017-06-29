@@ -89,15 +89,24 @@
     }
   }
 
-  .download {
-    color: #666;
-    font-size: 30px;
-    padding: 0 30px;
-    height: 70px;
-    line-height: 70px;
-    border: 1px solid currentColor;
-    border-radius: 50px;
+  .download_box {
 
+    .download {
+      color: #999;
+      font-size: 28px;
+      padding: 0 25px;
+      height: 70px;
+      line-height: 70px;
+      border: 1px solid currentColor;
+      border-radius: 50px;
+
+      :global {
+        .am-icon-md {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
   }
 
 }
