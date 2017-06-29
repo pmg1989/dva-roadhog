@@ -9,7 +9,7 @@ export default {
     item: {
       course_detail: {},
       practice_detail: {
-        cover_detail: {}
+        cover_detail: {},
       },
     },
     page: 1,
