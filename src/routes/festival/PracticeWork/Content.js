@@ -7,7 +7,7 @@ import Video from '../../bbs/Video'
 import styles from './Content.less'
 
 const Content = ({ item }) => {
-  console.log(item)
+
   const audioPlayerProps = {
     source: item.file.full_url,
     lrcUrl: item.practice_song.lyric.full_url,
@@ -39,7 +39,7 @@ const Content = ({ item }) => {
                 <span>{item.views}</span>
               </div>
               <div className={styles.date_time}>
-                {utils.renderDate(item.create_date)}
+                {utils.renderDate(item.ctime)}
               </div>
             </div>
           </div>
