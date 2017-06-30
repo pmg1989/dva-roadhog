@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
+import { wechat } from 'utils'
 import { get, queryRankList } from '../../services/festival/competition'
 
 export default {
@@ -48,6 +49,15 @@ export default {
           payload: {
             item: data,
           },
+        })
+
+        wechat.share({
+          title: data.title,
+          desc: data.description,
+          imgUrl: 'https://o9u2lnvze.qnssl.com/event/sfe2017/iconde.jpeg',
+          // link: data.share_url,
+          // type: 'music',
+          // dataUrl: 'i am dataUrl',
         })
       }
     },

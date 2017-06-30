@@ -1,9 +1,7 @@
 import iScrollRefresh from 'iScrollRefresh'
 import { getCategory, getList } from '../../services/bbs/index'
 import { like, unlike } from '../../services/bbs/base'
-import wx from 'weixin-js-sdk'
-import axios from 'axios'
-import { stringify } from 'qs'
+import { wechat } from 'utils'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
 const pageSize = 5
@@ -68,8 +66,14 @@ export default {
             bindEvent()
           }, 0)
 
-          axios.post("http://staging.web.newband.com:5000/api/v1/social/wxcfg", stringify({ url:location.href })).then(data => {
-            console.log(data);
+          wechat.share({
+            title: 'BBS论坛首页',
+            desc: '牛班BBS论坛，',
+            imgUrl: 'https://o9u2lnvze.qnssl.com/event/sfe2017/iconde.jpeg',
+
+            // link: 'i am link',
+            // type: 'music',
+            // dataUrl: 'i am dataUrl',
           })
         }
       })
