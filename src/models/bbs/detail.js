@@ -41,7 +41,7 @@ export default {
       const data = yield call(getDetail, sendid, share)
       if (data.success) {
         const shareParams = data.bbssend[0]
-        let desc = utils.removeHTMLTag(shareParams.content)
+        const desc = utils.removeHTMLTag(shareParams.content)
         wechat.share({
           title: shareParams.title,
           desc: desc.length > 50 ? `${desc.substring(0, 50)}...` : desc,
