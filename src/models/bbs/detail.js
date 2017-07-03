@@ -1,6 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
-import utils from 'utils'
+import utils, { wechat } from 'utils'
 import { getDetail, getReplayList, deleteSend } from '../../services/bbs/detail'
 import { like, unlike, deleteSendFellow } from '../../services/bbs/base'
 
@@ -40,6 +40,17 @@ export default {
       const { sendid, share } = payload
       const data = yield call(getDetail, sendid, share)
       if (data.success) {
+        const shareParams = data.bbssend[0]
+        let desc = utils.removeHTMLTag(shareParams.content)
+        wechat.share({
+          title: shareParams.title,
+          desc: desc.length > 50 ? `${desc.substring(0, 50)}...` : desc,
+          imgUrl: shareParams.user_img,
+          link: shareParams.share_url,
+          // type: 'music',
+          // dataUrl: 'i am dataUrl',
+        })
+
         yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0], sendStatus: 1, share } })
         yield put({ type: 'queryReplayList', payload: { sendid } })
       } else {

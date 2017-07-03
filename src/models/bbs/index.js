@@ -1,7 +1,6 @@
 import iScrollRefresh from 'iScrollRefresh'
 import { getCategory, getList } from '../../services/bbs/index'
 import { like, unlike } from '../../services/bbs/base'
-import { wechat } from 'utils'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
 const pageSize = 5
@@ -65,16 +64,6 @@ export default {
 
             bindEvent()
           }, 0)
-
-          wechat.share({
-            title: 'BBS论坛首页',
-            desc: '牛班BBS论坛，',
-            imgUrl: 'https://o9u2lnvze.qnssl.com/event/sfe2017/iconde.jpeg',
-
-            // link: 'i am link',
-            // type: 'music',
-            // dataUrl: 'i am dataUrl',
-          })
         }
       })
     },

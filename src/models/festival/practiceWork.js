@@ -1,5 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
+import { wechat } from 'utils'
 import { getWork } from '../../services/festival/practiceWork'
 import { getMoreReplay } from '../../services/bbs/moreReplay'
 
@@ -37,6 +38,16 @@ export default {
       const { id } = payload
       const data = yield call(getWork, id)
       if (data.success) {
+        const isVideo = data.song.type === 'video'
+        wechat.share({
+          title: data.song.title,
+          desc: data.song.description,
+          imgUrl: data.song.cover.full_url,
+          // link: data.share_url,
+          type: isVideo ? 'video' : 'music',
+          dataUrl: data.song.file.full_url,
+        })
+
         yield put({
           type: 'getWorkSuccess',
           payload: {

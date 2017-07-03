@@ -1,28 +1,28 @@
 import wx from 'weixin-js-sdk'
 import axios from 'axios'
-import { stringify } from 'qs'
+// import { stringify } from 'qs'
 
 function getWechatSigniture(shareUrl = location.href) {
   axios.post('http://staging.web.newband.com:5000/api/v1/social/wxcfg',
-  stringify({ url: shareUrl })).then(({ data }) => {
+  { url: shareUrl }).then(({ data }) => {
     wx.config({
       debug: data.debug,          // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。//debug最后要改为true
       appId: data.appId,          // 必填，公众号的唯一标识
       timestamp: data.timestamp,  // 必填，生成签名的时间戳
       nonceStr: data.nonceStr,    // 必填，生成签名的随机串
       signature: data.signature,  // 必填，签名，见附录1
-      jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareQZone', 'onMenuShareWeibo'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+      jsApiList: data.jsApiList,   // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     })
   })
 }
 
 function share(params) {
-  const { title, link = '', desc, imgUrl, type = 'link', dataUrl = '' } = params
+  const { title, link = location.href, desc, imgUrl, type = '', dataUrl = '' } = params
+
+  // 获取签名信息
+  getWechatSigniture()
 
   wx.ready(() => {
-    // 获取签名信息
-    getWechatSigniture()
-
     // 分享到朋友圈
     wx.onMenuShareTimeline({
       title,    // 分享标题

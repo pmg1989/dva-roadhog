@@ -51,13 +51,14 @@ export default {
           },
         })
 
+        const isVideo = data.detail_file_detail.mime === 'video/mp4'
         wechat.share({
           title: data.title,
           desc: data.description,
-          imgUrl: 'https://o9u2lnvze.qnssl.com/event/sfe2017/iconde.jpeg',
-          // link: data.share_url,
-          // type: 'music',
-          // dataUrl: 'i am dataUrl',
+          imgUrl: data.detail_cover_file_detail.full_url,
+          link: data.share_url,
+          type: isVideo ? 'video' : '',
+          dataUrl: isVideo ? data.detail_file_detail.full_url : '',
         })
       }
     },
