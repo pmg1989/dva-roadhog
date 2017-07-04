@@ -1,8 +1,10 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-import { wechat } from 'utils'
+import utils, { wechat } from 'utils'
 import { getWork } from '../../services/festival/competitionWork'
 import { getMoreReplay } from '../../services/bbs/moreReplay'
+
+const isShare = utils.queryString('share') === '1'
 
 export default {
   namespace: 'festivalCompetitionWork',
@@ -37,7 +39,7 @@ export default {
   effects: {
     *getWork({ payload }, { call, put }) {
       const { id } = payload
-      const data = yield call(getWork, id)
+      const data = yield call(getWork, id, isShare)
       if (data.success) {
         const isVideo = data.work.type === 'video'
         wechat.share({
@@ -65,7 +67,7 @@ export default {
         orderby: 'dateAsc',
         page: 1,
         count,
-      })
+      }, isShare)
       if (data.success) {
         yield put({ type: 'queryReplaySuccess',
           payload: {
@@ -85,7 +87,7 @@ export default {
         orderby: 'dateAsc',
         page,
         count,
-      })
+      }, isShare)
       if (data.success) {
         const hasMore = ((page - 1) * count) + data.fellows.length < +data.count
         yield put({ type: 'queryMoreReplayListSuccess',

@@ -1,7 +1,7 @@
 import { request } from '../../utils'
 
-export async function get(params) {
-  return request('/api/music/competition', {
+export async function get(params, isShare) {
+  return request(isShare ? '/api/share/competition' : '/api/music/competition', {
     method: 'get',
     headers: {
       'X-Accept-Version': '4.0',
@@ -10,8 +10,8 @@ export async function get(params) {
   })
 }
 
-export async function queryRankList(params) {
-  return request('/api/music/works', {
+export async function queryRankList(params, isShare) {
+  return request(isShare ? '/api/share/works' : '/api/music/works', {
     method: 'get',
     headers: {
       'X-Accept-Version': '4.0',

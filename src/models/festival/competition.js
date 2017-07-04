@@ -1,7 +1,9 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-import { wechat } from 'utils'
+import utils, { wechat } from 'utils'
 import { get, queryRankList } from '../../services/festival/competition'
+
+const isShare = utils.queryString('share') === '1'
 
 export default {
   namespace: 'festivalCompetition',
@@ -43,7 +45,7 @@ export default {
   effects: {
     *getCompetition({ payload }, { call, put }) {
       const { id } = payload
-      const data = yield call(get, { id })
+      const data = yield call(get, { id }, isShare)
       if (data.success) {
         yield put({ type: 'getCompetitionSuccess',
           payload: {
@@ -69,7 +71,7 @@ export default {
         order: 'hot',
         page: 1,
         size,
-      })
+      }, isShare)
       if (data.success) {
         yield put({ type: 'queryRankListSuccess',
           payload: {
@@ -89,7 +91,7 @@ export default {
       const { cid, page, size } = yield select(state => state.festivalCompetition)
       const data = yield call(queryRankList, {
         cid, page, size,
-      })
+      }, isShare)
       if (data.success) {
         const hasMore = ((page - 1) * size) + data.songs.length < data.count
         yield put({ type: 'queryMoreRankListSuccess',
@@ -110,7 +112,7 @@ export default {
         cid,
         page: 1,
         size,
-      })
+      }, isShare)
       if (data.success) {
         yield put({ type: 'queryNewestListSuccess',
           payload: {
@@ -130,7 +132,7 @@ export default {
       const { cid, page, size } = yield select(state => state.festivalCompetition)
       const data = yield call(queryRankList, {
         cid, page, size,
-      })
+      }, isShare)
       if (data.success) {
         const hasMore = ((page - 1) * size) + data.songs.length < data.count
         yield put({ type: 'queryMoreNewestListSuccess',
