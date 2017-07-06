@@ -12,6 +12,7 @@ let lyricContainer
 class AudioPlayer extends Component {
 
   static propTypes = {
+    cover: PropTypes.string.isRequired,
     source: PropTypes.string.isRequired,
     lrcUrl: PropTypes.string,
     lrcData: PropTypes.string,
@@ -107,7 +108,7 @@ class AudioPlayer extends Component {
 
   render() {
     const { lyricList, percent, currentTime, totalTime, isPlay, lrcStatus } = this.state
-    const { source } = this.props
+    const { source, cover } = this.props
 
     const slideProps = {
       step: 0.1,
@@ -138,8 +139,17 @@ class AudioPlayer extends Component {
       },
     }
 
+    const boxProps = {
+      className: styles.box,
+      onClick: ::this.changeLrcType,
+      style: {
+        background: `url('${cover}') no-repeat center center`,
+        backgroundSize: 'cover',
+      },
+    }
+
     return (
-      <div className={styles.box} onClick={::this.changeLrcType}>
+      <div {...boxProps}>
         <div className={styles.container}>
           <div className={classnames(styles.lyric_wrapper, { [styles.nomarl]: !lrcStatus })}>
             <div className={styles.lyric_container} id="lyricContainer">
