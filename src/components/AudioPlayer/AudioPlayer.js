@@ -106,7 +106,7 @@ class AudioPlayer extends Component {
   }
 
   changeLrcType() {
-    if(this.state.lrcClick) {
+    if (this.state.lrcClick) {
       this.setState(prevState => ({
         lrcStatus: !prevState.lrcStatus,
         isShow: true,
@@ -122,7 +122,7 @@ class AudioPlayer extends Component {
   }
 
   hideControls() {
-    if(showFlag) {
+    if (showFlag) {
       clearTimeout(showFlag)
     }
     showFlag = setTimeout(() => {
@@ -184,14 +184,14 @@ class AudioPlayer extends Component {
               {lyricList.length === 0 && <p>歌词加载中...</p>}
             </div>
           </div>
-          <div className={classnames(styles.slider_box, {[styles.show]: isShow})} onClick={e => e.stopPropagation()}>
+          <div className={classnames(styles.slider_box, { [styles.show]: isShow })} onClick={e => e.stopPropagation()}>
             <span className={styles.curtime}>{AudioPlayer.parseTime(currentTime)}</span>
             <Slider {...slideProps} />
             <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
           </div>
           <audio id="audio" src={source} autoPlay="autoplay">audio not supported :(</audio>
         </div>
-        <div className={classnames(styles.opt_box, {[styles.show]: isShow})}>
+        <div className={classnames(styles.opt_box, { [styles.show]: isShow })}>
           <div onClick={::this.handlePlayPause}>
             {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
             {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
