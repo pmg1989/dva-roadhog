@@ -56,6 +56,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px;
+  opacity: 0;
+  transition: opacity .6s ease-in-out;
+
+  &.show {
+    opacity: 1;
+  }
 
   :global {
     .am-slider-wrapper {
@@ -84,6 +90,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity .6s ease-in-out;
+
+  &.show {
+    opacity: 1;
+  }
 
   :global {
     .am-icon {

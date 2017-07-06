@@ -8,6 +8,7 @@ import styles from './AudioPlayer.less'
 // const SliderWithTooltip = createTooltip(Slider)
 let player
 let lyricContainer
+let showFlag
 
 class AudioPlayer extends Component {
 
@@ -46,6 +47,7 @@ class AudioPlayer extends Component {
       lrcStatus: true, // true： 两行歌词；false：多行歌词
       isSliding: false,
       lrcClick: props.lrcClick,
+      isShow: true,
     }
   }
 
@@ -67,10 +69,12 @@ class AudioPlayer extends Component {
         AudioPlayer.lrcListLength = lyricList.length
         this.setState({ lyricList, totalTime: e.target.duration, isPlay: true })
       }
+
+      this.hideControls()
     })
 
     player.addEventListener('ended', () => {
-      this.setState({ isPlay: false })
+      this.setState({ isPlay: false, isShow: true })
     })
 
     player.addEventListener('timeupdate', (e) => {
@@ -98,27 +102,48 @@ class AudioPlayer extends Component {
     this.setState(prevState => ({
       isPlay: !prevState.isPlay,
     }))
+    this.hideControls()
   }
 
   changeLrcType() {
-    this.state.lrcClick && this.setState(prevState => ({
-      lrcStatus: !prevState.lrcStatus,
-    }))
+    if(this.state.lrcClick) {
+      this.setState(prevState => ({
+        lrcStatus: !prevState.lrcStatus,
+        isShow: true,
+      }))
+    } else {
+      this.showControls()
+    }
+  }
+
+  showControls() {
+    this.setState({ isShow: true })
+    this.hideControls()
+  }
+
+  hideControls() {
+    if(showFlag) {
+      clearTimeout(showFlag)
+    }
+    showFlag = setTimeout(() => {
+      this.state.isPlay && this.setState({ isShow: false })
+    }, 3000)
   }
 
   render() {
-    const { lyricList, percent, currentTime, totalTime, isPlay, lrcStatus } = this.state
+    const { lyricList, percent, currentTime, totalTime, isPlay, lrcStatus, isShow } = this.state
     const { source, cover } = this.props
 
     const slideProps = {
       step: 0.1,
       value: percent,
       onChange: (per) => {
-        this.setState({ percent: per, isSliding: true, currentTime: (percent * totalTime) / 100 })
+        this.setState({ percent: per, isSliding: true, isShow: true, currentTime: (percent * totalTime) / 100 })
       },
       onAfterChange: (per) => {
         this.setState({ isSliding: false })
         player.currentTime = player.duration * (per / 100)
+        this.hideControls()
       },
       trackStyle: {
         backgroundColor: '#4AD87F',
@@ -159,14 +184,14 @@ class AudioPlayer extends Component {
               {lyricList.length === 0 && <p>歌词加载中...</p>}
             </div>
           </div>
-          <div className={styles.slider_box} onClick={e => e.stopPropagation()}>
+          <div className={classnames(styles.slider_box, {[styles.show]: isShow})} onClick={e => e.stopPropagation()}>
             <span className={styles.curtime}>{AudioPlayer.parseTime(currentTime)}</span>
             <Slider {...slideProps} />
             <span className={styles.duration}>{AudioPlayer.parseTime(totalTime)}</span>
           </div>
           <audio id="audio" src={source} autoPlay="autoplay">audio not supported :(</audio>
         </div>
-        <div className={styles.opt_box}>
+        <div className={classnames(styles.opt_box, {[styles.show]: isShow})}>
           <div onClick={::this.handlePlayPause}>
             {!isPlay && <Icon type={require('../../svg/festival/play.svg')} />}
             {isPlay && <Icon type={require('../../svg/festival/pause.svg')} />}
