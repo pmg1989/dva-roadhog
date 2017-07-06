@@ -11,7 +11,7 @@ export async function get(params, isShare) {
 }
 
 export async function queryRankList(params, isShare) {
-  return request(isShare ? '/api/share/works' : '/api/music/works', {
+  return request(isShare ? '/api/share/competition-works' : '/api/music/works', {
     method: 'get',
     headers: {
       'X-Accept-Version': '4.0',

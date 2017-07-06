@@ -41,14 +41,12 @@ function checkStatus(res) {
 function handelData(res) {
   NProgress.done()
   const data = res.data
-  if (data && data.message !== 'Success') {
+  if (data && (data.message === 'Success' || data.success === true)) {
+    return { ...data.data, success: true }
+  } else {
     Toast.fail(data.msg, 1)
     return { success: false }
   }
-  // else if(data && data.msg && data.success) {
-  //   message.success(data.msg)
-  // }
-  return { ...data.data, success: true }
 }
 
 function handleError(error) {

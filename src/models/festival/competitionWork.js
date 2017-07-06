@@ -1,8 +1,7 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
 import utils, { wechat } from 'utils'
-import { getWork } from '../../services/festival/competitionWork'
-import { getMoreReplay } from '../../services/bbs/moreReplay'
+import { getWork, getReplayList } from '../../services/festival/competitionWork'
 
 const isShare = utils.queryString('share') === '1'
 
@@ -19,7 +18,7 @@ export default {
       },
     },
     page: 1,
-    count: 4,
+    count: 5,
     hasMore: true,
     total: 0,
     dataSource: [],
@@ -31,7 +30,6 @@ export default {
         if (match) {
           const id = match[1]
           dispatch({ type: 'getWork', payload: { id } })
-          dispatch({ type: 'queryReplayList', payload: { id } })
         }
       })
     },
@@ -57,13 +55,14 @@ export default {
             item: data.work,
           },
         })
+
+        yield put({ type: 'queryReplayList' })
       }
     },
     *queryReplayList({ payload }, { call, put, select }) {
-      const { count } = yield select(state => state.festivalCompetitionWork)
-      const data = yield call(getMoreReplay, {
-        fellowid: '1686',
-        sendid: '1043',
+      const { count, item: { send_id } } = yield select(state => state.festivalCompetitionWork)
+      const data = yield call(getReplayList, {
+        sendid: send_id || '1043',
         orderby: 'dateAsc',
         page: 1,
         count,
@@ -80,10 +79,9 @@ export default {
       }
     },
     *queryMoreReplayList({ payload }, { call, put, select }) {
-      const { page, count } = yield select(state => state.festivalCompetitionWork)
-      const data = yield call(getMoreReplay, {
-        fellowid: '1686',
-        sendid: '1043',
+      const { page, count, item: { send_id } } = yield select(state => state.festivalCompetitionWork)
+      const data = yield call(getReplayList, {
+        sendid: send_id || '1043',
         orderby: 'dateAsc',
         page,
         count,
