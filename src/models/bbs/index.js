@@ -91,7 +91,7 @@ export default {
         setTimeout(() => {
           ir.setPage(tab, 2)  //设置当前页面的页数
           ir.refresh(tab)    //刷新Iscroll
-        }, 100)
+        }, 300)
       }
     },
     *pullDown({ payload }, { call, put }) {
@@ -108,7 +108,7 @@ export default {
         setTimeout(() => {
           ir.setPage(tab, 2)         //设置当前页面的页数
           ir.pullDownCallBack(param) //还有数据的时候用这个
-        }, 100)
+        }, 300)
       }
     },
     *pullUp({ payload }, { call, put }) {
@@ -123,7 +123,7 @@ export default {
         yield put({ type: 'queryMoreSuccess', payload: { tab, data: data.posts } })
         setTimeout(() => {
           ir.pullUpCallBack(param); //还有数据的时候用这个
-        }, 100)
+        }, 300)
       }
     },
     *slide({ payload }, { call, put, select }) {

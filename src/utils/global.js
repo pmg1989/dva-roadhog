@@ -18,10 +18,21 @@ window.iFrameHeight = function(id) {
   }
 }
 
+//下载页面跳转
 window.goToDownLoad = function (params) {
   if(params) {
 
   } else {
     window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.newband'
+  }
+}
+
+//列表页视频点击事件
+window.videoPlay = function(player) {
+  event.stopPropagation()
+  if(player.paused) {
+    player.play()
+  } else {
+    player.pause()
   }
 }

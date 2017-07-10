@@ -102,11 +102,76 @@ function renderContent(content) {
 
 //列表内容摘要过滤
 function renderAbstract(content) {
-  content = renderContent(content)
+  content = removeHTMLTag(content)
   if(content.length > 50){
     content = `${content.substring(0, 50)}...`
   }
   return content
+}
+
+//列表处理音视频图片显示
+function renderIva(content) {
+  content = renderContent(content)
+  const iframe = content.match(/<iframe[^>]+>/g)
+  const srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i
+
+  let videoSrc = ''
+  let audioStr = ''
+
+  if(!!iframe) {
+    for(let i = 0; i < iframe.length; k++) {
+      const iframelabel = iframe[i]
+      if(iframelabel.indexOf('name="video"') !== -1) {
+          const src = iframelabel.match(srcReg)
+          videoSrc = src[1].split("video=")[1]
+          break
+      } else if (iframelabel.indexOf('name="audio"') !== -1){
+          audioStr = iframelabel
+          break
+      }
+    }
+
+    if(!!videoSrc) {
+      return (
+        `<div class='video_box'>
+           <video
+            controls=''
+            playsinline=''
+            webkit-playsinline=''
+            width='100%'
+            preload='none'
+            onclick='videoPlay(this)'
+            poster='${videoSrc}?vframe/jpg/offset/0' >
+              <source src='${videoSrc}' type='video/mp4' />
+           </video>
+            <!--<i class="play_icon" onclick='videoPlay(this)' />-->
+         </div>`
+      )
+    }
+  }
+
+  let imgList =  content.match(/<img[^>]+>/g)
+  const imageMogr = "?imageMogr2/thumbnail/640x/format/jpg/interlace/1/blur/1x0/quality/75|imageslim"
+
+  if(!!imgList) {
+    imgList = imgList.filter(img => img.indexOf('width:initial') === -1)
+    if(imgList.length > 9) {
+      imgList = imgList.filter((img, index) => index < 9)
+    }
+    const imgLength = imgList.length
+
+    if(!!imgLength) {
+      imgList = imgList.map(img => (
+        `<div class='item item_${imgLength}'>
+           <img src='${img.match(srcReg)[1]}${imageMogr}' />
+         </div>`
+      ))
+
+      return `<div class="img_list">${imgList.join('')}</div>`
+    }
+  }
+
+  return audioStr
 }
 
 //去除html标签取内容
@@ -151,5 +216,6 @@ export default {
   renderTimes,
   renderContent,
   renderAbstract,
+  renderIva,
   removeHTMLTag,
 }

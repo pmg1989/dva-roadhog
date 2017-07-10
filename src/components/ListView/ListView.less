@@ -115,3 +115,61 @@
     }
   }
 }
+
+.iva_box {
+  position: relative;
+
+  :global {
+    .video_box {
+      position: relative;
+
+      .play_icon {
+        background: url('/images/video-play-icon.png') no-repeat;
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        top: 50%;
+        left: 50%;
+        margin-left: -60px;
+        margin-top: -60px;
+        background-size: 100%;
+      }
+    }
+
+    iframe[name=audio] {
+        height: 0.8rem !important;
+        margin: 0.2rem 0 !important;
+    }
+
+    .img_list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        width: 100%;
+        display: block;
+      }
+
+      .item {
+        margin-bottom: 15px;
+        max-height: 180px;
+        overflow: hidden;
+      }
+
+      .item_1 {
+        flex: 1;
+      }
+
+      .item_2, .item_4 {
+        flex-basis: 48%;
+      }
+
+      .item_3, .item_5, .item_6, .item_7, .item_8, .item_9 {
+        flex-basis: 32%
+      }
+
+    }
+  }
+}

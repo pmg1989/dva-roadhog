@@ -22,7 +22,7 @@ const Content = ({ token, item }) => {
           </div>
           <div className={styles.middle}>
             <p className={styles.title}>{item.title}</p>
-            {/* <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} /> */}
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
           </div>
           <div className={styles.bottom}>
             <div className={styles.label_box}>
