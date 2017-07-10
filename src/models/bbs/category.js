@@ -125,13 +125,9 @@ export default {
       const list = [...state.list, ...action.payload.list]
       return { ...state, list }
     },
-    switchNav(state) {
-      const { navHeight, navOpen } = state
-      isNavOpen = !navOpen
-      if(navHeight === 'auto') {
-        return { ...state, navOpen: !navOpen, navHeight: document.querySelector("#categoryHeader").offsetHeight }
-      }
-      return { ...state, navOpen: !navOpen }
+    openNav(state) {
+      isNavOpen = true
+      return { ...state, navOpen: true, navHeight: 'auto' }
     },
     closeNav(state) {
       isNavOpen = false

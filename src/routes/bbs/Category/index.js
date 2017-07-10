@@ -13,6 +13,9 @@ const Category = ({ dispatch, location, bbsCategory }) => {
     category,
     navHeight,
     token,
+    openNav() {
+      dispatch({ type: 'bbsCategory/openNav' })
+    }
   }
 
   const contentProps = {
