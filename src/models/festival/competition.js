@@ -10,9 +10,8 @@ export default {
   state: {
     cid: null,
     item: {
-      course_detail: {},
-      practice_detail: {
-        cover_detail: {},
+      course_detail: {
+        lessons: [{}, {}],
       },
     },
     page: 1,
@@ -79,9 +78,9 @@ export default {
             page: 2,
             rank: {
               firstLoad: true,
-              dataSource: data.songs,
-              total: data.count,
-              hasMore: data.songs.length < data.count,
+              dataSource: data.works,
+              total: data.total,
+              hasMore: data.works.length < data.total,
             },
           },
         })
@@ -93,13 +92,13 @@ export default {
         cid, page, size,
       }, isShare)
       if (data.success) {
-        const hasMore = ((page - 1) * size) + data.songs.length < data.count
+        const hasMore = ((page - 1) * size) + data.works.length < data.total
         yield put({ type: 'queryMoreRankListSuccess',
           payload: {
             page: page + 1,
             rank: {
-              dataSource: data.songs,
-              total: data.count,
+              dataSource: data.works,
+              total: data.total,
               hasMore,
             },
           },
@@ -120,9 +119,9 @@ export default {
             page: 2,
             newest: {
               firstLoad: true,
-              dataSource: data.songs,
-              total: data.count,
-              hasMore: data.songs.length < data.count,
+              dataSource: data.works,
+              total: data.total,
+              hasMore: data.works.length < data.total,
             },
           },
         })
@@ -134,13 +133,13 @@ export default {
         cid, page, size,
       }, isShare)
       if (data.success) {
-        const hasMore = ((page - 1) * size) + data.songs.length < data.count
+        const hasMore = ((page - 1) * size) + data.works.length < data.total
         yield put({ type: 'queryMoreNewestListSuccess',
           payload: {
             page: page + 1,
             newest: {
-              dataSource: data.songs,
-              total: data.count,
+              dataSource: data.works,
+              total: data.total,
               hasMore,
             },
           },

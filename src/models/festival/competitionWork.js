@@ -16,6 +16,7 @@ export default {
       practice_song: {
         lyric: {},
       },
+      achievement: []
     },
     page: 1,
     count: 5,

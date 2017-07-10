@@ -14,6 +14,17 @@ const Content = ({ item, onDownLoadClick }) => {
     lrcClick: false,
   }
 
+  const dicAcv = {
+    '一曲成名': 'vinyl_best',
+    '白金唱片': 'vinyl_platinum',
+    '金唱片': 'vinyl_golden',
+    '银唱片': 'vinyl_silver',
+    '铜唱片': 'vinyl_copper'
+  }
+  const achievement = item.achievement.find(cur => {
+    return cur.rest === 0
+  })
+
   return (
     <div className={styles.content_box}>
       <div className={styles.top}>
@@ -56,10 +67,23 @@ const Content = ({ item, onDownLoadClick }) => {
           <span><Icon type={require('../../../svg/festival/enter.svg')} /></span>
         </div>
         <div className={styles.row} onClick={onDownLoadClick}>
+          {!!achievement &&
           <div className={styles.thumb_box}>
-            <img alt="" src={'http://image.xishiqu.cn/upload/userUpload/920/160/920160622//m/5AF70F21-E6BA-BB06-2E6D-A32CE56B3600.jpg'} />
-            <span>哈哈帮助阿花达成了“<span className={styles.blue}>金唱片</span>”成就！</span>
-          </div>
+            <img alt="" src={`/images/festival/${dicAcv[achievement && achievement.title]}.png`} />
+            <span>
+              {achievement && achievement.achieve_user && achievement.achieve_user.username}
+              帮助{item.user.profile && item.user.profile.name}达成了“
+              <span className={styles.blue}>{achievement && achievement.title}</span>”成就！
+            </span>
+          </div>}
+          {!achievement &&
+          <div className={styles.thumb_box}>
+            <img alt="" src={`/images/festival/${dicAcv[!!item.achievement.length && item.achievement[4].title]}.png`} />
+            <span>
+              还差{!!item.achievement.length && item.achievement[4].rest}票达成“
+              <span className={styles.blue}>{!!item.achievement.length && item.achievement[4].title}</span>”
+            </span>
+          </div>}
 
           <span><Icon type={require('../../../svg/festival/enter.svg')} /></span>
         </div>

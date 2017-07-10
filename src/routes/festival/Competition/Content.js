@@ -18,7 +18,7 @@ const Content = ({ item, onDownLoadClick }) => {
         </dl>
         <dl className={classnames(styles.practice, 'flex-box')}>
           <dt>本期指定曲目：</dt>
-          <dd>{item.practice_detail.title}</dd>
+          <dd>{item.course_detail.lessons[0].title}</dd>
         </dl>
         <div className={styles.description}>
           {item.description && item.description.split('\n').map((text, key) => {
@@ -31,11 +31,11 @@ const Content = ({ item, onDownLoadClick }) => {
         <div className={classnames(styles.flex_box, styles.practice)}>
           <div className={styles.left_box}>
             <div className={styles.thumb_box}>
-              <img className={styles.thumb} alt={item.practice_detail.title} src={item.practice_detail.cover_detail.full_url} />
+              <img className={styles.thumb} alt={item.course_detail.lessons[0].title} src={item.course_detail.lessons[0].full_url} />
             </div>
             <div className={styles.info}>
-              <span className={styles.name}>{item.practice_detail.title}</span>
-              <span className={styles.author}>{item.practice_detail.actor}</span>
+              <span className={styles.name}>{item.course_detail.lessons[0].title}</span>
+              <span className={styles.author}>{item.course_detail.lessons[0].description}</span>
             </div>
           </div>
           <div className={styles.download_box}>
@@ -48,11 +48,11 @@ const Content = ({ item, onDownLoadClick }) => {
         <div className={classnames(styles.flex_box, styles.master)}>
           <div className={styles.left_box}>
             <div className={styles.thumb_box}>
-              <img className={styles.thumb} alt={item.course_detail.title} src={item.course_detail.cover_image} />
+              <img className={styles.thumb} alt={item.course_detail.lessons[1].title} src={item.course_detail.lessons[1].full_url} />
             </div>
             <div className={styles.info}>
-              <span className={styles.name}>{item.course_detail.title}</span>
-              <span className={styles.author}>{item.course_detail.description}</span>
+              <span className={styles.name}>{item.course_detail.lessons[1].title}</span>
+              <span className={styles.author}>{item.course_detail.lessons[1].description}</span>
             </div>
           </div>
           <div className={styles.download_box}>
