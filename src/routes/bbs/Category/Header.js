@@ -15,7 +15,6 @@ class CategoryHeader extends Component {
   }
 
   render() {
-
     const { category, token, navOpen, navHeight } = this.props
 
     const headerProps = {
