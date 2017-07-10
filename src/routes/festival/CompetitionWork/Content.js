@@ -15,13 +15,13 @@ const Content = ({ item, onDownLoadClick }) => {
   }
 
   const dicAcv = {
-    '一曲成名': 'vinyl_best',
-    '白金唱片': 'vinyl_platinum',
-    '金唱片': 'vinyl_golden',
-    '银唱片': 'vinyl_silver',
-    '铜唱片': 'vinyl_copper'
+    一曲成名: 'vinyl_best',
+    白金唱片: 'vinyl_platinum',
+    金唱片: 'vinyl_golden',
+    银唱片: 'vinyl_silver',
+    铜唱片: 'vinyl_copper',
   }
-  const achievement = item.achievement.find(cur => {
+  const achievement = item.achievement.find((cur) => {
     return cur.rest === 0
   })
 
