@@ -101,7 +101,7 @@ function renderContent(content) {
 }
 
 //列表内容摘要过滤
-function renderabstract(content) {
+function renderAbstract(content) {
   content = renderContent(content)
   if(content.length > 50){
     content = `${content.substring(0, 50)}...`
@@ -150,6 +150,6 @@ export default {
   renderDate,
   renderTimes,
   renderContent,
-  renderabstract,
+  renderAbstract,
   removeHTMLTag,
 }

@@ -33,7 +33,7 @@ const ListView = ({ list, loading, token, linkTo, like }) => {
                   </div>
                   <div className={styles.middle}>
                     <p className={styles.title}>{item.title}</p>
-                    <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderabstract(item.content) }} />
+                    <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderAbstract(item.content) }} />
                   </div>
                   <div className={styles.bottom}>
                     <div className={styles.label_box}>
