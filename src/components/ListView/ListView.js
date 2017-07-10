@@ -34,7 +34,7 @@ const ListView = ({ list, loading, token, linkTo, like }) => {
                   <div className={styles.middle}>
                     <p className={styles.title}>{item.title}</p>
                     <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderAbstract(item.content) }} />
-                    <div className={styles.iva_box} dangerouslySetInnerHTML={{ __html: utils.renderIva(item.content) }}></div>
+                    <div className={styles.iva_box} dangerouslySetInnerHTML={{ __html: utils.renderIva(item.content) }} />
                   </div>
                   <div className={styles.bottom}>
                     <div className={styles.label_box}>
