@@ -100,6 +100,15 @@ function renderContent(content) {
   return content
 }
 
+//列表内容摘要过滤
+function renderabstract(content) {
+  content = renderContent(content)
+  if(content.length > 50){
+    content = `${content.substring(0, 50)}...`
+  }
+  return content
+}
+
 //去除html标签取内容
 function removeHTMLTag(str) {
     str = str.replace(/<\/?[^>]*>/g,'')      //去除HTML tag
@@ -141,5 +150,6 @@ export default {
   renderDate,
   renderTimes,
   renderContent,
+  renderabstract,
   removeHTMLTag,
 }
