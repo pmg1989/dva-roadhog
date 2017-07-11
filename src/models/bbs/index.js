@@ -82,7 +82,7 @@ export default {
       const { tab } = payload
       const data = yield call(getList, {
         filter: cateList[tab],
-        page: 8, //1,
+        page: 1,
         size: pageSize,
       })
 
