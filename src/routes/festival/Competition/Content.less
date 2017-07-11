@@ -29,6 +29,41 @@
       flex: 1;
     }
   }
+
+  .description {
+    position: relative;
+
+    &.hidden {
+      max-height: 2.2rem;
+      overflow: hidden;
+    }
+
+    .unfold_box {
+      position: absolute;
+      left: 0;
+      right: 10px;
+      top: 1.75rem;
+      display: flex;
+      justify-content: flex-end;
+
+      &::before {
+        content: '';
+        display: block;
+        height: 44px;
+        position: absolute;
+        left: 0;
+        right: 44px;
+        bottom: 0;
+        background: linear-gradient(to right, rgba(255,255,255,0), #fff);
+      }
+
+      :global {
+        .am-icon {
+          background-color: #fff;
+        }
+      }
+    }
+  }
 }
 
 .course_box {
