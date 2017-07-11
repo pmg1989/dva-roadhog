@@ -60,7 +60,7 @@ class Content extends Component {
           <div className={classnames(styles.flex_box, styles.practice)}>
             <div className={styles.left_box}>
               <div className={styles.thumb_box}>
-                <img className={styles.thumb} alt={item.course_detail.lessons[0].title} src={item.course_detail.lessons[0].full_url} />
+                <img className={styles.thumb} alt={item.course_detail.lessons[0].title} src={item.course_detail.lessons[0].cover_image} />
               </div>
               <div className={styles.info}>
                 <span className={styles.name}>{item.course_detail.lessons[0].title}</span>
@@ -77,7 +77,7 @@ class Content extends Component {
           <div className={classnames(styles.flex_box, styles.master)}>
             <div className={styles.left_box}>
               <div className={styles.thumb_box}>
-                <img className={styles.thumb} alt={item.course_detail.lessons[1].title} src={item.course_detail.lessons[1].full_url} />
+                <img className={styles.thumb} alt={item.course_detail.lessons[1].title} src={item.course_detail.lessons[1].cover_image} />
               </div>
               <div className={styles.info}>
                 <span className={styles.name}>{item.course_detail.lessons[1].title}</span>
