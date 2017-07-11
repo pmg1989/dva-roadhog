@@ -10,10 +10,6 @@ class Content extends Component {
     unfold: true,
   }
 
-  handleFold() {
-    this.setState({ unfold: false })
-  }
-
   componentWillReceiveProps(nextProps) {
     if (!this.props.item.description && !!nextProps.item.description) {
       setTimeout(() => {
@@ -21,6 +17,10 @@ class Content extends Component {
         desHeight <= 112 && this.setState({ unfold: false })
       }, 50)
     }
+  }
+
+  handleFold() {
+    this.setState({ unfold: false })
   }
 
   render() {
