@@ -161,9 +161,16 @@ function renderIva(content) {
     const imgLength = imgList.length
 
     if(!!imgLength) {
+      if(imgLength === 1) {
+        return `<div class="img_list">
+          ${imgList.map(img => (
+            `<img src="${img.match(srcReg)[1]}${imageMogr}" />`
+          ))}
+         </div>`
+      }
+
       imgList = imgList.map(img => (
-        `<div class='item item_${imgLength}'>
-           <img src='${img.match(srcReg)[1]}${imageMogr}' />
+        `<div class='item item_${imgLength}' style="background: url('${img.match(srcReg)[1]}${imageMogr}') no-repeat center center;background-size: cover;">
          </div>`
       ))
 

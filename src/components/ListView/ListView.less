@@ -150,18 +150,11 @@
     .img_list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
 
       img {
         width: 100%;
         display: block;
-      }
-
-      .item {
-        margin-bottom: 15px;
-        max-height: 180px;
-        overflow: hidden;
       }
 
       .item_1 {
@@ -170,10 +163,22 @@
 
       .item_2, .item_4 {
         flex-basis: 48%;
+        height: 48vw;
+        margin: 0 1%;
+        text-align: center;
       }
 
       .item_3, .item_5, .item_6, .item_7, .item_8, .item_9 {
-        flex-basis: 32%
+        flex-basis: 31%;
+        height: 31vw;
+        margin: 0 1%;
+        text-align: center;
+      }
+
+      .item {
+        margin-bottom: 15px;
+        max-height: 180px;
+        overflow: hidden;
       }
 
     }
