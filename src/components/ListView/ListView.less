@@ -26,19 +26,26 @@
 
 .top {
   height: 88px;
-  line-height: 44px;
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-  .name {
-    font-size: 32px;
-    display: inline-block;
-    padding-bottom: 4px;
+  .name_box {
+    display: flex;
+    justify-content: space-between;
+
+    .name {
+      font-size: 32px;
+    }
+
+    .date {
+      font-size: 28px;
+      color: @nb-gray-light;
+    }
   }
 
-  .date {
-    font-size: 24px;
-    color: @nb-gray-light;
-  }
+
 }
 
 .middle {
@@ -54,6 +61,7 @@
     font-size: 28px;
     color: #666;
     line-height: 1.8;
+    margin-bottom: 0.24rem;
 
     img {
       width: 100%;

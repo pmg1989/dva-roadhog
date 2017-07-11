@@ -13,12 +13,12 @@ const Content = ({ token, item }) => {
           <img src={item.user_img} alt={item.title} />
         </div>
         <div className={classnames('flex-item', styles.right_box)}>
-          <div className={classnames('flex-box', styles.top)}>
-            <div className="flex-item">
+          <div className={styles.top}>
+            <div className={styles.name_box}>
               <span className={styles.name}>{item.user_name}</span><br />
-              <AddressIcon place={item.place} usercity={item.usercity} />
+              <div className={styles.date}>{utils.renderDate(item.create_date)}</div>
             </div>
-            <div className={styles.date}>{utils.renderDate(item.create_date)}</div>
+            <AddressIcon place={item.place} usercity={item.usercity} />
           </div>
           <div className={styles.middle}>
             <p className={styles.title}>{item.title}</p>
