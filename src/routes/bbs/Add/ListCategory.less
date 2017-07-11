@@ -1,0 +1,21 @@
+@import "../../../themes/mixin.less";
+
+.list_box {
+  :global {
+    .am-list-body {
+      border-top: none;
+    }
+
+    .am-list-item .am-list-line .am-list-content {
+      line-height: 2.5;
+    }
+  }
+
+  .selected {
+    :global {
+      .am-list-content {
+        color: @nb-blue;
+      }
+    }
+  }
+}

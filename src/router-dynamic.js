@@ -60,6 +60,15 @@ const Routers = ({ history, app }) => {
               },
             },
             {
+              path: 'add',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/add'))
+                  cb(null, require('./routes/bbs/Add'))
+                }, 'bbs-add')
+              },
+            },
+            {
               path: 'more-replay',
               getComponent(nextState, cb) {
                 require.ensure([], (require) => {
