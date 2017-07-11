@@ -21,40 +21,54 @@ const Routers = ({ history, app }) => {
       },
       childRoutes: [
         {
-          path: 'bbs/index',
-          getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('./models/bbs/index'))
-              cb(null, require('./routes/bbs/Index'))
-            }, 'bbs-index')
-          },
-        },
-        {
-          path: 'bbs/category',
-          getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('./models/bbs/category'))
-              cb(null, require('./routes/bbs/Category'))
-            }, 'bbs-category')
-          },
-        },
-        {
-          path: 'bbs/detail/:sendid',
-          getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('./models/bbs/detail'))
-              cb(null, require('./routes/bbs/Detail'))
-            }, 'bbs-detail')
-          },
-        },
-        {
-          path: 'bbs/more-replay',
-          getComponent(nextState, cb) {
-            require.ensure([], (require) => {
-              registerModel(app, require('./models/bbs/moreReplay'))
-              cb(null, require('./routes/bbs/MoreReplay'))
-            }, 'bbs-more-replay')
-          },
+          path: 'bbs',
+          childRoutes: [
+            {
+              path: 'index',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/index'))
+                  cb(null, require('./routes/bbs/Index'))
+                }, 'bbs-index')
+              },
+            },
+            {
+              path: 'category',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/category'))
+                  cb(null, require('./routes/bbs/Category'))
+                }, 'bbs-category')
+              },
+            },
+            {
+              path: 'tag',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/tag'))
+                  cb(null, require('./routes/bbs/Tag'))
+                }, 'bbs-tag')
+              },
+            },
+            {
+              path: 'detail/:sendid',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/detail'))
+                  cb(null, require('./routes/bbs/Detail'))
+                }, 'bbs-detail')
+              },
+            },
+            {
+              path: 'more-replay',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/moreReplay'))
+                  cb(null, require('./routes/bbs/MoreReplay'))
+                }, 'bbs-more-replay')
+              },
+            },
+          ],
         },
         {
           path: 'festival',
