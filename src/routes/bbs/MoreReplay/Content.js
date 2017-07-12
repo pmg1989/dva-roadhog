@@ -22,7 +22,7 @@ const Content = ({ sendid, token, item, like }) => {
             <div className={classnames('flex-box', styles.opt_box)}>
               <LikeIcon item={item} handleLike={like} />
               <div className={classnames('flex-item', styles.replay)}>
-                <Link to={`/replay?fellowid=${item.bbsfellowid}&sendid=${sendid}&token=${token}`}>
+                <Link to={`/bbs/replay?fellowid=${item.bbsfellowid}&sendid=${sendid}&token=${token}`}>
                   <span><Icon type={require('../../../svg/discu.svg')} /></span>
                   <span className={styles.count}>{utils.renderTimes(+item.fellowtimes)}</span>
                 </Link>

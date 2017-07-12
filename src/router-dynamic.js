@@ -77,6 +77,15 @@ const Routers = ({ history, app }) => {
                 }, 'bbs-more-replay')
               },
             },
+            {
+              path: 'replay',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/replay'))
+                  cb(null, require('./routes/bbs/Replay'))
+                }, 'bbs-replay')
+              },
+            },
           ],
         },
         {
