@@ -96,7 +96,10 @@ window.setAddress = function(str) {
 }
 // 显示表情包
 window.setFace = function(str) {
-
+  document.querySelector('#faceBox').style.display = 'block'
+}
+window.faceHide = function() {
+  document.querySelector('#faceBox').style.display = 'none'
 }
 //设置表情
 window.setFaceQQ = function(str) {

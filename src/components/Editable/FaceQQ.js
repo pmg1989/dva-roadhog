@@ -9,7 +9,7 @@ const FaceQQ = () => {
   }
 
   return (
-    <div className={styles.face_box}>
+    <div id="faceBox" className={styles.face_box}>
       <div className={styles.box}>
         {faceList.map(cur => (
           <span key={cur} className={styles.item}>
