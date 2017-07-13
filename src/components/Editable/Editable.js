@@ -11,7 +11,7 @@ let emitOnSetAddress
 let faceIsOpen = false
 
 function triggerFace(str) {
-  if(!faceIsOpen) {
+  if (!faceIsOpen) {
     setFace(str)
   } else {
     faceHide()
