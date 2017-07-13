@@ -4,11 +4,12 @@
   font-size: 28px;
   color: #666;
   line-height: 1.8;
-  min-height: 50vh;
+  min-height: e('calc(100vh - 150px)');
   border: 1px solid #ddd;
 
   img {
     width: 100%;
+    // margin-bottom: 30px;
   }
 
   iframe[name=audio] {
@@ -26,5 +27,9 @@
   height: 1.5rem;
   justify-content: space-around;
   align-items: flex-end;
-
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: auto;
 }

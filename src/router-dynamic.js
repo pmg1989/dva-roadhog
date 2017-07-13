@@ -123,7 +123,7 @@ const Routers = ({ history, app }) => {
       ],
     },
     {
-      path: 'video',
+      path: 'video.html',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           cb(null, require('./routes/bbs/Video'))
@@ -131,7 +131,7 @@ const Routers = ({ history, app }) => {
       },
     },
     {
-      path: 'audio',
+      path: 'audio.html',
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           cb(null, require('./routes/bbs/Audio'))
