@@ -1,6 +1,7 @@
 /src/lib/**
 /src/utils/tools.js
 /src/utils/global.js
+/src/utils/app.js
 /src/models/bbs/index.js
 /src/models/bbs/category.js
 /src/models/bbs/tag.js
