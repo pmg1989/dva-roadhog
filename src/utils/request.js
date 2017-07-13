@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Toast } from 'antd-mobile'
 import { stringify } from 'qs'
 import NProgress from 'nprogress'
-import { queryString } from './utils'
+import { queryString } from './tools'
 
 axios.defaults.baseURL = 'http://ec2-54-223-130-122.cn-north-1.compute.amazonaws.com.cn:81'
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'

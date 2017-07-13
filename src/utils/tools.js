@@ -21,7 +21,7 @@ function isApp() {
   return isIOS() || isAndroid()
 }
 
-//获取分类ID图片
+// 获取分类ID图片
 function getCategoryImage(cid) {
   const dic = {
     1: 'https://o9u2lnvze.qnssl.com/upload/bcef7efd6fd47892dd275f7e9da49ed6.png?1495444468',
@@ -37,7 +37,7 @@ function getCategoryImage(cid) {
   return dic[cid] || dic[6]
 }
 
-//获取发布BBS距离当前的时间
+// 获取发布BBS距离当前的时间
 const minute = 1000 * 60
 const hour = minute * 60
 const day = hour * 24
@@ -47,39 +47,39 @@ const year = month * 12
 
 function renderDate(timespan) {
   let result
-	const timeSpan = timespan * 1000
-	const now = new Date().getTime()
-	const diffValue = now - timeSpan
-  const yearC  = diffValue / year
-	const monthC = diffValue / month
-	const weekC  = diffValue / (7*day)
-	const dayC   = diffValue / day
-	const hourC  = diffValue / hour
-	const minC   = diffValue / minute
+  const timeSpan = timespan * 1000
+  const now = new Date().getTime()
+  const diffValue = now - timeSpan
+  const yearC = diffValue / year
+  const monthC = diffValue / month
+  const weekC = diffValue / (7 * day)
+  const dayC = diffValue / day
+  const hourC = diffValue / hour
+  const minC = diffValue / minute
 
   const time = new Date(timeSpan)
   const y = time.getFullYear()
   const m = time.getMonth() + 1
   const d = time.getDate()
 
-	if(monthC >= 1){
- 		result = (y + "-" + m + "-" + d)
-	} else if(weekC >= 1){
- 		result = parseInt(weekC) + "周前"
-	} else if(dayC >= 1){
- 		result = parseInt(dayC) +"天前"
-	} else if(hourC >= 1){
- 		result = parseInt(hourC) +"小时前"
-	} else if(minC>=1){
- 		result = parseInt(minC) +"分钟前"
-	} else {
-    result = "刚刚"
+  if (monthC >= 1) {
+ 		result = (`${y}-${m}-${d}`)
+  } else if (weekC >= 1) {
+ 		result = `${parseInt(weekC)}周前`
+  } else if (dayC >= 1) {
+ 		result = `${parseInt(dayC)}天前`
+  } else if (hourC >= 1) {
+ 		result = `${parseInt(hourC)}小时前`
+  } else if (minC >= 1) {
+ 		result = `${parseInt(minC)}分钟前`
+  } else {
+    result = '刚刚'
   }
 
-	return result
+  return result
 }
 
-//点赞/评论数
+// 点赞/评论数
 function renderTimes(times) {
   if (times > 999) {
     return '+999'
@@ -89,27 +89,27 @@ function renderTimes(times) {
   return ''
 }
 
-//详情内容过滤
+// 详情内容过滤
 function renderContent(content) {
-  if(content) {
-  	content = content.replace(/http:\/\//g, "//") //替换资源文件 https:// http:// => //
-    content = content.replace(/arclist\//g, "/arclist/") //替换表情包 arclist/ => /arclist/
-    content = content.replace(/video.html/g, "video") //替换iframe src video.html => video
-    content = content.replace(/audio.html/g, "audio") //替换iframe src audio.html => audio
+  if (content) {
+  	content = content.replace(/http:\/\//g, '//') // 替换资源文件 https:// http:// => //
+    content = content.replace(/arclist\//g, '/arclist/') // 替换表情包 arclist/ => /arclist/
+    content = content.replace(/video.html/g, 'video') // 替换iframe src video.html => video
+    content = content.replace(/audio.html/g, 'audio') // 替换iframe src audio.html => audio
   }
   return content
 }
 
-//列表内容摘要过滤
+// 列表内容摘要过滤
 function renderAbstract(content) {
   content = removeHTMLTag(content)
-  if(content.length > 50){
+  if (content.length > 50) {
     content = `${content.substring(0, 50)}...`
   }
   return content
 }
 
-//列表处理音视频图片显示
+// 列表处理音视频图片显示
 function renderIva(content) {
   content = renderContent(content)
   const iframe = content.match(/<iframe[^>]+>/g)
@@ -118,20 +118,20 @@ function renderIva(content) {
   let videoSrc = ''
   let audioStr = ''
 
-  if(!!iframe) {
-    for(let i = 0; i < iframe.length; k++) {
+  if (iframe) {
+    for (let i = 0; i < iframe.length; k++) {
       const iframelabel = iframe[i]
-      if(iframelabel.indexOf('name="video"') !== -1) {
-          const src = iframelabel.match(srcReg)
-          videoSrc = src[1].split("video=")[1]
-          break
-      } else if (iframelabel.indexOf('name="audio"') !== -1){
-          audioStr = iframelabel
-          break
+      if (iframelabel.indexOf('name="video"') !== -1) {
+        const src = iframelabel.match(srcReg)
+        videoSrc = src[1].split('video=')[1]
+        break
+      } else if (iframelabel.indexOf('name="audio"') !== -1) {
+        audioStr = iframelabel
+        break
       }
     }
 
-    if(!!videoSrc) {
+    if (videoSrc) {
       return (
         `<div class='video_box'>
            <video
@@ -150,18 +150,18 @@ function renderIva(content) {
     }
   }
 
-  let imgList =  content.match(/<img[^>]+>/g)
-  const imageMogr = "?imageMogr2/thumbnail/640x/format/jpg/interlace/1/blur/1x0/quality/75|imageslim"
+  let imgList = content.match(/<img[^>]+>/g)
+  const imageMogr = '?imageMogr2/thumbnail/640x/format/jpg/interlace/1/blur/1x0/quality/75|imageslim'
 
-  if(!!imgList) {
+  if (imgList) {
     imgList = imgList.filter(img => img.indexOf('width:initial') === -1)
-    if(imgList.length > 9) {
+    if (imgList.length > 9) {
       imgList = imgList.filter((img, index) => index < 9)
     }
     const imgLength = imgList.length
 
-    if(!!imgLength) {
-      if(imgLength === 1) {
+    if (imgLength) {
+      if (imgLength === 1) {
         return `<div class="img_list">
           ${imgList.map(img => (
             `<img src="${img.match(srcReg)[1]}${imageMogr}" />`
@@ -181,18 +181,18 @@ function renderIva(content) {
   return audioStr
 }
 
-//去除html标签取内容
+// 去除html标签取内容
 function removeHTMLTag(str) {
-    str = str.replace(/<\/?[^>]*>/g,'')      //去除HTML tag
-    str = str.replace(/[ | ]*\n/g,'\n')      //去除行尾空白
-    str = str.replace(/\n[\s| | ]*\r/g,'\n') //去除多余空行
-    str=str.replace(/ /ig,'')                //去掉
-    return str
+  str = str.replace(/<\/?[^>]*>/g, '')      // 去除HTML tag
+  str = str.replace(/[ | ]*\n/g, '\n')      // 去除行尾空白
+  str = str.replace(/\n[\s| | ]*\r/g, '\n') // 去除多余空行
+  str = str.replace(/ /ig, '')                // 去掉
+  return str
 }
 
 // 日期格式化
-Date.prototype.format = function (format) {
-  var o = {
+Date.prototype.format = function(format) {
+  const o = {
     'M+': this.getMonth() + 1,
     'd+': this.getDate(),
     'h+': this.getHours(),
@@ -200,14 +200,14 @@ Date.prototype.format = function (format) {
     'm+': this.getMinutes(),
     's+': this.getSeconds(),
     'q+': Math.floor((this.getMonth() + 3) / 3),
-    'S': this.getMilliseconds()
+    S: this.getMilliseconds(),
   }
-  if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length)) }
-  for (var k in o) {
-    if (new RegExp('(' + k + ')').test(format)) {
+  if (/(y+)/.test(format)) { format = format.replace(RegExp.$1, (`${this.getFullYear()}`).substr(4 - RegExp.$1.length)) }
+  for (const k in o) {
+    if (new RegExp(`(${k})`).test(format)) {
       format = format.replace(RegExp.$1, RegExp.$1.length === 1
         ? o[k]
-        : ('00' + o[k]).substr(('' + o[k]).length))
+        : (`00${o[k]}`).substr((`${o[k]}`).length))
     }
   }
   return format

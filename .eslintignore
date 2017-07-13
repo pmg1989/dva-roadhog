@@ -1,8 +1,9 @@
 /src/lib/**
-/src/utils/utils.js
+/src/utils/tools.js
 /src/utils/global.js
 /src/models/bbs/index.js
 /src/models/bbs/category.js
 /src/models/bbs/tag.js
 /src/routes/bbs/Video/index.js
 /src/components/AudioPlayer/lyric.js
+/src/components/Editable/MenuTool.js

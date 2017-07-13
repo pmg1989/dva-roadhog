@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'dva'
 import classnames from 'classnames'
 import { Flex } from 'antd-mobile'
-import { Header } from 'NbComponent'
+import { Header, Editable } from 'NbComponent'
 import styles from './index.less'
 
 const Replay = ({ dispatch, bbsReplay }) => {
@@ -24,11 +24,15 @@ const Replay = ({ dispatch, bbsReplay }) => {
     ),
   }
 
+  const editablePorps = {
+    content: item.content,
+  }
+
   return (
     <div>
       <Header {...headerProps}>发布帖子</Header>
       <div className={classnames('content', styles.content)}>
-        haha
+        <Editable {...editablePorps} />
       </div>
     </div>
   )
