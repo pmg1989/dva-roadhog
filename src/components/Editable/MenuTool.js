@@ -77,7 +77,14 @@ window.setAudio = function(str) {
 }
 // 返回地理位置
 window.setAddress = function(str) {
-
+  let addr = { place: '', latitude: '', longitude: '' }
+  if(!!str.length) {
+    const strArr = str.split(',')
+    if(strArr.length === 3) {
+      addr = { place: strArr[0], latitude: strArr[1], longitude: strArr[2] }
+    }
+  }
+  Editable.emitSetAddress(addr)
 }
 // 设置表情
 window.setFace = function(str) {

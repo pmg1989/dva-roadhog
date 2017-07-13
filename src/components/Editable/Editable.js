@@ -8,12 +8,17 @@ import './MenuTool'
 
 let timeout
 let emitOnChange
+let emitOnSetAddress
 
 class Editable extends Component {
 
   static emitChange() {
     const html = document.querySelector('#editable').innerHTML
     emitOnChange && emitOnChange(html)
+  }
+
+  static emitSetAddress(addr) {
+    emitOnSetAddress && emitOnSetAddress(addr)
   }
 
   state = {
@@ -48,9 +53,10 @@ class Editable extends Component {
   }
 
   render() {
-    const { html, onChange } = this.props
+    const { html, onChange, onSetAddress } = this.props
     const { isDebug } = this.state
     emitOnChange = onChange
+    emitOnSetAddress = onSetAddress
 
     return (
       <div>
@@ -72,7 +78,7 @@ class Editable extends Component {
           <Button inline size="small" onClick={() => setAudio('//o9u2lnvze.qnssl.com//practice_songae40b290-7a28-4034-82a9-2b93b1e35448.mp3')}>语音</Button>
           <Button inline size="small">表情</Button>
           <Button inline size="small">话题</Button>
-          <Button inline size="small">位置</Button>
+          <Button inline size="small" onClick={() => setAddress('上海虹口区测试地址,12,34')}>位置</Button>
         </div>}
       </div>
     )

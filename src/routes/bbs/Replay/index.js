@@ -27,8 +27,17 @@ const Replay = ({ dispatch, bbsReplay }) => {
   const editablePorps = {
     html: item.content,
     onChange(html) {
-      console.log(html)
+      dispatch({
+        type: 'bbsReplay/textChange',
+        payload: { key: 'content', value: html },
+      })
     },
+    onSetAddress(addr) {
+      dispatch({
+        type: 'bbsReplay/addressChange',
+        payload: addr,
+      })
+    }
   }
 
   return (
