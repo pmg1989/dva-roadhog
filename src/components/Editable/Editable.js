@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { Button } from 'antd-mobile'
-// import $ from 'jQuery'
-import { renderContent, queryString } from 'utils/tools'
+import { renderContent } from 'utils/tools'
 import { showMenu, hideMenu } from 'utils/app'
 import styles from './Editable.less'
 import './MenuTool'
 
-let timeout
 let emitOnChange
 let emitOnSetAddress
 
@@ -21,27 +19,18 @@ class Editable extends Component {
     emitOnSetAddress && emitOnSetAddress(addr)
   }
 
-  state = {
-    isDebug: false,
+  shouldComponentUpdate(nextProps) {
+    return nextProps.html !== this.editable.innerHTML
   }
 
   handleFocus() {
     saveRange()
-    if (queryString('debug') === '1') {
-      timeout && clearTimeout(timeout)
-      this.setState({ isDebug: true })
-    } else {
-      showMenu()
-    }
+    !this.props.isDebug && showMenu()
   }
 
   handleBlur() {
     saveRange()
-    if (queryString('debug') === '1') {
-      timeout = setTimeout(() => this.setState({ isDebug: false }), 2000)
-    } else {
-      hideMenu()
-    }
+    !this.props.isDebug && hideMenu()
   }
 
   handleInput() {
@@ -53,8 +42,7 @@ class Editable extends Component {
   }
 
   render() {
-    const { html, onChange, onSetAddress } = this.props
-    const { isDebug } = this.state
+    const { html, onChange, onSetAddress, isDebug } = this.props
     emitOnChange = onChange
     emitOnSetAddress = onSetAddress
 

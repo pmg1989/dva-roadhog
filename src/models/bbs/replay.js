@@ -5,16 +5,10 @@ import { addReplay } from '../../services/bbs/replay'
 export default {
   namespace: 'bbsReplay',
   state: {
-    item: {
-      send: utils.queryString('sendid'),
-      bbsCid: '',
-      content: '',
-      latitude: '',
-      longitude: '',
-      parentFellowId: utils.queryString('fellowid') || '',
-      parentUser: utils.queryString('userid'),
-      place: '',
-    },
+    send: utils.queryString('sendid'),
+    bbsCid: '',
+    parentFellowId: utils.queryString('fellowid') || '',
+    parentUser: utils.queryString('userid'),
   },
   subscriptions: {
     // setup({ history }) {
@@ -27,10 +21,13 @@ export default {
   },
   effects: {
     *addReplay({ payload }, { call, put, select }) {
-      const { item } = yield select(state => state.bbsReplay)
-      // console.log(item); return
+      const replayModal = yield select(state => state.bbsReplay)
+      // console.log({ ...payload, ...replayModal }); return
       const data = yield call(addReplay, {
-        fellow: item,
+        fellow: {
+          ...payload,
+          ...replayModal,
+        },
       })
 
       if (data.success) {
@@ -40,15 +37,5 @@ export default {
     },
   },
   reducers: {
-    textChange(state, action) {
-      const { key, value } = action.payload
-      const { item } = state
-      return { ...state, item: { ...item, [key]: value } }
-    },
-    addressChange(state, action) {
-      const { place, latitude, longitude } = action.payload
-      const { item } = state
-      return { ...state, item: { ...item, place, latitude, longitude } }
-    },
   },
 }
