@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'antd-mobile'
 import { renderContent } from 'utils/tools'
 import { showMenu, hideMenu } from 'utils/app'
+import FaceQQ from './FaceQQ'
 import styles from './Editable.less'
 import './MenuTool'
 
@@ -68,6 +69,7 @@ class Editable extends Component {
           <Button inline size="small">话题</Button>
           <Button inline size="small" onClick={() => setAddress('上海虹口区测试地址,12,34')}>位置</Button>
         </div>}
+        <FaceQQ />
       </div>
     )
   }

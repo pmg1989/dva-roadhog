@@ -34,6 +34,15 @@ function insertContent(str) {
   }
 }
 
+//替换表情字符串
+function replace_em(str) {
+  str = str.replace(/\</g, '&lt;')
+  str = str.replace(/\>/g, '&gt;')
+  str = str.replace(/\n/g, '<br/>')
+  str = str.replace(/\[em_([0-9]*)\]/g, '<img src="/arclist/$1.gif" style="width:initial" border="0" />')
+  return str
+}
+
 // 图片返回
 window.setImg = function(str) {
   const imgLength = document.querySelectorAll('#editable img[name="bigimg"]').length
@@ -85,9 +94,14 @@ window.setAddress = function(str) {
   }
   Editable.emitSetAddress(addr)
 }
-// 设置表情
+// 显示表情包
 window.setFace = function(str) {
 
+}
+//设置表情
+window.setFaceQQ = function(str) {
+  insertContent(replace_em(str))
+  Editable.emitChange()
 }
 
 // 保存光标位置
