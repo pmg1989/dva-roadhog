@@ -179,6 +179,10 @@ function renderIva(content) {
   return audioStr
 }
 
+function renderUserName(userName) {
+  return userName.length > 8 ? `${userName.substr(0, 8)}...` : userName
+}
+
 // 去除html标签取内容
 function removeHTMLTag(str) {
   str = str.replace(/<\/?[^>]*>/g, '')      // 去除HTML tag
@@ -222,5 +226,6 @@ export default {
   renderContent,
   renderAbstract,
   renderIva,
+  renderUserName,
   removeHTMLTag,
 }

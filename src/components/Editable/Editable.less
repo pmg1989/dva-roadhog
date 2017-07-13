@@ -1,7 +1,20 @@
 @import "../../themes/mixin.less";
 
+.editable_box {
+  position: relative;
+
+  .user_name {
+    color: @nb-blue;
+    position: absolute;
+    left: 0;
+    top: 0;
+    line-height: 1.8;
+    font-size: 32px;
+  }
+}
+
 .editable {
-  font-size: 28px;
+  font-size: 32px;
   color: #666;
   line-height: 1.8;
   min-height: e('calc(100vh - 150px)');

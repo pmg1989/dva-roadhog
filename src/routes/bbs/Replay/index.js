@@ -28,7 +28,7 @@ class Replay extends Component {
   render() {
     const { location } = this.props
     const { content } = this.state
-    const { debug } = location.query
+    const { debug, userName } = location.query
     const replayStatus = !!content.length
 
     const headerProps = {
@@ -44,6 +44,7 @@ class Replay extends Component {
     const editablePorps = {
       isDebug: debug === '1',
       html: content,
+      userName,
       onChange: (html) => {
         this.setState({ content: html })
       },

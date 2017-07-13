@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'antd-mobile'
-import { renderContent } from 'utils/tools'
+import { renderContent, renderUserName } from 'utils/tools'
 import { showMenu, hideMenu } from 'utils/app'
 import FaceQQ from './FaceQQ'
 import styles from './Editable.less'
@@ -30,6 +30,13 @@ class Editable extends Component {
     emitOnSetAddress && emitOnSetAddress(addr)
   }
 
+  componentDidMount() {
+    if(!!this.props.userName) {
+      const userNameWidth = document.querySelector('#userName').offsetWidth
+      this.editable.style.textIndent = `${userNameWidth + 5}px`
+    }
+  }
+
   shouldComponentUpdate(nextProps) {
     return nextProps.html !== this.editable.innerHTML
   }
@@ -53,12 +60,13 @@ class Editable extends Component {
   }
 
   render() {
-    const { html, onChange, onSetAddress, isDebug } = this.props
+    const { html, onChange, onSetAddress, isDebug, userName } = this.props
     emitOnChange = onChange
     emitOnSetAddress = onSetAddress
 
     return (
-      <div>
+      <div className={styles.editable_box}>
+        {!!userName && <span id="userName" className={styles.user_name}>{`@${renderUserName(userName)}`}</span>}
         <div
           id="editable"
           ref={(c) => { this.editable = c }}
