@@ -4,7 +4,6 @@ import styles from './FaceQQ.less'
 const faceList = Array.from(new Array(75), (val, index) => index + 1)
 
 const FaceQQ = () => {
-
   const handleClick = (em) => {
     setFaceQQ(em) // setFaceQQ is from ./MenuTool.js
   }
