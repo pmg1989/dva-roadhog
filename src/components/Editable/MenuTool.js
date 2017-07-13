@@ -1,12 +1,11 @@
-import $ from 'jQuery'
 import { Toast } from 'antd-mobile'
 import Editable from './Editable'
 
 let iframeId = 1
 
 function appendContent(str) {
-  const html = $('#editable').html()
-  $('#editable').html(`${html}${str}`)
+  const html = document.querySelector('#editable').innerHTML
+  document.querySelector('#editable').innerHTML = `${html}${str}`
 }
 
 function insertContent(str) {
@@ -37,7 +36,7 @@ function insertContent(str) {
 
 // 图片返回
 window.setImg = function(str) {
-  const imgLength = $('#editable img[name="bigimg"]').length
+  const imgLength = document.querySelectorAll('#editable img[name="bigimg"]').length
   const srcList = str.split(',')
   if (imgLength + srcList.length > 9) {
     Toast.fail('所选图片和现有图片不能超过9个！', 3)
@@ -52,11 +51,11 @@ window.setImg = function(str) {
 }
 // 返回视频
 window.setVideo = function(str) {
-  if($('#editable iframe[name="video"]').length >= 3) {
+  if(document.querySelectorAll('#editable iframe[name="video"]').length >= 3) {
 		Toast.fail("视频不能超过3个！", 3)
 		return false
 	}
-  if($("#editable").html().length === 0) {
+  if(document.querySelector('#editable').innerHTML.length === 0) {
 		insertContent('<br/>')
 	}
   insertContent(`<iframe id="iframe_${iframeId}" onLoad="iFrameHeight('iframe_${iframeId}')" src="/video.html?video=${str}" name="video" width="100%" frameborder="0"></iframe>`)
@@ -65,11 +64,11 @@ window.setVideo = function(str) {
 }
 // 返回录音
 window.setAudio = function(str) {
-  if($('#editable iframe[name="audio"]').length >= 3) {
+  if(document.querySelectorAll('#editable iframe[name="audio"]').length >= 3) {
 		Toast.fail("音频不能超过3个！", 3)
 		return false
 	}
-  if($("#editable").html().length === 0) {
+  if(document.querySelector('#editable').innerHTML.length === 0) {
 		insertContent('<br/>')
 	}
   insertContent(`<iframe width="100%" height="40" frameborder="0" name="audio" src="/audio.html?audio=${str}"></iframe>`);
