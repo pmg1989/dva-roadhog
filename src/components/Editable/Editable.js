@@ -31,7 +31,7 @@ class Editable extends Component {
   }
 
   componentDidMount() {
-    if(!!this.props.userName) {
+    if (this.props.userName) {
       const userNameWidth = document.querySelector('#userName').offsetWidth
       this.editable.style.textIndent = `${userNameWidth + 5}px`
     }
