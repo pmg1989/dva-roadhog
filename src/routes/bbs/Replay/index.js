@@ -25,7 +25,10 @@ const Replay = ({ dispatch, bbsReplay }) => {
   }
 
   const editablePorps = {
-    content: item.content,
+    html: item.content,
+    onChange(html) {
+      console.log(html)
+    },
   }
 
   return (

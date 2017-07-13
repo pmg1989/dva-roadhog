@@ -7,8 +7,14 @@ import styles from './Editable.less'
 import './MenuTool'
 
 let timeout
+let emitOnChange
 
 class Editable extends Component {
+
+  static emitChange() {
+    const html = document.querySelector('#editable').innerHTML
+    emitOnChange && emitOnChange(html)
+  }
 
   state = {
     isDebug: false,
@@ -33,21 +39,31 @@ class Editable extends Component {
     }
   }
 
+  handleInput() {
+    const html = this.editable.innerHTML
+    if (this.props.onChange && html !== this.lastHtml) {
+      this.props.onChange(html)
+    }
+    this.lastHtml = html
+  }
+
   render() {
-    // showMenu()
-    const { content } = this.props
+    const { html, onChange } = this.props
     const { isDebug } = this.state
+    emitOnChange = onChange
 
     return (
       <div>
         <div
           id="editable"
+          ref={(c) => { this.editable = c }}
           className={styles.editable}
           contentEditable
           onClick={::this.handleFocus}
           onFocus={::this.handleFocus}
           onBlur={::this.handleBlur}
-          dangerouslySetInnerHTML={{ __html: renderContent(content) }}
+          onInput={::this.handleInput}
+          dangerouslySetInnerHTML={{ __html: renderContent(html) }}
         />
         {isDebug &&
         <div className={styles.opt_box}>

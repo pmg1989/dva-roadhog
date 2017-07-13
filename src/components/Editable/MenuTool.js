@@ -1,5 +1,6 @@
 import $ from 'jQuery'
 import { Toast } from 'antd-mobile'
+import Editable from './Editable'
 
 let iframeId = 1
 
@@ -47,6 +48,7 @@ window.setImg = function(str) {
   ))
   // appendContent(imgList.join(''))
   insertContent(imgList.join(''))
+  Editable.emitChange()
 }
 // 返回视频
 window.setVideo = function(str) {
@@ -59,6 +61,7 @@ window.setVideo = function(str) {
 	}
   insertContent(`<iframe id="iframe_${iframeId}" onLoad="iFrameHeight('iframe_${iframeId}')" src="/video.html?video=${str}" name="video" width="100%" frameborder="0"></iframe>`)
   iframeId++
+  Editable.emitChange()
 }
 // 返回录音
 window.setAudio = function(str) {
@@ -70,6 +73,7 @@ window.setAudio = function(str) {
 		insertContent('<br/>')
 	}
   insertContent(`<iframe width="100%" height="40" frameborder="0" name="audio" src="/audio.html?audio=${str}"></iframe>`);
+  Editable.emitChange()
 }
 // 返回地理位置
 window.setAddress = function(str) {
