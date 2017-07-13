@@ -93,9 +93,7 @@ function renderTimes(times) {
 function renderContent(content) {
   if (content) {
   	content = content.replace(/http:\/\//g, '//') // 替换资源文件 https:// http:// => //
-    content = content.replace(/arclist\//g, '/arclist/') // 替换表情包 arclist/ => /arclist/
-    // content = content.replace(/video.html/g, 'video') // 替换iframe src video.html => video
-    // content = content.replace(/audio.html/g, 'audio') // 替换iframe src audio.html => audio
+    content = content.replace(/"arclist\//g, '"/arclist/') // 替换表情包 arclist/ => /arclist/
   }
   return content
 }

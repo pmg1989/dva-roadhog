@@ -16,6 +16,9 @@ function insertContent(str) {
     range.collapse(false)
     range.select()
   } else {
+    if(!range) {
+      return false
+    }
     selection = window.getSelection ? window.getSelection() : document.selection
     range.collapse(false)
     const hasR = range.createContextualFragment(str)
@@ -98,6 +101,7 @@ window.setAddress = function(str) {
 window.setFace = function(str) {
   document.querySelector('#faceBox').style.display = 'block'
 }
+//收起表情包
 window.faceHide = function() {
   document.querySelector('#faceBox').style.display = 'none'
 }

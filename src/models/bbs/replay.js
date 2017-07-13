@@ -22,7 +22,6 @@ export default {
   effects: {
     *addReplay({ payload }, { call, put, select }) {
       const replayModal = yield select(state => state.bbsReplay)
-      // console.log({ ...payload, ...replayModal }); return
       const data = yield call(addReplay, {
         fellow: {
           ...payload,
@@ -31,8 +30,7 @@ export default {
       })
 
       if (data.success) {
-        const token = utils.queryString('token')
-        yield put(routerRedux.push({ pathname: `/?token=${token}` }))
+        yield put(routerRedux.goBack())
       }
     },
   },
