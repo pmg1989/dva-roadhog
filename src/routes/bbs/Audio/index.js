@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
-import $ from 'jQuery'
+import $ from 'jquery'
 import 'audioplayer'
 import './index.less'
 

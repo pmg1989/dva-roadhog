@@ -3,7 +3,7 @@
 	Available for use under the MIT License
 */
 
-import jQuery from 'jQuery'
+import jQuery from 'jquery'
 
 ;(function( $, window, document, undefined )
 {

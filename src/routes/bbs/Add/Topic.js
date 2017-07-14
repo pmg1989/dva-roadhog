@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { Toast } from 'antd-mobile'
-import $ from 'jQuery'
+import $ from 'jquery'
 import styles from './Topic.less'
 
 let emitOnShowTopic

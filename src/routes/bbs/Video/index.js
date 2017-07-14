@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Toast } from 'antd-mobile'
-// import $ from 'jQuery'
 
 window.whether = function(obj) {
   // if ($(obj)[0].duration === 0 || $(obj)[0].duration === 'undefined') {
