@@ -2,7 +2,7 @@ import React from 'react'
 // import classnames from 'classnames'
 import { Icon } from 'antd-mobile'
 import { AudioPlayer } from 'NbComponent'
-import utils from 'utils'
+import { renderDate } from 'utils/tools'
 import Video from '../../bbs/Video'
 import styles from './Content.less'
 
@@ -39,7 +39,7 @@ const Content = ({ item }) => {
                 <span>{item.views}</span>
               </div>
               <div className={styles.date_time}>
-                {utils.renderDate(item.ctime)}
+                {renderDate(item.ctime)}
               </div>
             </div>
           </div>

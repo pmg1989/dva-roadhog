@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import { Icon, ActionSheet, Modal, Toast } from 'antd-mobile'
-import utils from 'utils'
+import { isIOS, renderDate, renderTimes, renderContent } from 'utils/tools'
 import { ViewList, LikeIcon } from 'NbComponent'
 import styles from './ReplayList.less'
 
@@ -22,7 +22,7 @@ const ReplayList = ({
     const isShowDelete = userId === +item.userid
 
     let wrapProps = {}
-    if (utils.isIOS) {
+    if (isIOS) {
       wrapProps = {
         onTouchStart: e => e.preventDefault(),
       }
@@ -87,6 +87,10 @@ const ReplayList = ({
     )
   }
 
+  const renderHtml = (item) => {
+    return `<span id="userName">@${item.parentusername}</span>${renderContent(item.content)}`
+  }
+
   const Row = (item, sectionID, rowID) => {
     return (
       <div key={rowID} className="flex-box list-view-row" onClick={() => handleRowClick(item)}>
@@ -97,18 +101,18 @@ const ReplayList = ({
           <div className={classnames('flex-box', styles.top)}>
             <div className="flex-item">
               <span className={styles.name}>{item.username}</span><br />
-              <span className={styles.date}>{utils.renderDate(item.senddate)}</span>
+              <span className={styles.date}>{renderDate(item.senddate)}</span>
             </div>
             <div className={classnames('flex-box', styles.opt_box)}>
               <LikeIcon item={item} handleLike={likeReplay} />
               <div className={classnames('flex-item', styles.replay)}>
                 <span><Icon type={require('../../../svg/discu.svg')} /></span>
-                <span className={styles.count}>{utils.renderTimes(+item.fellowtimes)}</span>
+                <span className={styles.count}>{renderTimes(+item.fellowtimes)}</span>
               </div>
             </div>
           </div>
           <div className={styles.middle}>
-            <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: renderHtml(item) }} />
           </div>
         </div>
       </div>

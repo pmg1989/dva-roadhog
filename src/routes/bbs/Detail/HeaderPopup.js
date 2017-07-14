@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Popover, Icon, Modal, Toast } from 'antd-mobile'
 import { Header } from 'NbComponent'
-import utils from 'utils'
+import { removeHTMLTag } from 'utils/tools'
 import styles from './HeaderPopup.less'
 
 const Item = Popover.Item
@@ -23,7 +23,7 @@ class HeaderPopup extends Component {
     switch (opt.props.value) {
       case '1': {
         const { item } = this.props
-        const content = utils.removeHTMLTag(item.content)
+        const content = removeHTMLTag(item.content)
         const shareParams = {
           title: item.title,
           content: content.length > 50 ? `${content.substring(0, 50)}...` : content,

@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router'
-import utils from 'utils'
+import { queryString } from 'utils/tools'
 import { getCategory } from '../../services/bbs/index'
 import { addSend } from '../../services/bbs/add'
 
@@ -57,7 +57,7 @@ export default {
       })
 
       if (data.success) {
-        const token = utils.queryString('token')
+        const token = queryString('token')
         yield put(routerRedux.push({ pathname: `/?token=${token}` }))
       }
     },

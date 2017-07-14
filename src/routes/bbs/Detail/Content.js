@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import { Link } from 'dva/router'
-import utils from 'utils'
+import { renderDate, renderContent } from 'utils/tools'
 import { AddressIcon } from 'NbComponent'
 import styles from './Content.less'
 
@@ -16,13 +16,13 @@ const Content = ({ token, item }) => {
           <div className={styles.top}>
             <div className={styles.name_box}>
               <span className={styles.name}>{item.user_name}</span><br />
-              <div className={styles.date}>{utils.renderDate(item.create_date)}</div>
+              <div className={styles.date}>{renderDate(item.create_date)}</div>
             </div>
             <AddressIcon place={item.place} usercity={item.usercity} />
           </div>
           <div className={styles.middle}>
             <p className={styles.title}>{item.title}</p>
-            <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: renderContent(item.content) }} />
           </div>
           <div className={styles.bottom}>
             <div className={styles.label_box}>

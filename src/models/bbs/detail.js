@@ -1,6 +1,7 @@
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
-import utils, { wechat } from 'utils'
+import { wechat } from 'utils'
+import { queryString, removeHTMLTag } from 'utils/tools'
 import { getDetail, getReplayList, deleteSend } from '../../services/bbs/detail'
 import { like, unlike, deleteSendFellow } from '../../services/bbs/base'
 
@@ -24,7 +25,7 @@ export default {
         const match = pathToRegexp('/bbs/detail/:sendid').exec(location.pathname)
         if (match) {
           const sendid = match[1]
-          const share = utils.queryString('share')
+          const share = queryString('share')
           if (share === '1') {
             dispatch({ type: 'queryDetail', payload: { sendid, share: true } })
           } else {
@@ -41,7 +42,7 @@ export default {
       const data = yield call(getDetail, sendid, share)
       if (data.success) {
         const shareParams = data.bbssend[0]
-        const desc = utils.removeHTMLTag(shareParams.content)
+        const desc = removeHTMLTag(shareParams.content)
         wechat.share({
           title: shareParams.title,
           desc: desc.length > 50 ? `${desc.substring(0, 50)}...` : desc,
@@ -132,7 +133,7 @@ export default {
       const data = yield call(deleteSend, sendid)
       if (data.success) {
         yield put(routerRedux.push({
-          pathname: `/?token=${utils.queryString('token')}`,
+          pathname: `/?token=${queryString('token')}`,
         }))
       }
     },

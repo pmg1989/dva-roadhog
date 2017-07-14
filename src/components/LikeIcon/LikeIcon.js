@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import { Icon } from 'antd-mobile'
-import utils from 'utils'
+import { renderTimes } from 'utils/tools'
 import styles from './LikeIcon.less'
 
 const LikeIcon = ({ item, handleLike, type }) => {
@@ -19,7 +19,7 @@ const LikeIcon = ({ item, handleLike, type }) => {
   return (
     <div className={classnames('flex-item', isLike ? styles.like : styles.unlike)} onClick={clickLike}>
       <span><Icon type={isLike ? require('../../svg/like.svg') : require('../../svg/unlike.svg')} /></span>
-      <span className={styles.count}>{utils.renderTimes(+(item.hearttimes || item.heart_times))}</span>
+      <span className={styles.count}>{renderTimes(+(item.hearttimes || item.heart_times))}</span>
     </div>
   )
 }

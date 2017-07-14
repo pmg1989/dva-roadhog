@@ -1,9 +1,10 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-import utils, { wechat } from 'utils'
+import { wechat } from 'utils'
+import { queryString } from 'utils/tools'
 import { getWork, getReplayList } from '../../services/festival/competitionWork'
 
-const isShare = utils.queryString('share') === '1'
+const isShare = queryString('share') === '1'
 
 export default {
   namespace: 'festivalCompetitionWork',

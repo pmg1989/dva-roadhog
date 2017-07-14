@@ -1,14 +1,14 @@
 import { routerRedux } from 'dva/router'
-import utils from 'utils'
+import { queryString } from 'utils/tools'
 import { addReplay } from '../../services/bbs/replay'
 
 export default {
   namespace: 'bbsReplay',
   state: {
-    send: utils.queryString('sendid'),
+    send: queryString('sendid'),
     bbsCid: '',
-    parentFellowId: utils.queryString('fellowid') || '',
-    parentUser: utils.queryString('userid'),
+    parentFellowId: queryString('fellowid') || '',
+    parentUser: queryString('userid'),
   },
   subscriptions: {
     // setup({ history }) {

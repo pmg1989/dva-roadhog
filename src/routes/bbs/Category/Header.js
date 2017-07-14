@@ -3,10 +3,8 @@ import { Link } from 'dva/router'
 import { Flex, Icon } from 'antd-mobile'
 import QueueAnim from 'rc-queue-anim'
 import { Header } from 'NbComponent'
-import utils from 'utils'
+import { queryString, getCategoryImage } from 'utils/tools'
 import styles from './Header.less'
-
-const { queryString, getCategoryImage } = utils
 
 class CategoryHeader extends Component {
 

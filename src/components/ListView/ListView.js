@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon } from 'antd-mobile'
-import utils from 'utils'
+import { renderAbstract, renderIva, renderDate, renderTimes } from 'utils/tools'
 import { LikeIcon, ShareIcon, AddressIcon } from 'NbComponent'
 import Loading from './Loading'
 import styles from './ListView.less'
@@ -27,14 +27,14 @@ const ListView = ({ list, loading, token, linkTo, like }) => {
                   <div className={styles.top}>
                     <div className={styles.name_box}>
                       <span className={styles.name}>{item.user_name}</span>
-                      <div className={styles.date}>{utils.renderDate(item.create_date)}</div>
+                      <div className={styles.date}>{renderDate(item.create_date)}</div>
                     </div>
                     <AddressIcon place={item.place} usercity={item.usercity} />
                   </div>
                   <div className={styles.middle}>
                     <p className={styles.title}>{item.title}</p>
-                    <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderAbstract(item.content) }} />
-                    <div className={styles.iva_box} dangerouslySetInnerHTML={{ __html: utils.renderIva(item.content) }} />
+                    <div className={styles.text} dangerouslySetInnerHTML={{ __html: renderAbstract(item.content) }} />
+                    <div className={styles.iva_box} dangerouslySetInnerHTML={{ __html: renderIva(item.content) }} />
                   </div>
                   <div className={styles.bottom}>
                     <div className={styles.label_box}>
@@ -47,7 +47,7 @@ const ListView = ({ list, loading, token, linkTo, like }) => {
                       <LikeIcon item={item} handleLike={like} type="send" />
                       <div className={classnames('flex-item', styles.replay)}>
                         <span><Icon type={require('../../svg/discu.svg')} /></span>
-                        <span className={styles.count}>{utils.renderTimes(+item.fellow_times)}</span>
+                        <span className={styles.count}>{renderTimes(+item.fellow_times)}</span>
                       </div>
                       <ShareIcon item={item} />
                     </div>

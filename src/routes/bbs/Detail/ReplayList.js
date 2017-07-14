@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon, ActionSheet, Modal, Toast } from 'antd-mobile'
-import utils from 'utils'
+import { isIOS, renderDate, renderTimes, renderContent } from 'utils/tools'
 import { ViewList, LikeIcon } from 'NbComponent'
 import styles from './ReplayList.less'
 
@@ -19,7 +19,7 @@ const ReplayInner = ({ item, token, sendid }) => {
       {item.fellow_two_list.length > 0 && item.fellow_two_list.map((cur, key) => (
         <dl className="clear-fix" key={key}>
           <dt style={{ float: 'left' }}><span className={styles.inner_name}>{cur.name}</span>：</dt>
-          <dd className={styles.inner_text} dangerouslySetInnerHTML={{ __html: utils.renderContent(cur.content) }} />
+          <dd className={styles.inner_text} dangerouslySetInnerHTML={{ __html: renderContent(cur.content) }} />
         </dl>
       ))}
       {+item.fellow_two_total > 0 &&
@@ -49,7 +49,7 @@ const ReplayList = ({
     const isShowDelete = userId === +item.userid
 
     let wrapProps = {}
-    if (utils.isIOS) {
+    if (isIOS) {
       wrapProps = {
         onTouchStart: e => e.preventDefault(),
       }
@@ -124,18 +124,18 @@ const ReplayList = ({
           <div className={classnames('flex-box', styles.top)}>
             <div className="flex-item">
               <span className={styles.name}>{item.username}</span><br />
-              <span className={styles.date}>{utils.renderDate(item.senddate)}</span>
+              <span className={styles.date}>{renderDate(item.senddate)}</span>
             </div>
             <div className={classnames('flex-box', styles.opt_box)}>
               <LikeIcon item={item} handleLike={likeReplay} />
               <div className={classnames('flex-item', styles.replay)}>
                 <span><Icon type={require('../../../svg/discu.svg')} /></span>
-                <span className={styles.count}>{utils.renderTimes(+item.fellowtimes)}</span>
+                <span className={styles.count}>{renderTimes(+item.fellowtimes)}</span>
               </div>
             </div>
           </div>
           <div className={styles.middle}>
-            <div className={styles.text} dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }} />
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: renderContent(item.content) }} />
           </div>
           <div className={styles.bottom}>
             {item.fellow_two_list.length > 0 && <ReplayInner item={item} token={token} sendid={sendid} />}

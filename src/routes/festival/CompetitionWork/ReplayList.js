@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import utils from 'utils'
+import { renderDate, renderContent } from 'utils/tools'
 import { ViewList } from 'NbComponent'
 import styles from './ReplayList.less'
 
@@ -21,10 +21,10 @@ const ReplayList = ({ dataSource, total, hasMore, queryMoreList }) => {
             <img src={item.userimg} alt={item.username} />
             <span className={styles.name}>{item.username}</span>
           </div>
-          <span className={styles.date}>{utils.renderDate(item.senddate)}</span>
+          <span className={styles.date}>{renderDate(item.senddate)}</span>
         </div>
         <div className={styles.text}
-          dangerouslySetInnerHTML={{ __html: utils.renderContent(item.content) }}
+          dangerouslySetInnerHTML={{ __html: renderContent(item.content) }}
         />
       </div>
     )

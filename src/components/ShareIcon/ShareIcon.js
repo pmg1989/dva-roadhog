@@ -1,14 +1,14 @@
 import React from 'react'
 import classnames from 'classnames'
 import { Icon } from 'antd-mobile'
-import utils from 'utils'
+import { removeHTMLTag } from 'utils/tools'
 import styles from './ShareIcon.less'
 
 const ShareIcon = ({ item }) => {
   const handleShare = (e) => {
     e.stopPropagation()
 
-    const content = utils.removeHTMLTag(item.content)
+    const content = removeHTMLTag(item.content)
 
     const shareParams = {
       title: item.title,
