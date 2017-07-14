@@ -14,7 +14,7 @@ class Content extends Component {
   }
 
   render() {
-    const { categories, selected, item, onShowCategory, onSelected, debug } = this.props
+    const { categories, headerStatus, item, onShowCategory, onSelected, debug } = this.props
 
     const editablePorps = {
       isDebug: debug === '1',
@@ -30,7 +30,7 @@ class Content extends Component {
 
     return (
       <div className={classnames('content', styles.content)}>
-        {!selected &&
+        {headerStatus === 'add' &&
           <div>
             <div className={classnames(styles.row, styles.border)}>
               <Item arrow="horizontal" onClick={onShowCategory}>
@@ -45,7 +45,7 @@ class Content extends Component {
             </div>
           </div>
         }
-        {selected && <ListCategory list={categories} onSelected={onSelected} selected={item.bbsCategory} />}
+        {headerStatus === 'categories' && <ListCategory list={categories} onSelected={onSelected} selected={item.bbsCategory} />}
       </div>
     )
   }

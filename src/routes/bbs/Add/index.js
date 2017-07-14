@@ -8,7 +8,7 @@ import styles from './Content.less'
 
 const Add = ({ dispatch, location, bbsAdd }) => {
   const { debug } = location.query
-  const { categories, selected, item } = bbsAdd
+  const { categories, headerStatus, item } = bbsAdd
 
   const addStatus = !!item.bbsCategory.cid && !!item.title.length && item.content.length > 8
 
@@ -34,7 +34,7 @@ const Add = ({ dispatch, location, bbsAdd }) => {
 
   const contentProps = {
     categories,
-    selected,
+    headerStatus,
     item,
     debug,
     onShowCategory() {
@@ -53,8 +53,8 @@ const Add = ({ dispatch, location, bbsAdd }) => {
 
   return (
     <div>
-      {!selected && <Header {...header1Props}>发布帖子</Header>}
-      {selected && <Header {...header2Props}>选择分类</Header>}
+      {headerStatus === 'add' && <Header {...header1Props}>发布帖子</Header>}
+      {headerStatus === 'categories' && <Header {...header2Props}>选择分类</Header>}
       <Content {...contentProps} />
     </div>
   )

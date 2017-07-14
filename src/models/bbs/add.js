@@ -7,11 +7,15 @@ export default {
   namespace: 'bbsAdd',
   state: {
     categories: [],
-    selected: false,
+    headerStatus: 'add', //'add': 发布帖子状态; 'categories': 选择分类列表状态; 'label'：插入话题状态
     item: {
       bbsCategory: {},
       title: '',
       content: '',
+      bbslabel: [],
+      latitude: '',
+      longitude: '',
+      place: '',
     },
   },
   subscriptions: {
@@ -31,13 +35,13 @@ export default {
         if (data.success) {
           yield put({
             type: 'getCategorySuccess',
-            payload: { categories: data.categories, selected: true },
+            payload: { categories: data.categories, headerStatus: 'categories' },
           })
         }
       } else {
         yield put({
           type: 'getCategorySuccess',
-          payload: { selected: true },
+          payload: { headerStatus: 'categories' },
         })
       }
     },
@@ -69,10 +73,10 @@ export default {
     selected(state, action) {
       const { cid, name } = action.payload
       const { item } = state
-      return { ...state, item: { ...item, bbsCategory: { cid, name } }, selected: false }
+      return { ...state, item: { ...item, bbsCategory: { cid, name } }, headerStatus: 'add' }
     },
     back(state) {
-      return { ...state, selected: false }
+      return { ...state, headerStatus: 'add' }
     },
     textChange(state, action) {
       const { key, value } = action.payload
