@@ -48,7 +48,7 @@ const Add = ({ dispatch, location, bbsAdd }) => {
     },
     onAddressChange({ place, latitude, longitude }) {
       dispatch({ type: 'bbsAdd/addressChange', payload: { place, latitude, longitude } })
-    }
+    },
   }
 
   return (
