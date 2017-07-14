@@ -36,7 +36,7 @@ class Topic extends Component {
         Toast.fail('最多只能输入15个字符')
         return false
       }
-      if (!!html.length) {
+      if (html.length) {
         html = `<input type='button' value='#${html}'>`
       }
 
