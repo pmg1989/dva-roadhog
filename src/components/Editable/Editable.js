@@ -69,6 +69,7 @@ class Editable extends Component {
         {!!userName && <span id="userName" className={styles.user_name}>{`@${renderUserName(userName)}`}</span>}
         <div
           id="editable"
+          placeholder="发表评论..."
           ref={(c) => { this.editable = c }}
           className={styles.editable}
           contentEditable

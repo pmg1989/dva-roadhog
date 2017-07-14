@@ -41,9 +41,9 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     likeReplay({ fellowid, isLike }) {
       dispatch({ type: 'bbsDetail/likeReplay', payload: { fellowid, isLike } })
     },
-    linkToReplay({ fellowid, userid }) {
+    linkToReplay({ fellowid, userid, userName }) {
       dispatch(routerRedux.push({
-        pathname: `/bbs/replay?fellowid=${fellowid}&sendid=${sendid}&userid=${userid}&token=${token}`,
+        pathname: `/bbs/replay?fellowid=${fellowid}&sendid=${sendid}&userid=${userid}&userName=${userName}&token=${token}`,
       }))
     },
     deleteReplay({ fellowid }) {

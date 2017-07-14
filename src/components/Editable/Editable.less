@@ -18,11 +18,14 @@
   color: #666;
   line-height: 1.8;
   min-height: e('calc(100vh - 150px)');
-  border: 1px solid #ddd;
+
+  &:empty:before {
+    content: attr(placeholder);
+    color: rgba(162, 164, 165, 0.93);
+  }
 
   img {
     width: 100%;
-    // margin-bottom: 30px;
   }
 
   iframe[name=audio] {

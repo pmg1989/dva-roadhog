@@ -69,7 +69,7 @@ const ReplayList = ({
     },
       (buttonIndex) => {
         if (buttonIndex === 0) {
-          linkToReplay({ fellowid: item.bbsfellowid, userid: item.userid })
+          linkToReplay({ userName: item.username, fellowid: item.bbsfellowid, userid: item.userid })
         } else if (buttonIndex === 1) {
           if (isShowDelete) {
             alert('删除', '确定删除此贴吗?', [
