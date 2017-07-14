@@ -1,0 +1,24 @@
+@import "../../../themes/mixin.less";
+
+.editable_topic {
+  font-size: 32px;
+  color: #666;
+  line-height: 1.8;
+  min-height: e('calc(100vh - 150px)');
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  &:empty:before {
+    content: attr(placeholder);
+    color: rgba(162, 164, 165, 0.93);
+  }
+
+  input[type="button"] {
+    background: #fff;
+    border-width: 0px;
+    color: @nb-blue;
+  }
+}

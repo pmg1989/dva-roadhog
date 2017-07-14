@@ -1,5 +1,6 @@
 import { Toast } from 'antd-mobile'
 import Editable from './Editable'
+import Topic from '../../routes/bbs/Add/Topic'
 
 let iframeId = 1
 
@@ -101,16 +102,15 @@ window.setAddress = function(str) {
 window.setFace = function(str) {
   document.querySelector('#faceBox').style.display = 'block'
 }
-//收起表情包
+// 收起表情包
 window.faceHide = function() {
   document.querySelector('#faceBox').style.display = 'none'
 }
-//设置表情
+// 设置表情
 window.setFaceQQ = function(str) {
   insertContent(replace_em(str))
   Editable.emitChange()
 }
-
 // 保存光标位置
 window.saveRange = function() {
   const selection = window.getSelection ? window.getSelection() : document.selection
@@ -119,4 +119,8 @@ window.saveRange = function() {
   }
   const range = selection.createRange ? selection.createRange().htmlText : selection.getRangeAt(0)
   window._range = range
+}
+// 显示话题页面(发布帖子)
+window.showTopic = function() {
+  Topic.showTopic()
 }

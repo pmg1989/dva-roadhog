@@ -32,6 +32,19 @@ const Add = ({ dispatch, location, bbsAdd }) => {
     },
   }
 
+  const header3Props = {
+    onLeftClick() {
+      dispatch({ type: 'bbsAdd/back' })
+    },
+    rightContent: (
+      <Flex>
+        <Flex className="navbar-right-content">
+          <span className={classnames({ [styles.disabled]: !item.bbslabel.length })} onClick={handleAdd}>确定</span>
+        </Flex>
+      </Flex>
+    ),
+  }
+
   const contentProps = {
     categories,
     headerStatus,
@@ -49,12 +62,16 @@ const Add = ({ dispatch, location, bbsAdd }) => {
     onAddressChange({ place, latitude, longitude }) {
       dispatch({ type: 'bbsAdd/addressChange', payload: { place, latitude, longitude } })
     },
+    onShowTopic() {
+      dispatch({ type: 'bbsAdd/showTopic' })
+    },
   }
 
   return (
     <div>
       {headerStatus === 'add' && <Header {...header1Props}>发布帖子</Header>}
       {headerStatus === 'categories' && <Header {...header2Props}>选择分类</Header>}
+      {headerStatus === 'topic' && <Header {...header3Props}>插入话题</Header>}
       <Content {...contentProps} />
     </div>
   )

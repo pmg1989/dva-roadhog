@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import { List, InputItem } from 'antd-mobile'
 import { Editable } from 'NbComponent'
 import ListCategory from './ListCategory'
+import Topic from './Topic'
 import styles from './Content.less'
 
 const Item = List.Item
@@ -14,7 +15,7 @@ class Content extends Component {
   }
 
   render() {
-    const { categories, headerStatus, item, onShowCategory, onSelected, debug } = this.props
+    const { categories, headerStatus, item, onShowCategory, onSelected, debug, onShowTopic } = this.props
 
     const editablePorps = {
       isDebug: debug === '1',
@@ -25,6 +26,14 @@ class Content extends Component {
       },
       onSetAddress: ({ place, latitude, longitude }) => {
         this.props.onAddressChange({ place, latitude, longitude })
+      },
+    }
+
+    const topicProps = {
+      onShowTopic,
+      isShow: headerStatus === 'topic',
+      onChange: (list) => {
+        console.log(list)
       },
     }
 
@@ -46,6 +55,7 @@ class Content extends Component {
           </div>
         }
         {headerStatus === 'categories' && <ListCategory list={categories} onSelected={onSelected} selected={item.bbsCategory} />}
+        <Topic {...topicProps} />
       </div>
     )
   }

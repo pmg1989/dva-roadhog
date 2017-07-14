@@ -7,7 +7,7 @@ export default {
   namespace: 'bbsAdd',
   state: {
     categories: [],
-    headerStatus: 'add', // 'add': 发布帖子状态; 'categories': 选择分类列表状态; 'label'：插入话题状态
+    headerStatus: 'add', // 'add': 发布帖子状态; 'categories': 选择分类列表状态; 'topic'：插入话题状态
     item: {
       bbsCategory: {},
       title: '',
@@ -87,6 +87,9 @@ export default {
       const { place, latitude, longitude } = action.payload
       const { item } = state
       return { ...state, item: { ...item, place, latitude, longitude } }
+    },
+    showTopic(state) {
+      return { ...state, headerStatus: 'topic' }
     },
   },
 }
