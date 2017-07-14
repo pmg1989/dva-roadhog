@@ -31,19 +31,21 @@ class Topic extends Component {
     const key = e.which
     if (key === 13) { // enter
       e.preventDefault()
-      let inputList = ''
-      $('#editableTopic input').each(function() {
-        inputList += `<input type='button' value='${$(this).val()}'>`
-      })
       let html = $('#editableTopic').not('input').text().trim()
       if (html.length > 15) {
         Toast.fail('最多只能输入15个字符')
         return false
       }
-      if (html) {
+      if (!!html.length) {
         html = `<input type='button' value='#${html}'>`
       }
+
+      let inputList = ''
+      $('#editableTopic input').each(function() {
+        inputList += `<input type='button' value='${$(this).val()}'>`
+      })
       $('#editableTopic').html(inputList)
+
       if ($('#editableTopic input').length >= 3) {
         Toast.fail('最多只能生成3个标签')
         keyAction('editableTopic')
