@@ -7,7 +7,7 @@ export default {
   namespace: 'bbsAdd',
   state: {
     categories: [],
-    headerStatus: 'add', //'add': 发布帖子状态; 'categories': 选择分类列表状态; 'label'：插入话题状态
+    headerStatus: 'add', // 'add': 发布帖子状态; 'categories': 选择分类列表状态; 'label'：插入话题状态
     item: {
       bbsCategory: {},
       title: '',
