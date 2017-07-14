@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { List, InputItem } from 'antd-mobile'
+import { Editable } from 'NbComponent'
 import ListCategory from './ListCategory'
 import styles from './Content.less'
 
@@ -12,12 +13,20 @@ class Content extends Component {
     this.props.onTextChange({ key: 'title', value })
   }
 
-  handleChangeContent(value) {
-    this.props.onTextChange({ key: 'content', value })
-  }
-
   render() {
-    const { categories, selected, item, onShowCategory, onSelected } = this.props
+    const { categories, selected, item, onShowCategory, onSelected, debug } = this.props
+
+    const editablePorps = {
+      isDebug: debug === '1',
+      html: item.content,
+      placeholder: '请输入正文（不少于8个字）',
+      onChange: (html) => {
+        this.props.onTextChange({ key: 'content', value: html })
+      },
+      onSetAddress: ({ place, latitude, longitude }) => {
+        this.props.onAddressChange({ place, latitude, longitude })
+      },
+    }
 
     return (
       <div className={classnames('content', styles.content)}>
@@ -32,7 +41,7 @@ class Content extends Component {
               <InputItem placeholder="请给帖子起个标题" value={item.title} onChange={::this.handleChangeTitle} />
             </div>
             <div className={styles.row}>
-              <InputItem placeholder="请输入正文（不少于8个字）" value={item.content} onChange={::this.handleChangeContent} />
+              <Editable {...editablePorps} />
             </div>
           </div>
         }

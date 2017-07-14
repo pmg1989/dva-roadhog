@@ -50,9 +50,9 @@ export default {
           title: item.title,
           content: item.content,
           bbslabel: [],
-          latitude: '',
-          longitude: '',
-          place: '',
+          latitude: item.latitude,
+          longitude: item.longitude,
+          place: item.place,
         },
       })
 
@@ -78,6 +78,11 @@ export default {
       const { key, value } = action.payload
       const { item } = state
       return { ...state, item: { ...item, [key]: value } }
+    },
+    addressChange(state, action) {
+      const { place, latitude, longitude } = action.payload
+      const { item } = state
+      return { ...state, item: { ...item, place, latitude, longitude } }
     },
   },
 }

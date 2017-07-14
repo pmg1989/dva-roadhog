@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Button } from 'antd-mobile'
 import { renderContent, renderUserName } from 'utils/tools'
 import { showMenu, hideMenu } from 'utils/app'
@@ -20,6 +20,21 @@ function triggerFace(str) {
 }
 
 class Editable extends Component {
+
+  static propTypes = {
+    placeholder: PropTypes.string,
+    isDebug: PropTypes.bool.isRequired,
+    html: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onSetAddress: PropTypes.func.isRequired,
+    userName: PropTypes.string,
+  }
+
+  static defaultProps = {
+    placeholder: '发表评论...',
+    isDebug: false,
+    userName: null,
+  }
 
   static emitChange() {
     const html = document.querySelector('#editable').innerHTML
@@ -60,7 +75,7 @@ class Editable extends Component {
   }
 
   render() {
-    const { html, onChange, onSetAddress, isDebug, userName } = this.props
+    const { html, onChange, onSetAddress, isDebug, userName, placeholder } = this.props
     emitOnChange = onChange
     emitOnSetAddress = onSetAddress
 
@@ -69,7 +84,7 @@ class Editable extends Component {
         {!!userName && <span id="userName" className={styles.user_name}>{`@${renderUserName(userName)}`}</span>}
         <div
           id="editable"
-          placeholder="发表评论..."
+          placeholder={placeholder}
           ref={(c) => { this.editable = c }}
           className={styles.editable}
           contentEditable

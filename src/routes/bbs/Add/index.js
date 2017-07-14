@@ -6,7 +6,8 @@ import { Header } from 'NbComponent'
 import Content from './Content'
 import styles from './Content.less'
 
-const Add = ({ dispatch, bbsAdd }) => {
+const Add = ({ dispatch, location, bbsAdd }) => {
+  const { debug } = location.query
   const { categories, selected, item } = bbsAdd
 
   const addStatus = !!item.bbsCategory.cid && !!item.title.length && item.content.length > 8
@@ -35,6 +36,7 @@ const Add = ({ dispatch, bbsAdd }) => {
     categories,
     selected,
     item,
+    debug,
     onShowCategory() {
       dispatch({ type: 'bbsAdd/showCategory' })
     },
@@ -44,6 +46,9 @@ const Add = ({ dispatch, bbsAdd }) => {
     onTextChange({ key, value }) {
       dispatch({ type: 'bbsAdd/textChange', payload: { key, value } })
     },
+    onAddressChange({ place, latitude, longitude }) {
+      dispatch({ type: 'bbsAdd/addressChange', payload: { place, latitude, longitude } })
+    }
   }
 
   return (
