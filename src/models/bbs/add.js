@@ -53,7 +53,7 @@ export default {
           bbsCategory: item.bbsCategory.cid,
           title: item.title,
           content: item.content,
-          bbslabel: [],
+          bbslabel: item.bbslabel,
           latitude: item.latitude,
           longitude: item.longitude,
           place: item.place,

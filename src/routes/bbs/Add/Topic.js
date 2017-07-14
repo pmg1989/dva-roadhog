@@ -28,41 +28,54 @@ class Topic extends Component {
   }
 
   handleKeydown(e) {
+    const $editable = $('#editableTopic')
+    const $inputList = $('#editableTopic input')
+
+    function getInputList() {
+      let inputList = ''
+      $inputList.each(function() {
+        inputList += `<input type='button' value='${$(this).val()}'>`
+      })
+      return inputList
+    }
+
+    function renderTopicList() {
+      const list = []
+      $('#editableTopic input').each(function() {
+        list.push({ label: $(this).val().replace('#', '') })
+      })
+      return list
+    }
+
     const key = e.which
     if (key === 13) { // enter
       e.preventDefault()
-      let html = $('#editableTopic').not('input').text().trim()
+
+      let html = $editable.not('input').text().trim()
+      if (!html.length) {
+        return false
+      }
+
+      if ($inputList.length >= 3) {
+        Toast.fail('最多只能生成3个标签')
+        $editable.html(getInputList())
+        keyAction('editableTopic')
+        return false
+      }
+
       if (html.length > 15) {
         Toast.fail('最多只能输入15个字符')
         return false
       }
-      if (html.length) {
-        html = `<input type='button' value='#${html}'>`
-      }
-
-      let inputList = ''
-      $('#editableTopic input').each(function() {
-        inputList += `<input type='button' value='${$(this).val()}'>`
-      })
-      $('#editableTopic').html(inputList)
-
-      if ($('#editableTopic input').length >= 3) {
-        Toast.fail('最多只能生成3个标签')
-        keyAction('editableTopic')
-        return false
-      }
-      $('#editableTopic').append(html)
+      html = `${getInputList()}<input type='button' value='#${html}'>`
+      $editable.html(html)
       keyAction('editableTopic')
-      this.props.onChange(inputList + html)
+      this.props.onChange(renderTopicList())
     }
   }
 
   handleInput() {
-    const html = this.editableTopic.innerHTML
-    // if (this.props.onChange && html !== this.lastHtml) {
-    //   this.props.onChange(html)
-    // }
-    this.lastHtml = html
+    this.lastHtml = this.editableTopic.innerHTML
   }
 
   render() {
@@ -76,12 +89,8 @@ class Topic extends Component {
         ref={(c) => { this.editableTopic = c }}
         className={classnames(styles.editable_topic, { [styles.active]: isShow })}
         contentEditable
-        // onClick={::this.handleFocus}
-        // onFocus={::this.handleFocus}
-        // onBlur={::this.handleBlur}
         onKeyDown={::this.handleKeydown}
-        // onInput={::this.handleInput}
-        // dangerouslySetInnerHTML={{ __html: renderContent(html) }}
+        onInput={::this.handleInput}
       />
     )
   }

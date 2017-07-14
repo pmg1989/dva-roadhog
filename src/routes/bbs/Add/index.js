@@ -16,6 +16,10 @@ const Add = ({ dispatch, location, bbsAdd }) => {
     addStatus && dispatch({ type: 'bbsAdd/addSend' })
   }
 
+  const handleTopicOk = () => {
+    dispatch({ type: 'bbsAdd/back' })
+  }
+
   const header1Props = {
     rightContent: (
       <Flex>
@@ -39,7 +43,7 @@ const Add = ({ dispatch, location, bbsAdd }) => {
     rightContent: (
       <Flex>
         <Flex className="navbar-right-content">
-          <span className={classnames({ [styles.disabled]: !item.bbslabel.length })} onClick={handleAdd}>确定</span>
+          <span className={classnames({ [styles.disabled]: !item.bbslabel.length })} onClick={handleTopicOk}>确定</span>
         </Flex>
       </Flex>
     ),

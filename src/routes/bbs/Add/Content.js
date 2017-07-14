@@ -33,7 +33,7 @@ class Content extends Component {
       onShowTopic,
       isShow: headerStatus === 'topic',
       onChange: (list) => {
-        console.log(list)
+        this.props.onTextChange({ key: 'bbslabel', value: list })
       },
     }
 
