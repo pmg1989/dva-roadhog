@@ -409,4 +409,68 @@
   	transition: color .25s ease, background-color .25s ease, opacity .5s ease;
   }
 
+  //样式覆盖
+  .audioplayer {
+    height: 4em;
+    border-radius: 0.3em;
+    background: #f3f3f3;
+    border: 1px solid #dedede;
+    color: #333;
+    box-shadow: none;
+  }
+
+  .audioplayer:not(.audioplayer-mini) .audioplayer-playpause {
+    border-right: none;
+  }
+
+  .audioplayer-time-current {
+    border-left: none;
+    // left: 3.5em;
+  }
+
+  .audioplayer-stopped .audioplayer-playpause a {
+    border-left-color: #333;
+  }
+
+  .audioplayer-playpause:hover,
+          .audioplayer-playpause:focus {
+    background-color: #f3f3f3 !important;
+  }
+
+  .audioplayer-time {
+    padding-top: 34px;
+    width: 3.375em;
+    font-size: 24px;
+    font-weight: normal;
+  }
+
+  .audioplayer-playing .audioplayer-playpause a:before, .audioplayer-playing .audioplayer-playpause a:after {
+    background-color: #333;
+  }
+
+  .audioplayer-bar {
+    height: 0.2em;
+    background-color: #ddd;
+    margin-top: -0.1em;
+    right: 3.375em;
+    left: 4.875em
+  }
+
+  .audioplayer-bar-loaded {
+    background-color: #999;
+  }
+
+  .audioplayer-bar-played {
+    background: #2eb044;
+  }
+
+  .audioplayer-time-duration {
+    right: 0.5em;
+  }
+
+  .audioplayer-volume {
+    border-left: none;
+    display: none;
+  }
+
 }
