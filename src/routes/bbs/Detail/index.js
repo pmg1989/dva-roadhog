@@ -45,7 +45,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
       dispatch(routerRedux.push({
         pathname: '/bbs/replay',
         query: {
-          fellowid, sendid, userid, userName, token
+          fellowid, sendid, userid, userName, token,
         },
       }))
     },
