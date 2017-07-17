@@ -132,8 +132,10 @@ export default {
       const { sendid } = yield select(state => state.bbsDetail)
       const data = yield call(deleteSend, sendid)
       if (data.success) {
+        const token = queryString('token')
         yield put(routerRedux.push({
-          pathname: `/?token=${queryString('token')}`,
+          pathname: '/',
+          query: { token },
         }))
       }
     },

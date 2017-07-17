@@ -62,7 +62,10 @@ export default {
 
       if (data.success) {
         const token = queryString('token')
-        yield put(routerRedux.push({ pathname: `/?token=${token}` }))
+        yield put(routerRedux.push({
+          pathname: '/',
+          query: { token },
+        }))
       }
     },
   },

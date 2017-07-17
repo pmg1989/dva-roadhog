@@ -36,8 +36,12 @@ const MoreReplay = ({ dispatch, location, bbsMoreReplay, user }) => {
       dispatch({ type: 'bbsMoreReplay/likeReplay', payload: { fellowid, isLike } })
     },
     linkToReplay({ userName, userid }) {
+      const fellowid = bbsMoreReplay.fellowid
       dispatch(routerRedux.push({
-        pathname: `/bbs/replay?fellowid=${bbsMoreReplay.fellowid}&sendid=${sendid}&userid=${userid}&userName=${userName}&token=${token}`,
+        pathname: '/bbs/replay',
+        query: {
+          fellowid, sendid, userid, userName, token
+        },
       }))
     },
     deleteReplay({ fellowid }) {

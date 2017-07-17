@@ -43,7 +43,10 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
     },
     linkToReplay({ fellowid, userid, userName }) {
       dispatch(routerRedux.push({
-        pathname: `/bbs/replay?fellowid=${fellowid}&sendid=${sendid}&userid=${userid}&userName=${userName}&token=${token}`,
+        pathname: '/bbs/replay',
+        query: {
+          fellowid, sendid, userid, userName, token
+        },
       }))
     },
     deleteReplay({ fellowid }) {
