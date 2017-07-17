@@ -1,4 +1,5 @@
 import iScrollRefresh from 'iScrollRefresh'
+import { refreshTime } from 'utils/config'
 import { getList } from '../../services/bbs/index'
 import { like, unlike } from '../../services/bbs/base'
 
@@ -53,7 +54,7 @@ export default {
         setTimeout(() => {
           ir.setPage(0, 2)  // 设置当前页面的页数
           ir.refresh(0)    // 刷新Iscroll
-        }, 100)
+        }, refreshTime)
       }
     },
     *pullDown({ payload }, { call, put }) {
@@ -71,7 +72,7 @@ export default {
         setTimeout(() => {
           ir.setPage(0, 2)         // 设置当前页面的页数
           ir.pullDownCallBack(param) // 还有数据的时候用这个
-        }, 100)
+        }, refreshTime)
       }
     },
     *pullUp({ payload }, { call, put }) {
@@ -87,7 +88,7 @@ export default {
         yield put({ type: 'queryMoreSuccess', payload: { list: data.posts } })
         setTimeout(() => {
           ir.pullUpCallBack(param) // 还有数据的时候用这个
-        }, 100)
+        }, refreshTime)
       }
     },
     *like({ payload }, { call, put }) {
