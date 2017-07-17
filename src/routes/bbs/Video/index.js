@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Toast } from 'antd-mobile'
+import './index.less'
 
 window.whether = function(obj) {
   // if ($(obj)[0].duration === 0 || $(obj)[0].duration === 'undefined') {
@@ -21,17 +22,25 @@ const Video = ({ location, src }) => {
     }
   }
 
+  function handleVideoPlay(e) {
+    videoPlay(e.target)
+  }
+
   return (
-    <video
-      controls
-      playsInline
-      width="100%"
-      preload="none"
-      ref={attachCustomAttributes}
-      poster={`${video}?vframe/jpg/offset/0`}
-    >
-      <source src={video} type="video/mp4" />
-    </video>
+    <div className='video_box'>
+      <video
+        controls
+        playsInline
+        width="100%"
+        preload="none"
+        onClick={handleVideoPlay}
+        ref={attachCustomAttributes}
+        poster={`${video}?vframe/jpg/offset/0`}
+      >
+        <source src={video} type="video/mp4" />
+      </video>
+      <i className="play_icon" onClick={handleVideoPlay} />
+    </div>
   )
 }
 

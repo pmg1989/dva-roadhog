@@ -28,11 +28,19 @@ window.goToDownLoad = function (params) {
 }
 
 //列表页视频点击事件
-window.videoPlay = function(player) {
+window.videoPlay = function(el) {
   event.stopPropagation()
+  let player = el
+  let icon = el.nextElementSibling
+  if(el.tagName !== 'VIDEO') {
+    player = el.previousElementSibling
+    icon = el
+  }
   if(player.paused) {
     player.play()
+    icon.style.display = 'none'
   } else {
     player.pause()
+    icon.style.display = 'block'
   }
 }

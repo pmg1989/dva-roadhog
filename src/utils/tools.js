@@ -142,7 +142,7 @@ function renderIva(content) {
             poster='${videoSrc}?vframe/jpg/offset/0' >
               <source src='${videoSrc}' type='video/mp4' />
            </video>
-            <!--<i class="play_icon" onclick='videoPlay(this)' />-->
+            <i class="play_icon" onclick='videoPlay(this)' />
          </div>`
       )
     }
