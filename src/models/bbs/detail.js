@@ -21,11 +21,11 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      history.listen(() => {
-        const match = pathToRegexp('/bbs/detail/:sendid').exec(location.pathname)
+      history.listen((location) => {
+        const { pathname, query: { share } } = location
+        const match = pathToRegexp('/bbs/detail/:sendid').exec(pathname)
         if (match) {
           const sendid = match[1]
-          const share = queryString('share')
           if (share === '1') {
             dispatch({ type: 'queryDetail', payload: { sendid, share: true } })
           } else {
