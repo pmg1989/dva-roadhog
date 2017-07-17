@@ -6,8 +6,7 @@ import { baseURL } from 'utils/config'
 import { queryString } from 'utils/tools'
 
 axios.defaults.baseURL = baseURL
-// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
-axios.defaults.headers.common['X-Accept-Version'] = '3.7'
+// axios.defaults.headers.common['X-Accept-Version'] = '3.7'
 
 const fetch = (url, options) => {
   const { method = 'get', data, headers } = options

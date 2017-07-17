@@ -1,5 +1,40 @@
 import { isIOS, isAndroid } from './tools'
 
+
+if(!window.android) {
+  window.android = {
+    returnback: function () {},
+    openUser: function () {},
+    hideAddress: function () {},
+    showAlert: function () {},
+    refreshPage: function () {},
+    showMenu: function () {},
+    hideMenu: function () {},
+    share: function () {},
+    contentHeight: function () {},
+    getLocation: function () {},
+    loginAgain: function () {},
+  }
+}
+
+if(!window.webkit) {
+  window.webkit = {
+    messageHandlers: {
+      returnback: { postMessage: function () {} },
+      openUser: { postMessage: function () {} },
+      hideAddress: { postMessage: function () {} },
+      showAlert: { postMessage: function () {} },
+      refreshPage: { postMessage: function () {} },
+      showMenu: { postMessage: function () {} },
+      hideMenu: { postMessage: function () {} },
+      share: { postMessage: function () {} },
+      contentHeight: { postMessage: function () {} },
+      getLocation: { postMessage: function () {} },
+      loginAgain: { postMessage: function () {} },
+    }
+  }
+}
+
 const tools = {
   returnback(params = null) {
     if (isAndroid) {
