@@ -9,7 +9,7 @@ import styles from './ListView.less'
 
 const ListView = ({ list, loading, token, linkTo, like }) => {
   const LinkToDetail = (item) => {
-    linkTo(`/bbs/detail/${item.bbs_sendid}?token=${token}`)
+    linkTo({ sendid: item.bbs_sendid })
   }
 
   return (

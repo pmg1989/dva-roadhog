@@ -29,9 +29,10 @@ const Index = ({ dispatch, location, bbsIndex }) => {
     list,
     tab,
     token,
-    linkTo(url) {
+    linkTo({ sendid }) {
       dispatch(routerRedux.push({
-        pathname: url,
+        pathname: `/bbs/detail/${sendid}`,
+        query: { token },
       }))
     },
     like({ sendid, isLike }) {

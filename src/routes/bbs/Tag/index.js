@@ -22,9 +22,10 @@ const Tag = ({ dispatch, location, bbsTag }) => {
     loading,
     list,
     token,
-    linkTo(url) {
+    linkTo({ sendid }) {
       dispatch(routerRedux.push({
-        pathname: url,
+        pathname: `/bbs/detail/${sendid}`,
+        query: { token },
       }))
     },
     like({ sendid, isLike }) {

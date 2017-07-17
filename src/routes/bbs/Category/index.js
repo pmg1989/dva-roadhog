@@ -23,9 +23,10 @@ const Category = ({ dispatch, location, bbsCategory }) => {
     list,
     token,
     navOpen,
-    linkTo(url) {
+    linkTo({ sendid }) {
       dispatch(routerRedux.push({
-        pathname: url,
+        pathname: `/bbs/detail/${sendid}`,
+        query: { token },
       }))
     },
     like({ sendid, isLike }) {
