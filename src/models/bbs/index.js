@@ -169,16 +169,18 @@ export default {
     switchNav(state) {
       const { navHeight, navOpen } = state
       isNavOpen = !navOpen
+      const $navTop = document.querySelector("#navTop")
       if(navHeight === 'auto') {
-        return { ...state, navOpen: !navOpen, navHeight: document.querySelector("#navTop").offsetHeight }
+        return { ...state, navOpen: !navOpen, navHeight: !!$navTop ? $navTop.offsetHeight: 'auto' }
       }
       return { ...state, navOpen: !navOpen }
     },
     closeNav(state) {
       isNavOpen = false
       const { navHeight } = state
+      const $navTop = document.querySelector("#navTop")
       if(navHeight === 'auto') {
-        return { ...state, navOpen: false, navHeight: document.querySelector("#navTop").offsetHeight }
+        return { ...state, navOpen: false, navHeight: !!$navTop ? $navTop.offsetHeight: 'auto' }
       }
       return { ...state, navOpen: false }
     },
