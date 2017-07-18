@@ -1,3 +1,5 @@
+import { stringify, parse } from 'qs'
+
 // 根据key获取url中的参数
 function queryString(value) {
   const reg = new RegExp(`(^|&)${value}=([^&]*)(&|$)`, 'i')
@@ -215,6 +217,16 @@ Date.prototype.format = function(format) {
   return format
 }
 
+// 跳转至登录页面
+function redirectToLogin() {
+  const query = parse(location.search.substr(1))
+  if(query.token) {
+    delete query.token
+  }
+  const url = !!stringify(query) ? `${location.pathname}?${stringify(query)}` : location.pathname
+  location.href = `/login?url=${url}`
+}
+
 export default {
   queryString,
   isIOS: isIOS(),
@@ -228,4 +240,5 @@ export default {
   renderIva,
   renderUserName,
   removeHTMLTag,
+  redirectToLogin,
 }

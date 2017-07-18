@@ -127,7 +127,7 @@ const Routers = ({ history, app }) => {
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           cb(null, require('./routes/bbs/Video'))
-        }, 'bbs-video')
+        }, 'video')
       },
     },
     {
@@ -135,7 +135,16 @@ const Routers = ({ history, app }) => {
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
           cb(null, require('./routes/bbs/Audio'))
-        }, 'bbs-video')
+        }, 'audio')
+      },
+    },
+    {
+      path: 'login',
+      getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+          registerModel(app, require('./models/login'))
+          cb(null, require('./routes/Login'))
+        }, 'login')
       },
     },
     {
