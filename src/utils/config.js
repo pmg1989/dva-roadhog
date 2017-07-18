@@ -18,7 +18,7 @@ function getBaseURL() {
 }
 
 function getBaseShare() {
-  if(getEnv()) {
+  if (getEnv()) {
     return 'http://staging.web.newband.com:5000/api/v1/social/wxcfg'
   }
 
