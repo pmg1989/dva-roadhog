@@ -30,7 +30,10 @@ class Content extends Component {
     return (
       <div className={styles.content_box}>
         <div className={styles.top}>
-          {item.detail_file_detail && <Video src={item.detail_file_detail.full_url} />}
+          {item.detail_file_detail && <Video src={item.detail_file_detail.full_url} cover={item.detail_cover_file_detail.full_url} />}
+          {!item.detail_file_detail && item.detail_cover_file_detail &&
+            <img alt="" className={styles.cover} src={item.detail_cover_file_detail.full_url} />
+          }
         </div>
         <div className={styles.info_box}>
           <dl className={classnames(styles.date, 'flex-box')}>

@@ -2,11 +2,17 @@ import React, { PropTypes } from 'react'
 import { connect } from 'dva'
 import { routerRedux } from 'dva/router'
 import { NavBar } from 'antd-mobile'
+import { isApp } from 'utils/tools'
+import { returnback } from 'utils/app'
 import styles from './Header.less'
 
 const Header = ({ dispatch, children, ...headerProps }) => {
   const handleBack = () => {
-    dispatch(routerRedux.goBack())
+    if (isApp) {
+      returnback()
+    } else {
+      dispatch(routerRedux.goBack())
+    }
   }
 
   const navBarProps = {

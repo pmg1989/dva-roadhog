@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Popover, Icon, Modal, Toast } from 'antd-mobile'
 import { Header } from 'NbComponent'
 import { removeHTMLTag } from 'utils/tools'
+import { share } from 'utils/app'
 import styles from './HeaderPopup.less'
 
 const Item = Popover.Item
@@ -30,7 +31,7 @@ class HeaderPopup extends Component {
           image: item.user_img,
           url: item.share_url,
         }
-        console.log(shareParams)
+        share(shareParams)
         break
       }
       case '2':

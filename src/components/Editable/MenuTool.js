@@ -56,7 +56,7 @@ window.setImg = function(str) {
     return false
   }
   const imgList = srcList.map(src => (
-    `<img src=${src} class="bigimg" name="bigimg" width="100%">`
+    `<img src="${src}" alt="${src}" class="bigimg" name="bigimg" width="100%" />`
   ))
   // appendContent(imgList.join(''))
   insertContent(imgList.join(''))

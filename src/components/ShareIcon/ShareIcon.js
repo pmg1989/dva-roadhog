@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { Icon } from 'antd-mobile'
 import { removeHTMLTag } from 'utils/tools'
+import { share } from 'utils/app'
 import styles from './ShareIcon.less'
 
 const ShareIcon = ({ item }) => {
@@ -16,7 +17,7 @@ const ShareIcon = ({ item }) => {
       image: item.user_img,
       url: item.share_url,
     }
-    console.log(shareParams)
+    share(shareParams)
   }
 
   return (

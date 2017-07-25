@@ -1,37 +1,46 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'dva'
 import $ from 'jquery'
 import 'audioplayer'
 import './index.less'
 
-$(() => {
-  setTimeout(() => {
-    $('#audioBox audio').audioPlayer()
-  }, 0)
-})
+class Audio extends Component {
 
-const Audio = ({ location }) => {
-  const { audio } = location.query
+  componentDidMount() {
+    $(this.audio).audioPlayer()
 
-  function attachCustomAttributes(domNode) {
+    // $('#audioBox .audioplayer-playpause').on('click', function (e) {
+    //   const title = $(this).attr('title')
+    //   if(title === 'Pause') {
+    //     pausePlayva() //播放当前之前，先暂停所有播放
+    //   }
+    // })
+  }
+
+  attachCustomAttributes(domNode) {
     if (domNode) {
       domNode.setAttribute('webkit-playsinline', '')
     }
+    this.audio = domNode
   }
 
-  return (
-    <div id="audioBox">
-      <audio
-        controls
-        playsInline
-        width="100%"
-        ref={attachCustomAttributes}
-      >
-        <source src={audio} />
-        <source src="/audio.wav" />
-      </audio>
-    </div>
-  )
+  render() {
+    const { audio } = this.props.location.query
+
+    return (
+      <div id="audioBox">
+        <audio
+          controls
+          playsInline
+          width="100%"
+          ref={::this.attachCustomAttributes}
+        >
+          <source src={audio} />
+          <source src="/audio.wav" />
+        </audio>
+      </div>
+    )
+  }
 }
 
 export default connect()(Audio)

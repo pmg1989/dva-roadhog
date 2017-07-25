@@ -3,6 +3,7 @@ import { Link } from 'dva/router'
 import { Flex } from 'antd-mobile'
 import classnames from 'classnames'
 import QueueAnim from 'rc-queue-anim'
+import { appRedirect } from 'utils/tools'
 import styles from './Nav.less'
 
 const Item = Flex.Item
@@ -16,9 +17,10 @@ const Nav = ({ list, token, navOpen, navHeight }) => {
           <Flex>
             {list && list.map((item, key) => {
               const id = item.cid === 0 ? item.alias : item.cid
+              const src = item.cid === 0 ? '/images/chat_en.png' : item.image_url
               return (
                 <Item key={key}>
-                  <Link to={`/bbs/category?cid=${id}&token=${token}`}><img alt={item.name} src={item.image_url} /></Link>
+                  <Link onClick={appRedirect} to={`/bbs/category?cid=${id}&token=${token}`}><img alt={item.name} src={src} /></Link>
                 </Item>
               )
             })}

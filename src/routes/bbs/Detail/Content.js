@@ -2,16 +2,14 @@ import React from 'react'
 import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { renderDate, renderContent } from 'utils/tools'
-import { AddressIcon } from 'NbComponent'
+import { AddressIcon, ThumbIcon } from 'NbComponent'
 import styles from './Content.less'
 
-const Content = ({ token, item }) => {
+const Content = ({ share, token, item }) => {
   return (
-    <div className={classnames('content', styles.content)}>
+    <div className={classnames({ content: !share }, styles.content)}>
       <div className="flex-box">
-        <div className={styles.thumb_box}>
-          <img src={item.user_img} alt={item.title} />
-        </div>
+        <ThumbIcon uid={item.user_id} image={item.user_img} alt={item.title} />
         <div className={classnames('flex-item', styles.right_box)}>
           <div className={styles.top}>
             <div className={styles.name_box}>

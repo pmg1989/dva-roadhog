@@ -1,11 +1,19 @@
 import iScrollRefresh from 'iScrollRefresh'
 import { refreshTime } from 'utils/config'
+import { getLocation } from 'utils/app'
 import { getCategory, getList } from '../../services/bbs/index'
 import { like, unlike } from '../../services/bbs/base'
 
 const cateList = ['post_desc', 'hot_first', 'near_most'] // 每个类别的ID号
 const pageSize = 5
 let ir, isLoading = [true, true, true], isNavOpen = true, tabIndex = 0
+let latitude = '', longitude = ''
+
+window.setlocationFromApp = function(lat, lng) {
+  console.log('setlocationFromApp invoked by app', lat, lng)
+  latitude = lat
+  longitude = lng
+}
 
 export default {
   namespace: 'bbsIndex',
@@ -19,6 +27,11 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
+
+      //此方法会在detail页面删除帖子后因为调用了 returnback(sendid)，而被APP自动调用过滤删除帖子
+      window.returnBackRefresh = function (sendid) {
+        dispatch({ type: 'backRefresh', payload: { sendid } })
+      }
 
       function pullUp(param) {
         const { index, page } = param
@@ -49,8 +62,10 @@ export default {
 
       history.listen((location) => {
         const { pathname, query: { tab } } = location
-        if (pathname === '/' || pathname === '/bbs/index') {
+        if (pathname === '/' || pathname === '/bbs/' || pathname === '/bbs/index') {
           dispatch({ type: 'queryCategory' })
+
+          getLocation()// app交互定位当前位置
 
           setTimeout(() => {
             ir = new iScrollRefresh('#ir-tabs-wrapper', '#ir-bd-wrapper')
@@ -81,11 +96,16 @@ export default {
     },
     *initData({ payload }, { call, put }) {
       const { tab } = payload
-      const data = yield call(getList, {
+      const params = {
         filter: cateList[tab],
         page: 1,
         size: pageSize,
-      })
+      }
+      if(tab === 2) {
+        params.lat = longitude
+        params.lng = latitude
+      }
+      const data = yield call(getList, params)
 
       if(data.success) {
         yield put({ type: 'querySuccess', payload: { tab, data: data.posts, init: true } })
@@ -97,11 +117,16 @@ export default {
     },
     *pullDown({ payload }, { call, put }) {
       const { tab, page, param } = payload
-      const data = yield call(getList, {
+      const params = {
         filter: cateList[tab],
         page,
         size: pageSize,
-      })
+      }
+      if(tab === 2) {
+        params.lat = longitude
+        params.lng = latitude
+      }
+      const data = yield call(getList, params)
 
       if(data.success) {
         yield put({ type: 'querySuccess', payload: { tab, data: data.posts } })
@@ -114,11 +139,18 @@ export default {
     },
     *pullUp({ payload }, { call, put }) {
       const { tab, page, param } = payload
-      const data = yield call(getList, {
+
+      const params = {
         filter: cateList[tab],
         page,
         size: pageSize,
-      })
+      }
+      if(tab === 2) {
+        params.lat = longitude
+        params.lng = latitude
+      }
+
+      const data = yield call(getList, params)
 
       if(data.success) {
         yield put({ type: 'queryMoreSuccess', payload: { tab, data: data.posts } })
@@ -135,7 +167,7 @@ export default {
         yield put({ type: 'initData', payload: { tab } })
       }
     },
-    *like({ payload }, {call, put}) {
+    *like({ payload }, { call, put }) {
       const { sendid, isLike } = payload
 
       yield put({ type: 'likeSuccess', payload: { sendid, isLike } })
@@ -197,6 +229,13 @@ export default {
         } else {
           return item
         }
+      })
+      return { ...state, list }
+    },
+    backRefresh(state, action) {
+      const sendid = action.payload.sendid.toString()
+      const list = state.list.map(item => {
+        return item.filter(cur => (cur.bbs_sendid !== sendid))
       })
       return { ...state, list }
     },

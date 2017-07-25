@@ -46,19 +46,28 @@ class ViewList extends Component {
     }
   }
 
+  renderFooter = () => {
+    const { isLoading } = this.state
+    const { dataSource, footerMsg } = this.props
+    const message = dataSource.length ?
+      (footerMsg && footerMsg.noMore) || '没有更多数据了~' :
+      (footerMsg && footerMsg.empty) || <p>暂无数据~</p>
+    return (
+      <div style={{ textAlign: 'center', paddingTop: '6px' }}>
+        {isLoading ? <Icon type="loading" /> : message}
+      </div>
+    )
+  }
+
   render() {
     const { Header, Row, className } = this.props
-    const { dataSource, isLoading } = this.state
+    const { dataSource } = this.state
 
     return (
       <ListView
         dataSource={dataSource}
         renderHeader={Header}
-        renderFooter={() => (
-          <div style={{ textAlign: 'center', paddingTop: '6px' }}>
-            {isLoading ? <Icon type="loading" /> : '没有更多数据了~'}
-          </div>
-        )}
+        renderFooter={::this.renderFooter}
         renderRow={Row}
         className={className}
         pageSize={10}

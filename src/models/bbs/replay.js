@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router'
-import { queryString } from 'utils/tools'
+import { queryString, isApp } from 'utils/tools'
+import { refreshPage, hideMenu } from 'utils/app'
 import { addReplay } from '../../services/bbs/replay'
 
 export default {
@@ -30,7 +31,12 @@ export default {
       })
 
       if (data.success) {
-        yield put(routerRedux.goBack())
+        if (isApp) {
+          hideMenu()
+          refreshPage()
+        } else {
+          yield put(routerRedux.goBack())
+        }
       }
     },
   },

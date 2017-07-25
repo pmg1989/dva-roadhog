@@ -1,6 +1,6 @@
 import pathToRegexp from 'path-to-regexp'
 // import { routerRedux } from 'dva/router'
-import { wechat } from 'utils'
+import { config, wechat } from 'utils'
 import { queryString } from 'utils/tools'
 import { getWork, getReplayList } from '../../services/festival/practiceWork'
 
@@ -43,7 +43,7 @@ export default {
         wechat.share({
           title: data.song.title,
           desc: data.song.description,
-          imgUrl: data.song.cover.full_url,
+          imgUrl: (data.song.cover && data.song.cover.full_url) || config.defaultImage,
           // link: data.share_url,
           type: isVideo ? 'video' : 'music',
           dataUrl: data.song.file.full_url,

@@ -20,8 +20,15 @@ const Routers = ({ history, app }) => {
         }, 'bbs-index')
       },
       childRoutes: [
+        // bbs
         {
           path: 'bbs',
+          getIndexRoute(nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/bbs/index'))
+              cb(null, { component: require('./routes/bbs/Index') })
+            }, 'bbs-index')
+          },
           childRoutes: [
             {
               path: 'index',
@@ -86,8 +93,54 @@ const Routers = ({ history, app }) => {
                 }, 'bbs-replay')
               },
             },
+            {
+              path: 'hot-list',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/hotList'))
+                  cb(null, require('./routes/bbs/HotList'))
+                }, 'bbs-hot-list')
+              },
+            },
+            {
+              path: 'my-send',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/mySend'))
+                  cb(null, require('./routes/bbs/MySend'))
+                }, 'bbs-my-send')
+              },
+            },
+            {
+              path: 'my-like',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/myLike'))
+                  cb(null, require('./routes/bbs/MyLike'))
+                }, 'bbs-my-like')
+              },
+            },
+            {
+              path: 'other-send',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/otherSend'))
+                  cb(null, require('./routes/bbs/OtherSend'))
+                }, 'bbs-other-send')
+              },
+            },
+            {
+              path: 'other-like',
+              getComponent(nextState, cb) {
+                require.ensure([], (require) => {
+                  registerModel(app, require('./models/bbs/otherLike'))
+                  cb(null, require('./routes/bbs/OtherLike'))
+                }, 'bbs-other-like')
+              },
+            },
           ],
         },
+        // festival
         {
           path: 'festival',
           childRoutes: [
@@ -119,6 +172,16 @@ const Routers = ({ history, app }) => {
               },
             },
           ],
+        },
+        // topic
+        {
+          path: 'topic/detail/:id',
+          getComponent(nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/topic/detail'))
+              cb(null, require('./routes/Topic/Detail'))
+            }, 'topic-detail')
+          },
         },
       ],
     },

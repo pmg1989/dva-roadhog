@@ -61,6 +61,12 @@ class Editable extends Component {
     !this.props.isDebug && showMenu()
   }
 
+  // 修复真机调试时发现首次插入图片/视频/音频时有bug
+  handleClick() {
+    saveRange()
+    this.editable.focus()
+  }
+
   handleBlur() {
     saveRange()
     !this.props.isDebug && hideMenu()
@@ -88,7 +94,7 @@ class Editable extends Component {
           ref={(c) => { this.editable = c }}
           className={styles.editable}
           contentEditable
-          onClick={::this.handleFocus}
+          onClick={::this.handleClick}
           onFocus={::this.handleFocus}
           onBlur={::this.handleBlur}
           onInput={::this.handleInput}

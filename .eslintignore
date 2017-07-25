@@ -5,6 +5,10 @@
 /src/models/bbs/index.js
 /src/models/bbs/category.js
 /src/models/bbs/tag.js
+/src/models/bbs/mySend.js
+/src/models/bbs/myLike.js
+/src/models/bbs/otherLike.js
+/src/models/bbs/otherSend.js
 /src/routes/bbs/Video/index.js
 /src/components/AudioPlayer/lyric.js
 /src/components/Editable/MenuTool.js

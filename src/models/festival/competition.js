@@ -53,7 +53,7 @@ export default {
           },
         })
 
-        const isVideo = data.detail_file_detail.mime === 'video/mp4'
+        const isVideo = data.detail_file_detail && data.detail_file_detail.mime === 'video/mp4'
         wechat.share({
           title: data.title,
           desc: data.description,

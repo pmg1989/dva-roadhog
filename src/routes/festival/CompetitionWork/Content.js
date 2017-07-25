@@ -3,12 +3,13 @@ import React from 'react'
 import { Icon } from 'antd-mobile'
 import { AudioPlayer } from 'NbComponent'
 import { renderDate } from 'utils/tools'
+import { defaultImage } from 'utils/config'
 import Video from '../../bbs/Video'
 import styles from './Content.less'
 
 const Content = ({ item, onDownLoadClick }) => {
   const audioPlayerProps = {
-    cover: item.cover.full_url,
+    cover: (item.cover && item.cover.full_url) || defaultImage,
     source: item.file.full_url,
     lrcUrl: item.practice_song.lyric.full_url,
     lrcClick: false,
@@ -28,7 +29,7 @@ const Content = ({ item, onDownLoadClick }) => {
   return (
     <div className={styles.content_box}>
       <div className={styles.top}>
-        {item.type === 'video' && <Video src={item.file.full_url} />}
+        {item.type === 'video' && <Video src={item.file.full_url} cover={(item.cover && item.cover.full_url) || defaultImage} />}
         {item.type === 'audio' && <AudioPlayer {...audioPlayerProps} />}
       </div>
       <div className={styles.info_box}>

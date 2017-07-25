@@ -1,122 +1,130 @@
 import { isIOS, isAndroid } from './tools'
 
+function mockCallApp(str, params) {
+  console.log(`invoking app - ${str}`, params)
+}
 
 if(!window.android) {
   window.android = {
-    returnback: function () {},
-    openUser: function () {},
-    hideAddress: function () {},
-    showAlert: function () {},
-    refreshPage: function () {},
-    showMenu: function () {},
-    hideMenu: function () {},
-    share: function () {},
-    contentHeight: function () {},
-    getLocation: function () {},
-    loginAgain: function () {},
+    returnback: function (params) { mockCallApp('returnback', params) },
+    openUser: function (params) { mockCallApp('openUser', params) },
+    hideAddress: function (params) { mockCallApp('hideAddress', params) },
+    showAlert: function (params) { mockCallApp('showAlert', params) },
+    refreshPage: function (params) { mockCallApp('refreshPage', params) },
+    showMenu: function (params) { mockCallApp('showMenu', params) },
+    hideMenu: function (params) { mockCallApp('hideMenu', params) },
+    share: function (params) { mockCallApp('share', params) },
+    contentHeight: function (params) { mockCallApp('contentHeight', params) },
+    getLocation: function (params) { mockCallApp('getLocation', params); setlocationFromApp(0, 0) },
+    loginAgain: function (params) { mockCallApp('loginAgain', params) },
+    getAndroidCloseAppBottom: function(params) { mockCallApp('getAndroidCloseAppBottom', params) },
   }
 }
 
 if(!window.webkit) {
   window.webkit = {
     messageHandlers: {
-      returnback: { postMessage: function () {} },
-      openUser: { postMessage: function () {} },
-      hideAddress: { postMessage: function () {} },
-      showAlert: { postMessage: function () {} },
-      refreshPage: { postMessage: function () {} },
-      showMenu: { postMessage: function () {} },
-      hideMenu: { postMessage: function () {} },
-      share: { postMessage: function () {} },
-      contentHeight: { postMessage: function () {} },
-      getLocation: { postMessage: function () {} },
-      loginAgain: { postMessage: function () {} },
+      returnback: { postMessage: function (params) { mockCallApp('returnback', params) } },
+      openUser: { postMessage: function (params) { mockCallApp('openUser', params) } },
+      hideAddress: { postMessage: function (params) { mockCallApp('hideAddress', params) } },
+      showAlert: { postMessage: function (params) { mockCallApp('showAlert', params) } },
+      refreshPage: { postMessage: function (params) { mockCallApp('refreshPage', params) } },
+      showMenu: { postMessage: function (params) { mockCallApp('showMenu', params) } },
+      hideMenu: { postMessage: function (params) { mockCallApp('hideMenu', params) } },
+      share: { postMessage: function (params) { mockCallApp('share', params) } },
+      contentHeight: { postMessage: function (params) { mockCallApp('contentHeight', params) } },
+      getLocation: { postMessage: function (params) { mockCallApp('getLocation', params); setlocationFromApp(0, 0) } },
+      loginAgain: { postMessage: function (params) { mockCallApp('loginAgain', params) } },
+      close: { postMessage: function (params) { mockCallApp('close', params) } },
     }
   }
 }
 
 const tools = {
-  returnback(params = null) {
+  returnback(params) {
     if (isAndroid) {
-      window.android.returnback(JSON.stringify(params))
+      window.android.returnback(params)
     } else if (isIOS) {
       window.webkit.messageHandlers.returnback.postMessage(params)
     }
   },
-  openUser(params = null) {
+  openUser(params) {
     if (isAndroid) {
-      window.android.openUser(JSON.stringify(params))
+      window.android.openUser(params)
     } else if (isIOS) {
       window.webkit.messageHandlers.openUser.postMessage(params)
     }
   },
-  hideAddress(params = null) {
+  hideAddress(params) {
     if (isAndroid) {
       window.android.hideAddress(JSON.stringify(params))
     } else if (isIOS) {
       window.webkit.messageHandlers.hideAddress.postMessage(params)
     }
   },
-  showAlert(params = null) {
+  showAlert(params) {
     if (isAndroid) {
       alert(params)
     } else if (isIOS) {
       window.webkit.messageHandlers.showAlert.postMessage(params)
     }
   },
-  refreshPage(params = null) {
+  refreshPage(params) {
     if (isAndroid) {
       window.android.refreshPage(JSON.stringify(params))
     } else if (isIOS) {
       window.webkit.messageHandlers.refreshPage.postMessage(params)
     }
   },
-  showMenu(params = null) {
+  showMenu(params) {
     if (isAndroid) {
       window.android.showMenu(JSON.stringify(params))
     } else if (isIOS) {
       window.webkit.messageHandlers.showMenu.postMessage(params)
     }
   },
-  hideMenu(params = null) {
+  hideMenu(params) {
     if (isAndroid) {
       window.android.hideMenu(JSON.stringify(params))
     } else if (isIOS) {
-      window.webkit.messageHandlers.hideMenu.postMessage(null)
+      window.webkit.messageHandlers.hideMenu.postMessage(params)
     }
   },
-  share(params = null) {
+  share(params) {
     if (isAndroid) {
       window.android.share(JSON.stringify(params))
     } else if (isIOS) {
       window.webkit.messageHandlers.share.postMessage(params)
     }
   },
-  contentHeight(params = null) {
+  contentHeight(params) {
     if (isAndroid) {
       window.android.contentHeight(JSON.stringify(params))
     } else if (isIOS) {
       window.webkit.messageHandlers.contentHeight.postMessage(params)
     }
   },
-  getLocation(params = null) {
+  getLocation(params) {
     if (isAndroid) {
       window.android.getLocation()
     } else if (isIOS) {
       window.webkit.messageHandlers.getLocation.postMessage(params)
     }
   },
-  _LoginAgain(params = null) {
+  loginAgain(params) {
     if (isAndroid) {
-      if (params.status === '401' || params.status === '403') {
-        window.android.LoginAgain()
-      }
+      window.android.LoginAgain()
     } else if (isIOS) {
-      if (params.status === '401' || params.status === '403') {
-        window.webkit.messageHandlers.loginAgain.postMessage(null)
-      }
+      window.webkit.messageHandlers.loginAgain.postMessage()
     }
   },
+  closeAppBottom(params) {
+    if(isAndroid) {
+      window.android.getAndroidCloseAppBottom(JSON.stringify(params))
+    } else if(isIOS) {
+      window.webkit.messageHandlers.close.postMessage(params)
+    }
+  }
 }
 
 export default tools

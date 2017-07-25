@@ -1,10 +1,14 @@
 import React from 'react'
 import { connect } from 'dva'
+import { Header } from 'NbComponent'
 import LoginForm from './LoginForm'
 
 const Login = () => {
   return (
-    <LoginForm />
+    <div>
+      <Header>登录</Header>
+      <LoginForm />
+    </div>
   )
 }
 

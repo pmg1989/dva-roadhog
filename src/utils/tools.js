@@ -23,6 +23,13 @@ function isApp() {
   return isIOS() || isAndroid()
 }
 
+function appRedirect(e) {
+  if(isApp()) {
+    e.preventDefault()
+    location.href = e.currentTarget.href
+  }
+}
+
 // 获取分类ID图片
 function getCategoryImage(cid) {
   const dic = {
@@ -144,7 +151,7 @@ function renderIva(content) {
             poster='${videoSrc}?vframe/jpg/offset/0' >
               <source src='${videoSrc}' type='video/mp4' />
            </video>
-            <i class="play_icon" onclick='videoPlay(this)' />
+            <!--<i class="play_icon" onclick='videoPlayH5(this)' />-->
          </div>`
       )
     }
@@ -227,11 +234,17 @@ function redirectToLogin() {
   location.href = `/login?url=${url}`
 }
 
+//http => https 头像 / 等资源替换
+function replaceHostName(url = '') {
+  return url.replace(/http:\/\/7u2jck.com2.z0.glb.qiniucdn.com/g, '//o9u2lnvze.qnssl.com')
+}
+
 export default {
   queryString,
   isIOS: isIOS(),
   isAndroid: isAndroid(),
   isApp: isApp(),
+  appRedirect,
   getCategoryImage,
   renderDate,
   renderTimes,
@@ -241,4 +254,5 @@ export default {
   renderUserName,
   removeHTMLTag,
   redirectToLogin,
+  replaceHostName,
 }

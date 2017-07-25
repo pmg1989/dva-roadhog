@@ -3,7 +3,8 @@ import { Toast } from 'antd-mobile'
 import { stringify } from 'qs'
 import NProgress from 'nprogress'
 import { baseURL } from 'utils/config'
-import { queryString, redirectToLogin } from 'utils/tools'
+import { queryString, isApp } from 'utils/tools'
+import { loginAgain } from 'utils/app'
 
 axios.defaults.baseURL = baseURL
 // axios.defaults.headers.common['X-Accept-Version'] = '3.7'
@@ -55,10 +56,14 @@ function handleError(error) {
   if (data.errors) {
     Toast.fail(`${data.message}：${data.errors}`, 1)
   } else if (data.error) {
-    Toast.fail(`${data.error}：${data.error_description}`, 1)
-    if (data.error === 'invalid_grant') {
-      console.log('invalid_grant')
-      redirectToLogin()
+    if ([401, 403].indexOf(error.response.status) > -1) {
+      if (isApp) {
+        loginAgain()
+      } else {
+        // redirectToLogin()
+      }
+    } else {
+      Toast.fail(`${data.error}：${data.error_description}`, 1)
     }
   } else {
     Toast.fail('未知错误！', 1)

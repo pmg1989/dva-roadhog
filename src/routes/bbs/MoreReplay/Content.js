@@ -3,16 +3,14 @@ import classnames from 'classnames'
 import { Link } from 'dva/router'
 import { Icon } from 'antd-mobile'
 import { renderDate, renderTimes, renderContent } from 'utils/tools'
-import { LikeIcon } from 'NbComponent'
+import { LikeIcon, ThumbIcon } from 'NbComponent'
 import styles from './Content.less'
 
 const Content = ({ sendid, token, item, like }) => {
   return (
     <div className={classnames('content', styles.content)}>
       <div className="flex-box">
-        <div className={styles.thumb_box}>
-          <img src={item.userimg} alt={item.username} />
-        </div>
+        <ThumbIcon uid={item.userid} image={item.userimg} alt={item.username} />
         <div className={classnames('flex-item', styles.right_box)}>
           <div className={classnames('flex-box', styles.top)}>
             <div className="flex-item">

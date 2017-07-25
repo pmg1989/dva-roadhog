@@ -5,6 +5,7 @@
     "build": "roadhog build",
     "build-staging": "roadhog build",
     "build-release": "roadhog build",
+    "build-analyze": "roadhog build --analyze",
     "lint": "eslint --fix --ext .js src",
     "precommit": "npm run lint"
   },

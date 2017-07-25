@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router'
-import { queryString } from 'utils/tools'
+import { isApp, queryString } from 'utils/tools'
+import { hideMenu } from 'utils/app'
 import { getCategory } from '../../services/bbs/index'
 import { addSend } from '../../services/bbs/add'
 
@@ -61,11 +62,12 @@ export default {
       })
 
       if (data.success) {
-        const token = queryString('token')
-        yield put(routerRedux.push({
-          pathname: '/',
-          query: { token },
-        }))
+        if (isApp) {
+          hideMenu()
+          location.href = `/bbs/index?token=${queryString('token')}`
+        } else {
+          yield put(routerRedux.goBack())
+        }
       }
     },
   },

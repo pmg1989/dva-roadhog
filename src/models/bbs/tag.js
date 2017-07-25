@@ -16,6 +16,12 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
+
+      //此方法会在detail页面删除帖子后因为调用了 returnback(sendid)，而被APP自动调用过滤删除帖子
+      window.returnBackRefresh = function (sendid) {
+        dispatch({ type: 'backRefresh', payload: { sendid } })
+      }
+
       function pullUp(param) {
         const { page } = param
         dispatch({ type: 'pullUp', payload: { page, param } })
@@ -115,6 +121,11 @@ export default {
     likeSuccess(state, action) {
       const { sendid, isLike } = action.payload
       const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: isLike ? '1' : '0', heart_times: isLike ? (+item.heart_times + 1) : (+item.heart_times - 1) } : item))
+      return { ...state, list }
+    },
+    backRefresh(state, action) {
+      const sendid = action.payload.sendid.toString()
+      const list = state.list.filter(item => item.bbs_sendid !== sendid)
       return { ...state, list }
     },
   },

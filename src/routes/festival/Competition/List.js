@@ -2,6 +2,7 @@ import React from 'react'
 // import classnames from 'classnames'
 import { Tabs, Icon, Button } from 'antd-mobile'
 import { ViewList } from 'NbComponent'
+import { config } from 'utils'
 import styles from './List.less'
 
 const TabPane = Tabs.TabPane
@@ -18,8 +19,8 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type, onDownLoadCli
   const Row = (item, sectionID, rowID) => {
     return (
       <div className={styles.list_row} key={rowID}>
-        <div className={styles.top}>
-          <img className={styles.thumb} alt="" src={item.user.image} />
+        <div className={styles.top} onClick={onDownLoadClick}>
+          <img className={styles.thumb} alt="" src={(item.cover && item.cover.full_url) || config.defaultImage} />
           <div className={styles.mask_box}>
             <span>{item.user.profile.name}</span>
           </div>
@@ -43,6 +44,16 @@ const Repeat = ({ modal: { dataSource, hasMore }, queryMore, type, onDownLoadCli
     queryMoreList: queryMore,
     Row,
     className: styles.list,
+    footerMsg: {
+      empty: (
+        <div>
+          {/* <p><Icon type={require('../../../svg/cry.svg')} className={styles.empty_icon} /></p> */}
+          <p>暂无作品</p>
+          <p>是时候一较高下了</p>
+        </div>
+      ),
+      noMore: '没有更多作品了哦~',
+    },
   }
 
   return <ViewList {...viewListProps} />

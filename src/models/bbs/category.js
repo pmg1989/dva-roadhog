@@ -1,5 +1,5 @@
 import iScrollRefresh from 'iScrollRefresh'
-import { refreshTime } from 'utils/config'
+import { refreshTime, env, dicCategory } from 'utils/config'
 import { getList } from '../../services/bbs/index'
 import { like, unlike } from '../../services/bbs/base'
 
@@ -17,6 +17,11 @@ export default {
   },
   subscriptions: {
     setup({ dispatch, history }) {
+
+      //此方法会在detail页面删除帖子后因为调用了 returnback(sendid)，而被APP自动调用过滤删除帖子
+      window.returnBackRefresh = function (sendid) {
+        dispatch({ type: 'backRefresh', payload: { sendid } })
+      }
 
       function pullUp(param) {
         const { page } = param
@@ -44,7 +49,12 @@ export default {
             ir = new iScrollRefresh(null, '#ir-bd-wrapper')
       			ir.downAction = pullDown   //下拉刷新取数据函数
       			ir.upAction = pullUp       //上拉加载取数据函数
-            dispatch({ type: 'initData', payload: { cid } })
+            dispatch({
+              type: 'initData',
+              payload: {
+                cid: env === 'production' ? (dicCategory[cid] || cid) : cid
+              }
+            })
 
             bindEvent()
           }, 0)
@@ -137,6 +147,11 @@ export default {
     likeSuccess(state, action) {
       const { sendid, isLike } = action.payload
       const list = state.list.map(item => (item.bbs_sendid === sendid ? { ...item, like: isLike ? '1' : '0', heart_times: isLike ? (+item.heart_times + 1) : (+item.heart_times - 1) } : item))
+      return { ...state, list }
+    },
+    backRefresh(state, action) {
+      const sendid = action.payload.sendid.toString()
+      const list = state.list.filter(item => item.bbs_sendid !== sendid)
       return { ...state, list }
     },
   },

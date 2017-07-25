@@ -20,7 +20,7 @@ const Footer = ({ share, token, sendid, item, like }) => {
   )
 
   const ShareFooter = () => (
-    <a className={styles.btn_to_app} href="http://a.app.qq.com/o/simple.jsp?pkgname=com.newband">
+    <a className={styles.btn_to_app} href="//a.app.qq.com/o/simple.jsp?pkgname=com.newband">
       去牛班聊音乐
     </a>
   )

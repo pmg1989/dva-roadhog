@@ -2,6 +2,7 @@ import React from 'react'
 import { Flex, Icon } from 'antd-mobile'
 import { Link } from 'dva/router'
 import { Header } from 'NbComponent'
+import { appRedirect } from 'utils/tools'
 import styles from './Header.less'
 
 const IndexHeader = ({ token, navOpen, onSwitchNav }) => {
@@ -11,7 +12,7 @@ const IndexHeader = ({ token, navOpen, onSwitchNav }) => {
     iconName: navOpen ? require('../../../svg/cancel.svg') : require('../../../svg/classify.svg'),
     onLeftClick: onSwitchNav,
     rightContent: (
-      <Link to={`/bbs/add?token=${token}`} className="flex-box">
+      <Link onClick={appRedirect} to={`/bbs/add?token=${token}`} className="flex-box">
         <Flex><Icon type={require('../../../svg/release.svg')} /></Flex>
         <Flex className="navbar-right-content">发帖</Flex>
       </Link>

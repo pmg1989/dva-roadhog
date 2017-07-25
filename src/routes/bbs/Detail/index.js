@@ -21,6 +21,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
   }
 
   const contentProps = {
+    share,
     token,
     item,
   }
@@ -66,7 +67,7 @@ const Detail = ({ dispatch, location, bbsDetail, user }) => {
 
   return (
     <div style={sendStatus === 1 ? { paddingBottom: 65 } : {}}>
-      <HeaderPopup {...headerProps} />
+      {!share && <HeaderPopup {...headerProps} />}
       {sendStatus === 1 && <Content {...contentProps} />}
       {sendStatus === 1 && <ReplayList {...replayListProps} />}
       {sendStatus === 1 && <Footer {...footerProps} />}

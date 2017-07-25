@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { Icon, ActionSheet, Modal, Toast } from 'antd-mobile'
 import { isIOS, renderDate, renderTimes, renderContent } from 'utils/tools'
-import { ViewList, LikeIcon } from 'NbComponent'
+import { ViewList, LikeIcon, ThumbIcon } from 'NbComponent'
 import styles from './ReplayList.less'
 
 const alert = Modal.alert
@@ -94,9 +94,7 @@ const ReplayList = ({
   const Row = (item, sectionID, rowID) => {
     return (
       <div key={rowID} className="flex-box list-view-row" onClick={() => handleRowClick(item)}>
-        <div className={styles.thumb_box}>
-          <img src={item.userimg} alt={item.username} />
-        </div>
+        <ThumbIcon uid={item.userid} image={item.userimg} alt={item.username} />
         <div className={classnames('flex-item', styles.right_box)}>
           <div className={classnames('flex-box', styles.top)}>
             <div className="flex-item">

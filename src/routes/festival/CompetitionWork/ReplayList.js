@@ -37,6 +37,10 @@ const ReplayList = ({ dataSource, total, hasMore, queryMoreList }) => {
     Header,
     Row,
     className: styles.replay_list,
+    footerMsg: {
+      empty: <p>暂无评论~</p>,
+      noMore: '没有更多评论了哦~',
+    },
   }
 
   return <ViewList {...viewListProps} />

@@ -1,7 +1,8 @@
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 import { wechat } from 'utils'
-import { queryString, removeHTMLTag } from 'utils/tools'
+import { queryString, removeHTMLTag, isApp } from 'utils/tools'
+import { returnback } from 'utils/app'
 import { getDetail, getReplayList, deleteSend } from '../../services/bbs/detail'
 import { like, unlike, deleteSendFellow } from '../../services/bbs/base'
 
@@ -47,9 +48,7 @@ export default {
           title: shareParams.title,
           desc: desc.length > 50 ? `${desc.substring(0, 50)}...` : desc,
           imgUrl: shareParams.user_img,
-          link: shareParams.share_url,
-          // type: 'music',
-          // dataUrl: 'i am dataUrl',
+          // link: shareParams.share_url,
         })
 
         yield put({ type: 'queryDetailSuccess', payload: { item: data.bbssend[0], sendStatus: 1, share } })
@@ -132,11 +131,15 @@ export default {
       const { sendid } = yield select(state => state.bbsDetail)
       const data = yield call(deleteSend, sendid)
       if (data.success) {
-        const token = queryString('token')
-        yield put(routerRedux.push({
-          pathname: '/',
-          query: { token },
-        }))
+        if (isApp) {
+          returnback(sendid)
+        } else {
+          const token = queryString('token')
+          yield put(routerRedux.push({
+            pathname: '/',
+            query: { token },
+          }))
+        }
       }
     },
     *deleteReplay({ payload }, { call, put }) {

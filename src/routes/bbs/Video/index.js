@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Toast } from 'antd-mobile'
+import { isApp } from 'utils/tools'
 import './index.less'
 
 window.whether = function(obj) {
@@ -9,7 +10,7 @@ window.whether = function(obj) {
   // }
 }
 
-const Video = ({ location, src }) => {
+const Video = ({ location, src, cover }) => {
   let video = src
   if(location && location.query) {
     video = location.query.video
@@ -23,7 +24,11 @@ const Video = ({ location, src }) => {
   }
 
   function handleVideoPlay(e) {
-    videoPlay(e.target)
+    if(isApp) {
+      videoPlay(e.target)
+    } else {
+      videoPlayH5(e.target)
+    }
   }
 
   return (
@@ -35,11 +40,11 @@ const Video = ({ location, src }) => {
         preload="none"
         onClick={handleVideoPlay}
         ref={attachCustomAttributes}
-        poster={`${video}?vframe/jpg/offset/0`}
+        poster={!!cover ? cover : `${video}?vframe/jpg/offset/0`}
       >
         <source src={video} type="video/mp4" />
       </video>
-      <i className="play_icon" onClick={handleVideoPlay} />
+      {!isApp && <i className="play_icon" onClick={handleVideoPlay} />}
     </div>
   )
 }

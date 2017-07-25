@@ -1,3 +1,5 @@
+import { isApp } from 'utils/tools'
+
 window.setWinHeight = function(obj) {
   if (document.getElementById) {
     if (obj && !window.opera) {
@@ -23,12 +25,12 @@ window.goToDownLoad = function (params) {
   if(params) {
 
   } else {
-    window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.newband'
+    window.location.href = '//a.app.qq.com/o/simple.jsp?pkgname=com.newband'
   }
 }
 
-//列表页视频点击事件
-window.videoPlay = function(el) {
+//html5页视频点击事件
+window.videoPlayH5 = function(el) {
   event.stopPropagation()
   let player = el
   let icon = el.nextElementSibling
@@ -37,10 +39,41 @@ window.videoPlay = function(el) {
     icon = el
   }
   if(player.paused) {
+    pausePlayva() //播放当前之前，先暂停所有播放
     player.play()
     icon.style.display = 'none'
   } else {
     player.pause()
     icon.style.display = 'block'
   }
+}
+
+//app页视频点击事件
+window.videoPlay = function(el) {
+  event.stopPropagation()
+  let player = el
+  if(player.paused) {
+    pausePlayva() //播放当前之前，先暂停所有播放
+    player.play()
+  } else {
+    player.pause()
+  }
+}
+
+//列表页暂停播放音视频
+window.pausePlayva = function () {
+  const videoList = document.getElementsByTagName('video')
+  for (let i = 0; i < videoList.length; i++) {
+     if (videoList[i].play) {
+       videoList[i].pause()
+       if(!isApp) {
+          let icon = videoList[i].nextElementSibling
+          icon.style.display = 'block'
+       }
+     }
+  }
+  // const audioList = document.querySelectorAll('iframe[name="audio"]')
+  // for (let i = 0; i < audioList.length; i++) {
+  //    audioList[i].src = audioList[i].src
+  // }
 }
