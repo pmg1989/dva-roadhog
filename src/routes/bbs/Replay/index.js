@@ -5,6 +5,12 @@ import { Flex } from 'antd-mobile'
 import { Header, Editable } from 'NbComponent'
 import styles from './index.less'
 
+// 显示话题页面(发布帖子), 评论页没用
+window.showTopic = function() {
+  faceHide() // 显示话题页面(发布帖子)时，隐藏QQ表情
+  console.log('mock showTopic')
+}
+
 class Replay extends Component {
 
   state = {
@@ -55,7 +61,7 @@ class Replay extends Component {
 
     return (
       <div>
-        <Header {...headerProps}>发布帖子</Header>
+        <Header {...headerProps}>回复帖子</Header>
         <div className={classnames('content', styles.content)}>
           <Editable {...editablePorps} />
         </div>

@@ -12,15 +12,24 @@ function queryString(value) {
 }
 
 function isIOS() {
-  return /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
+  return /NB-GENERAL-IOS/i.test(navigator.userAgent) ? true : false
 }
 
 function isAndroid() {
-  return /(Android)/i.test(navigator.userAgent)
+  return /NB-GENERAL-AND/i.test(navigator.userAgent) ? true : false
 }
 
 function isApp() {
   return isIOS() || isAndroid()
+}
+
+function getAppVersion() {
+    var val = /\[NB\](.*?)\[\!NB\]/.exec(navigator.userAgent)
+    if (val && val.length > 1) {
+        val = JSON.parse(val[1])
+        return +val.VERSION.replace(/\./g, '')
+    }
+    return 0
 }
 
 function appRedirect(e) {
@@ -168,14 +177,6 @@ function renderIva(content) {
     const imgLength = imgList.length
 
     if (imgLength) {
-      if (imgLength === 1) {
-        return `<div class="img_list">
-          ${imgList.map(img => (
-            `<img src="${img.match(srcReg)[1]}${imageMogr}" />`
-          ))}
-         </div>`
-      }
-
       imgList = imgList.map(img => (
         `<div class='item item_${imgLength}' style="background: url('${img.match(srcReg)[1]}${imageMogr}') no-repeat center center;background-size: cover;">
          </div>`
@@ -239,6 +240,18 @@ function replaceHostName(url = '') {
   return url.replace(/http:\/\/7u2jck.com2.z0.glb.qiniucdn.com/g, '//o9u2lnvze.qnssl.com')
 }
 
+//秒 => 分：秒
+function renderDuratiton(duration) {
+  const min = Math.floor(duration / 60)
+  const sec = duration % 60
+  return `${min > 10 ? min : ('0' + min)}:${sec}`
+}
+
+function renderThumbs(src, width, height, type = 1) {
+  const ext = `imageView2/${type}/w/${width}/h/${height}`
+  return src.indexOf('?') > -1 ? `${src}&${ext}` : `${src}?${ext}`
+}
+
 export default {
   queryString,
   isIOS: isIOS(),
@@ -255,4 +268,6 @@ export default {
   removeHTMLTag,
   redirectToLogin,
   replaceHostName,
+  renderDuratiton,
+  renderThumbs,
 }

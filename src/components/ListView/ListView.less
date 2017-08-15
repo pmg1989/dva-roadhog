@@ -1,5 +1,7 @@
 @import "../../themes/mixin.less";
 
+@wingBlank: 172px;
+
 :global {
   .ir-scroller > li {
     padding: 30px;
@@ -115,6 +117,9 @@
   :global {
     .video_box {
       position: relative;
+      background-color: #212123;
+      display: flex;
+      align-items: center;
 
       .play_icon {
         background: url('/images/video-play-icon.png') no-repeat;
@@ -126,6 +131,10 @@
         margin-left: -60px;
         margin-top: -60px;
         background-size: 100%;
+      }
+
+      video {
+        height: e("calc((100vw - 172px) * 9 / 16)");
       }
     }
 
@@ -141,26 +150,25 @@
 
       .item_1 {
         flex: 1;
+        height: e("calc((100vw - 172px) * 9 / 16)");
       }
 
       .item_2, .item_4 {
         flex-basis: 48%;
-        height: 48vw;
+        height: e("calc((100vw - 172px - 1vw * 4) / 3)");
         margin: 0 1%;
         text-align: center;
       }
 
       .item_3, .item_5, .item_6, .item_7, .item_8, .item_9 {
         flex-basis: 31%;
-        height: 31vw;
+        height: e("calc((100vw - 172px - 1vw * 6) / 3)");
         margin: 0 1%;
         text-align: center;
       }
 
       .item {
-        margin-bottom: 15px;
-        max-height: 180px;
-        overflow: hidden;
+        margin-bottom: 10px;
       }
 
     }

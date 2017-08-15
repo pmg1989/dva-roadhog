@@ -38,7 +38,7 @@ class lyric {
     lines.forEach((v) => {
       const time = v.match(pattern)
       const value = v.replace(pattern, '')
-      time.forEach((v1) => {
+      time && time.forEach((v1) => {
             // convert the [min:sec] to secs format then store into result
         const t = v1.slice(1, -1).split(':')
         //result.push([(parseInt(t[0], 10) * 60) + parseFloat(t[1]) + (parseInt(offset, 10) / 1000), value])

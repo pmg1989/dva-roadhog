@@ -6,7 +6,7 @@ import IScroll from 'iScroll'
 const iScrollRefresh = function(tab_id, bd_id, parames) {
   const config = {
     pullDown: {
-      height: 60,
+      height: 40,
       nextTime: 3600, // 当没有更新的数据后，间隔多少时间才能再次下拉刷新，单位：秒
       html: '<span class="ico"><i></i></span><span class="tip"><b>下拉刷新...</b><i></i></span>',
       except: [],
@@ -63,7 +63,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
     loadedAll
   let downTipClassName = 'ir-down-tip',
     upTipClassName = 'ir-up-tip'
-  const setTopTime = 50
+  const setTopTime = 100
 
   function iScrollClick(){
     if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) return false;
@@ -481,6 +481,10 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
     }
   }
 
+  function triggerRefresh(scroll) {
+    setTimeout(() => scroll.refresh(), 500)
+  }
+
   this.pullDownCallBack = function(param, noMore) {
     const scroll = param.scroll
     pullDownStatus = false
@@ -492,6 +496,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
       setTimeout(() => {
         setTop(scroll, 0)
         scroll.refresh()
+        triggerRefresh(scroll)
       }, setTopTime)
     } else {
       setTimeout(() => {
@@ -499,6 +504,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
         setRotate(scroll, 0)
         setTop(scroll, 0)
         scroll.refresh()
+        triggerRefresh(scroll)
       }, setTopTime)
     }
     const now = (new Date()).getTime()
@@ -525,6 +531,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
         setTop(scroll, 0)
         setUpRotate(scroll, 0)
         scroll.refresh()
+        triggerRefresh(scroll)
       }, setTopTime)
     } else {
       setTimeout(() => {
@@ -533,6 +540,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
         setTop(scroll, 0)
         setUpRotate(scroll, 0)
         scroll.refresh()
+        triggerRefresh(scroll)
       }, setTopTime)
     }
   }
@@ -651,6 +659,7 @@ const iScrollRefresh = function(tab_id, bd_id, parames) {
 
   this.refresh = function(index) {
     bdScrolls[index].refresh()
+    triggerRefresh(bdScrolls[index])
   }
   this.setPage = function(index, page) {
     if (typeof (page) !== 'number') page = 1

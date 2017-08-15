@@ -68,7 +68,7 @@ class HeaderPopup extends Component {
 
     const baseOverlay = ([
       <Item key="1" value="1" icon={<Icon type={require('../../../svg/share-whrite.svg')} size="xs" />}>分享</Item>,
-      <Item key="2" value="2" icon={<Icon type={require('../../../svg/release.svg')} size="xs" />}>举报</Item>,
+      <Item key="2" value="2" icon={<Icon type={require('../../../svg/report.svg')} size="xs" />}>举报</Item>,
     ])
 
     const Overlay = showDelete ? ([

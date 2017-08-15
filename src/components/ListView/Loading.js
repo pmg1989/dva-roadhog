@@ -11,7 +11,6 @@ const Loading = ({ loading }) => {
           <div /><div /><div />
           <div /><div />
         </div>
-        <div style={{ marginTop: '50px' }}>加载中...</div>
       </div>
     </li>
   )

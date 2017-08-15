@@ -14,10 +14,11 @@
   },
   "theme": "./theme.config.js",
   "dependencies": {
-    "antd-mobile": "^1.4.1",
+    "antd-mobile": "^1.6.0",
     "axios": "^0.16.1",
     "dva": "^1.2.1",
     "jquery": "^3.2.1",
+    "n-zepto": "^1.2.0",
     "nprogress": "^0.2.0",
     "qs": "^6.4.0",
     "rc-form": "^1.4.3",

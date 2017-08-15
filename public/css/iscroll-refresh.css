@@ -75,15 +75,22 @@ body,ul,li {
 .ir-tabs-scroller a{
 	display: inline-block;
 	padding: 0px 10px;
-	height: 44px;
-	line-height: 44px;
+	margin: 5px 0;
+	height: 34px;
+	line-height: 34px;
 	font-size: 14px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	color: #333;
 	float: left;
 	text-align: center;
 	width: 33.3333%;
 }
+
+.ir-tabs-scroller a:nth-child(2) {
+	border-left: 1px solid #dedede;
+	border-right: 1px solid #dedede;
+}
+
 .ir-tabs-scroller a.active span {
 	display: inline-block;
 	line-height: 35px;
@@ -93,13 +100,13 @@ body,ul,li {
 	font-weight: 600;
 }
 
-.ir-down-tip{height: 60px; padding: 10px 0px; position: absolute; top: 0px;  width: 100%;  text-align:center; display: none }
+.ir-down-tip{height: 45px; padding: 10px 0px; position: absolute; top: 0px;  width: 100%;  text-align:center; display: none }
 
-.ir-down-tip span.ico{display: inline-block; width: 35px; height: 35px; background-image: url(/images/ico2.png); background-size: 35px 35px;-webkit-background-size: 35px 35px; }
+.ir-down-tip span.ico{display: none; width: 35px; height: 35px; background-image: url(/images/ico2.png); background-size: 35px 35px;-webkit-background-size: 35px 35px; }
 .ir-down-tip span.ico i{display: inline-block; width: 35px; height: 35px; background-image: url(/images/ico1.png); -webkit-background-size: 35px 35px;background-size: 35px 35px;}
-.ir-down-tip span.tip{ padding-left: 15px; line-height: 20px; font-size: 14px; display: inline-block; height: 40px;  text-align: left;}
-.ir-down-tip span.tip b{display: block;}
-.ir-down-tip span.tip i{display: block; font-size: 12px; color: #999; font-style: normal;}
+.ir-down-tip span.tip{ padding-left: 15px; line-height: 20px; font-size: 14px; display: inline-block; text-align: left;}
+.ir-down-tip span.tip b{display: block; font-weight: normal;}
+.ir-down-tip span.tip i{display: none; font-size: 12px; color: #999; font-style: normal;}
 
 .ir-up-tip{height: 45px; padding: 10px 0px; padding-bottom: 5px; position: absolute; bottom: 0px; left: 0px;  width: 100%;  text-align:center; display: none}
 .ir-up-tip span.ico{display:inline-block; width: 30px; height: 30px; background-image: url(/images/pull-icon@2x.png); -webkit-background-size: 30px;
@@ -124,7 +131,12 @@ keyframes IRLoadingFrame{
     }
 }
 
-div.loader { height: 100vh; padding-top: 50%; text-align: center; border-bottom: 0px; background-color: #fff;}
+.loader {
+	height: 100vh;
+	text-align: center;
+	padding-top: 35%;
+	background-color: #fff;
+}
 
 @-webkit-keyframes line-scale {
   0% {-webkit-transform: scaley(1);transform: scaley(1); }
@@ -142,4 +154,4 @@ div.loader { height: 100vh; padding-top: 50%; text-align: center; border-bottom:
 .line-scale > div:nth-child(3) {-webkit-animation: line-scale 1s 0.3s infinite cubic-bezier(.2, .68, .18, 1.08);animation: line-scale 1s 0.3s infinite cubic-bezier(.2, .68, .18, 1.08); }
 .line-scale > div:nth-child(4) {-webkit-animation: line-scale 1s 0.4s infinite cubic-bezier(.2, .68, .18, 1.08);animation: line-scale 1s 0.4s infinite cubic-bezier(.2, .68, .18, 1.08); }
 .line-scale > div:nth-child(5) {-webkit-animation: line-scale 1s 0.5s infinite cubic-bezier(.2, .68, .18, 1.08);animation: line-scale 1s 0.5s infinite cubic-bezier(.2, .68, .18, 1.08); }
-.line-scale > div {background-color: #f30;width: 4px;height: 35px;border-radius: 2px;margin: 2px;-webkit-animation-fill-mode: both;animation-fill-mode: both;display: inline-block; }
+.line-scale > div {background-color: #f30;width: 6px;height: 100px;border-radius: 3px;margin: 0 5px;-webkit-animation-fill-mode: both;animation-fill-mode: both;display: inline-block; }

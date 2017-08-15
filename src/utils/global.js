@@ -68,7 +68,9 @@ window.pausePlayva = function () {
        videoList[i].pause()
        if(!isApp) {
           let icon = videoList[i].nextElementSibling
-          icon.style.display = 'block'
+          if(icon) {
+            icon.style.display = 'block'
+          }
        }
      }
   }

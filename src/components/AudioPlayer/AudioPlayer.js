@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 import { Slider, Icon } from 'antd-mobile'
-import $ from 'jquery'
+import $ from 'n-zepto'
 import lyric from './lyric'
 import styles from './AudioPlayer.less'
 

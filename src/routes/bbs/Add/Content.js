@@ -15,7 +15,7 @@ class Content extends Component {
   }
 
   render() {
-    const { categories, headerStatus, item, onShowCategory, onSelected, debug, onShowTopic } = this.props
+    const { categories, headerStatus, item, onShowCategory, onSelected, debug } = this.props
 
     const editablePorps = {
       isDebug: debug === '1',
@@ -30,7 +30,6 @@ class Content extends Component {
     }
 
     const topicProps = {
-      onShowTopic,
       isShow: headerStatus === 'topic',
       onChange: (list) => {
         this.props.onTextChange({ key: 'bbslabel', value: list })

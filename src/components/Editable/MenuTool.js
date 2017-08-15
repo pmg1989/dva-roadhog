@@ -1,6 +1,5 @@
 import { Toast } from 'antd-mobile'
 import Editable from './Editable'
-import Topic from '../../routes/bbs/Add/Topic'
 
 let iframeId = 1
 
@@ -47,6 +46,10 @@ function replace_em(str) {
   return str
 }
 
+//设置表情包高度
+window.keyboardheight = function (percent){
+  document.querySelector('#faceBoxInner').style.height = `${window.screen.height * percent - 20}px`
+}
 // 图片返回
 window.setImg = function(str) {
   const imgLength = document.querySelectorAll('#editable img[name="bigimg"]').length
@@ -119,8 +122,4 @@ window.saveRange = function() {
   }
   const range = selection.createRange ? selection.createRange().htmlText : selection.getRangeAt(0)
   window._range = range
-}
-// 显示话题页面(发布帖子)
-window.showTopic = function() {
-  Topic.showTopic()
 }

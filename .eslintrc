@@ -35,9 +35,11 @@
     "require-yield": [1],
     "no-underscore-dangle": 0,
     "react/no-danger": [0],
-    "no-undef": [1],
+    "no-undef": [0],
     "camelcase": [0],
-    "import/no-dynamic-require": [1],
+    "import/no-dynamic-require": [0],
+    "no-script-url": [0],
+    "func-names": [0],
   },
   "parserOptions": {
     "ecmaFeatures": {

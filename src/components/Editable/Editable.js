@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Button } from 'antd-mobile'
 import { renderContent, renderUserName } from 'utils/tools'
-import { showMenu, hideMenu } from 'utils/app'
+import { showMenu } from 'utils/app'
 import FaceQQ from './FaceQQ'
 import styles from './Editable.less'
 import './MenuTool'
@@ -56,20 +56,10 @@ class Editable extends Component {
     return nextProps.html !== this.editable.innerHTML
   }
 
+  // 修复真机调试时发现首次插入图片/视频/音频时有bug, 必须使用onClick保存光标位置
   handleFocus() {
     saveRange()
     !this.props.isDebug && showMenu()
-  }
-
-  // 修复真机调试时发现首次插入图片/视频/音频时有bug
-  handleClick() {
-    saveRange()
-    this.editable.focus()
-  }
-
-  handleBlur() {
-    saveRange()
-    !this.props.isDebug && hideMenu()
   }
 
   handleInput() {
@@ -94,15 +84,15 @@ class Editable extends Component {
           ref={(c) => { this.editable = c }}
           className={styles.editable}
           contentEditable
-          onClick={::this.handleClick}
+          onClick={saveRange}
           onFocus={::this.handleFocus}
-          onBlur={::this.handleBlur}
+          onBlur={saveRange}
           onInput={::this.handleInput}
           dangerouslySetInnerHTML={{ __html: renderContent(html) }}
         />
         {isDebug &&
         <div className={styles.opt_box}>
-          <Button inline size="small" onClick={() => setImg('//o9u2lnvze.qnssl.com/practice_song_cover96a3fc4a-0bbc-4d82-a66d-31f0704ac06d.png')}>图片</Button>
+          <Button inline size="small" onClick={() => setImg('//bbs.nwbasset.com/Fu9bZ5crDAJD22Mt94PeBFVnV4Rs')}>图片</Button>
           <Button inline size="small" onClick={() => setVideo('//o9u2lnvze.qnssl.com/music/practice-songs/d30AANhe9rtPf8gU-f5974e8d-62a6-47dc-90e5-0c85d3dfec19')}>视频</Button>
           <Button inline size="small" onClick={() => setAudio('//o9u2lnvze.qnssl.com//practice_songae40b290-7a28-4034-82a9-2b93b1e35448.mp3')}>语音</Button>
           <Button inline size="small" onClick={() => triggerFace('0.4')}>表情</Button>

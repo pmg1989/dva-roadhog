@@ -48,7 +48,6 @@ export default {
     },
     *addSend({ payload }, { call, put, select }) {
       const { item } = yield select(state => state.bbsAdd)
-      console.log(item)
       const data = yield call(addSend, {
         send: {
           bbsCategory: item.bbsCategory.cid,

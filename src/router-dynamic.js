@@ -183,6 +183,26 @@ const Routers = ({ history, app }) => {
             }, 'topic-detail')
           },
         },
+        // course
+        {
+          path: 'course/detail/:id',
+          getComponent(nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/course/detail'))
+              cb(null, require('./routes/course/Detail'))
+            }, 'course-detail')
+          },
+        },
+        // center
+        {
+          path: 'center/user/:id',
+          getComponent(nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/center/user'))
+              cb(null, require('./routes/center/User'))
+            }, 'center-user')
+          },
+        },
       ],
     },
     {

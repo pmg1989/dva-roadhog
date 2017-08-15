@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
 import { Toast } from 'antd-mobile'
-import $ from 'jquery'
+import $ from 'n-zepto'
 import styles from './Topic.less'
-
-let emitOnShowTopic
 
 // 针对div(contenteditable="true") 光标移到最后
 function keyAction(id) {
@@ -18,10 +16,6 @@ function keyAction(id) {
 }
 
 class Topic extends Component {
-
-  static showTopic() {
-    emitOnShowTopic()
-  }
 
   shouldComponentUpdate(nextProps) {
     return nextProps.html !== this.editableTopic.innerHTML
@@ -79,8 +73,7 @@ class Topic extends Component {
   }
 
   render() {
-    const { isShow, onShowTopic } = this.props
-    emitOnShowTopic = onShowTopic
+    const { isShow } = this.props
 
     return (
       <div

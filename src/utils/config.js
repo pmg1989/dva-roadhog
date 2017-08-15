@@ -33,10 +33,11 @@ function getBaseShare() {
 }
 
 export default {
+  logoSrc: 'http://shp.qpic.cn/ma_icon/0/icon_11662665_1501476708/96',
   baseURL: getBaseURL(),
   baseShare: getBaseShare(),
   env: getEnv(),
-  refreshTime: isProduction() ? 150 : 300,
+  refreshTime: 0,
   defaultImage: '//o9u2lnvze.qnssl.com/appbanner/3bec92be7ea938384408d207cb27c338.png',
   dicCategory: {
     1: 2, // 键盘
